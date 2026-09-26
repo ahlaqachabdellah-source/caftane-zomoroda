@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import BookingCard from '@/components/account/BookingCard'
 import EmptyState from '@/components/states/EmptyState'
 import ErrorState from '@/components/states/ErrorState'
-import LoadingState from '@/components/states/LoadingState'
+import { ListRowsSkeleton } from '@/components/states/skeletons'
 import { Button } from '@/components/ui/button'
 import { useMyBookings } from '@/hooks/useMyBookings'
 import { useLocale } from '@/hooks/useLocale'
@@ -18,7 +18,7 @@ export default function DashboardPage() {
   const { localePath } = useLocale()
   const { bookings, loading, error, refetch } = useMyBookings()
 
-  if (loading) return <LoadingState className="py-16" label={t('catalog.loading')} />
+  if (loading) return <ListRowsSkeleton rows={3} label={t('catalog.loading')} />
   if (error) {
     return <ErrorState className="py-16" description={t('account.error_body')} onRetry={refetch} />
   }

@@ -90,8 +90,9 @@ async function main() {
     await runFile(tester, path.join(__dirname, 'phase11_admin_booking_tests.sql'))
     await runFile(tester, path.join(__dirname, 'phase12_validation_tests.sql'))
     await runFile(tester, path.join(__dirname, 'phase13_security_tests.sql'))
+    await runFile(tester, path.join(__dirname, 'phase14_performance_tests.sql'))
 
-    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + 6 + 7 + 9 + 10 + 11 + 12 + 13)')
+    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + 6 + 7 + 9 + 10 + 11 + 12 + 13 + 14)')
   } catch (err) {
     console.error('\nRESULT: DB TEST RUN FAILED')
     console.error(err.message || err)

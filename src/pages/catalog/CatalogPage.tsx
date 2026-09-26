@@ -6,7 +6,7 @@ import Container from '@/components/layout/Container'
 import SectionHeading from '@/components/layout/SectionHeading'
 import EmptyState from '@/components/states/EmptyState'
 import ErrorState from '@/components/states/ErrorState'
-import LoadingState from '@/components/states/LoadingState'
+import { CatalogGridSkeleton } from '@/components/states/skeletons'
 import { Input } from '@/components/ui/input'
 import { useCaftans } from '@/hooks/useCaftans'
 import { useLocale } from '@/hooks/useLocale'
@@ -48,7 +48,7 @@ export default function CatalogPage() {
           description={t('catalog.subtitle')}
         />
 
-        {loading && <LoadingState label={t('catalog.loading')} />}
+        {loading && <CatalogGridSkeleton label={t('catalog.loading')} />}
 
         {!loading && error && (
           <ErrorState description={t('catalog.error_body')} onRetry={refetch} />

@@ -166,7 +166,7 @@ export default function CaftanImageManager({ caftanId, images, onChanged }: Caft
       ) : (
         <ul className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {ordered.map((image, index) => {
-            const url = getCaftanImageUrl(image.storage_path)
+            const url = getCaftanImageUrl(image.storage_path, { width: 400 })
             return (
               <li
                 key={image.id}
@@ -180,6 +180,8 @@ export default function CaftanImageManager({ caftanId, images, onChanged }: Caft
                     <img
                       src={url}
                       alt={image.alt_text ? nameInLocale(image.alt_text, 'fr') || nameInLocale(image.alt_text, 'en') : ''}
+                      loading="lazy"
+                      decoding="async"
                       className="aspect-[4/5] w-full object-cover"
                     />
                   ) : (

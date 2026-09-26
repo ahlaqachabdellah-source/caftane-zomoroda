@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChevronRight, Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import LoadingState from '@/components/states/LoadingState'
+import { ListRowsSkeleton } from '@/components/states/skeletons'
 import ErrorState from '@/components/states/ErrorState'
 import EmptyState from '@/components/states/EmptyState'
 import { BookingStatusBadge, DepositStatusBadge } from '@/components/account/BookingStatusBadge'
@@ -82,7 +82,7 @@ export default function AdminBookingsPage() {
     })
   }, [bookings, search, statusFilter, caftanFilter, dateFrom, dateTo])
 
-  if (loading) return <LoadingState />
+  if (loading) return <ListRowsSkeleton label={t('admin.loading')} />
   if (error) return <ErrorState title={t(error)} onRetry={refetch} />
 
   return (

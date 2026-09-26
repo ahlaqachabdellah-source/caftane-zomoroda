@@ -18,6 +18,21 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Phase 14: split the heavy vendors into long-lived cacheable chunks;
+    // route-level lazy() in App.tsx keeps admin/account code out of the
+    // public bundle entirely.
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router'],
+          supabase: ['@supabase/supabase-js'],
+          i18n: ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
+        },
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,

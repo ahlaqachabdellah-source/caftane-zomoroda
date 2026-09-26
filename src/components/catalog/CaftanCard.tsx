@@ -29,6 +29,8 @@ export default function CaftanCard({ caftan }: { caftan: CatalogCaftan }) {
         <CaftanImage
           storagePath={primary?.storage_path}
           alt={alt}
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="h-full w-full transition-transform duration-300 group-hover:scale-[1.03]"
         />
         <div className="absolute start-3 top-3 flex flex-col gap-2">

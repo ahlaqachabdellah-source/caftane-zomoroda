@@ -15,7 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import LoadingState from '@/components/states/LoadingState'
+import { ListRowsSkeleton } from '@/components/states/skeletons'
 import ErrorState from '@/components/states/ErrorState'
 import EmptyState from '@/components/states/EmptyState'
 import CaftanStatusBadge from '@/components/admin/CaftanStatusBadge'
@@ -115,7 +115,7 @@ export default function AdminCaftansPage() {
   }
 
   if (loading) {
-    return <LoadingState label={t('admin.loading')} className="py-24" />
+    return <ListRowsSkeleton label={t('admin.loading')} />
   }
   if (error) {
     return (
@@ -222,7 +222,7 @@ export default function AdminCaftansPage() {
         <ul className="flex flex-col gap-3">
           {filtered.map((caftan) => {
             const primary = sortCaftanImages(caftan.images)[0]
-            const thumb = primary ? getCaftanImageUrl(primary.storage_path) : ''
+            const thumb = primary ? getCaftanImageUrl(primary.storage_path, { width: 128 }) : ''
             return (
               <li
                 key={caftan.id}

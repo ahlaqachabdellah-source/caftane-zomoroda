@@ -14,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import LoadingState from '@/components/states/LoadingState'
+import { ListRowsSkeleton } from '@/components/states/skeletons'
 import ErrorState from '@/components/states/ErrorState'
 import EmptyState from '@/components/states/EmptyState'
 import { BookingStatusBadge, DepositStatusBadge } from '@/components/account/BookingStatusBadge'
@@ -79,7 +79,7 @@ export default function AdminBookingDetailPage() {
     )
   }, [detail, lastTransition])
 
-  if (loading) return <LoadingState />
+  if (loading) return <ListRowsSkeleton />
   if (notFound) {
     return (
       <EmptyState

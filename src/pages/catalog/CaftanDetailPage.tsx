@@ -8,7 +8,7 @@ import Container from '@/components/layout/Container'
 import OrnamentDivider from '@/components/layout/OrnamentDivider'
 import EmptyState from '@/components/states/EmptyState'
 import ErrorState from '@/components/states/ErrorState'
-import LoadingState from '@/components/states/LoadingState'
+import { CaftanDetailSkeleton } from '@/components/states/skeletons'
 import { Button } from '@/components/ui/button'
 import { useCaftanDetail } from '@/hooks/useCaftanDetail'
 import { useLocale } from '@/hooks/useLocale'
@@ -31,7 +31,9 @@ export default function CaftanDetailPage() {
   if (loading) {
     return (
       <main className="flex flex-1 flex-col">
-        <LoadingState className="py-24" label={t('catalog.loading')} />
+        <Container className="py-10 sm:py-14">
+          <CaftanDetailSkeleton label={t('catalog.loading')} />
+        </Container>
       </main>
     )
   }
@@ -85,6 +87,9 @@ export default function CaftanDetailPage() {
               <CaftanImage
                 storagePath={current?.storage_path}
                 alt={current ? localizedText(current.alt_text, locale) || name : name}
+                widths={[600, 1000, 1400]}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
                 className="aspect-[3/4] w-full"
               />
             </div>
@@ -105,6 +110,8 @@ export default function CaftanDetailPage() {
                     <CaftanImage
                       storagePath={image.storage_path}
                       alt=""
+                      widths={[160, 320]}
+                      sizes="64px"
                       className="h-full w-full"
                     />
                   </button>

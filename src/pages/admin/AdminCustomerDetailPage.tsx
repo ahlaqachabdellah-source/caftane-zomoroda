@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import LoadingState from '@/components/states/LoadingState'
+import { ListRowsSkeleton } from '@/components/states/skeletons'
 import ErrorState from '@/components/states/ErrorState'
 import EmptyState from '@/components/states/EmptyState'
 import { BookingStatusBadge, DepositStatusBadge } from '@/components/account/BookingStatusBadge'
@@ -22,7 +22,7 @@ export default function AdminCustomerDetailPage() {
   const { locale, localePath } = useLocale()
   const { detail, loading, error, notFound } = useAdminCustomer(customerId)
 
-  if (loading) return <LoadingState />
+  if (loading) return <ListRowsSkeleton />
   if (notFound) {
     return (
       <EmptyState

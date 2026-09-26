@@ -8,7 +8,7 @@ import {
   ArrowRightLeft,
   UserPlus,
 } from 'lucide-react'
-import LoadingState from '@/components/states/LoadingState'
+import { DashboardSkeleton } from '@/components/states/skeletons'
 import ErrorState from '@/components/states/ErrorState'
 import EmptyState from '@/components/states/EmptyState'
 import { useAdminDashboard } from '@/hooks/useAdminDashboard'
@@ -36,7 +36,7 @@ export default function AdminOverviewPage() {
   const { kpis, activity, loading, error, refetch } = useAdminDashboard()
 
   if (loading) {
-    return <LoadingState label={t('admin.loading')} className="py-24" />
+    return <DashboardSkeleton label={t('admin.loading')} />
   }
 
   if (error || !kpis) {

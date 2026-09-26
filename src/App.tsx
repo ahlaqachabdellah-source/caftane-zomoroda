@@ -1,39 +1,54 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import LocaleLayout from '@/components/i18n/LocaleLayout'
 import LocaleRedirect from '@/components/i18n/LocaleRedirect'
 import ErrorBoundary from '@/components/states/ErrorBoundary'
+import LoadingState from '@/components/states/LoadingState'
 import SiteChrome from '@/components/layout/SiteChrome'
 import Home from './pages/Home'
 import NotFoundPage from './pages/NotFoundPage'
-import CatalogPage from './pages/catalog/CatalogPage'
-import CaftanDetailPage from './pages/catalog/CaftanDetailPage'
-import BookingPage from './pages/catalog/BookingPage'
-import LoginPage from './pages/auth/LoginPage'
-import RegisterPage from './pages/auth/RegisterPage'
-import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
-import ResetPasswordPage from './pages/auth/ResetPasswordPage'
-import AccountLayout from './pages/account/AccountLayout'
-import DashboardPage from './pages/account/DashboardPage'
-import MyBookingsPage from './pages/account/MyBookingsPage'
-import BookingDetailPage from './pages/account/BookingDetailPage'
-import ProfilePage from './pages/account/ProfilePage'
-import AdminLayout from './pages/admin/AdminLayout'
-import AdminOverviewPage from './pages/admin/AdminOverviewPage'
-import AdminCaftansPage from './pages/admin/AdminCaftansPage'
-import AdminCaftanFormPage from './pages/admin/AdminCaftanFormPage'
-import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
-import AdminBookingsPage from './pages/admin/AdminBookingsPage'
-import AdminBookingDetailPage from './pages/admin/AdminBookingDetailPage'
-import AdminCalendarPage from './pages/admin/AdminCalendarPage'
-import AdminCustomersPage from './pages/admin/AdminCustomersPage'
-import AdminCustomerDetailPage from './pages/admin/AdminCustomerDetailPage'
+
+/**
+ * Route-level code splitting (Phase 14): every non-home page loads on
+ * demand. Admin and account bundles — the heaviest screens — are never
+ * downloaded by public visitors; Vite emits them as separate chunks.
+ * Home stays eager: it is the landing/LCP route.
+ */
+const CatalogPage = lazy(() => import('./pages/catalog/CatalogPage'))
+const CaftanDetailPage = lazy(() => import('./pages/catalog/CaftanDetailPage'))
+const BookingPage = lazy(() => import('./pages/catalog/BookingPage'))
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
+const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'))
+const ForgotPasswordPage = lazy(() => import('./pages/auth/ForgotPasswordPage'))
+const ResetPasswordPage = lazy(() => import('./pages/auth/ResetPasswordPage'))
+const AccountLayout = lazy(() => import('./pages/account/AccountLayout'))
+const DashboardPage = lazy(() => import('./pages/account/DashboardPage'))
+const MyBookingsPage = lazy(() => import('./pages/account/MyBookingsPage'))
+const BookingDetailPage = lazy(() => import('./pages/account/BookingDetailPage'))
+const ProfilePage = lazy(() => import('./pages/account/ProfilePage'))
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'))
+const AdminOverviewPage = lazy(() => import('./pages/admin/AdminOverviewPage'))
+const AdminCaftansPage = lazy(() => import('./pages/admin/AdminCaftansPage'))
+const AdminCaftanFormPage = lazy(() => import('./pages/admin/AdminCaftanFormPage'))
+const AdminCategoriesPage = lazy(() => import('./pages/admin/AdminCategoriesPage'))
+const AdminBookingsPage = lazy(() => import('./pages/admin/AdminBookingsPage'))
+const AdminBookingDetailPage = lazy(() => import('./pages/admin/AdminBookingDetailPage'))
+const AdminCalendarPage = lazy(() => import('./pages/admin/AdminCalendarPage'))
+const AdminCustomersPage = lazy(() => import('./pages/admin/AdminCustomersPage'))
+const AdminCustomerDetailPage = lazy(() => import('./pages/admin/AdminCustomerDetailPage'))
+
+/** Full-height fallback so lazy route transitions do not shift layout. */
+function RouteFallback() {
+  return <LoadingState className="min-h-[60vh] flex-1" />
+}
 
 export default function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
+        <Suspense fallback={<RouteFallback />}>
         <Routes>
         <Route path="/" element={<LocaleRedirect />} />
         <Route path="/:locale" element={<LocaleLayout />}>
@@ -97,6 +112,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<LocaleRedirect />} />
       </Routes>
+        </Suspense>
       </AuthProvider>
     </ErrorBoundary>
   )
