@@ -13,7 +13,11 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
 import ResetPasswordPage from './pages/auth/ResetPasswordPage'
-import AccountOverviewPage from './pages/account/AccountOverviewPage'
+import AccountLayout from './pages/account/AccountLayout'
+import DashboardPage from './pages/account/DashboardPage'
+import MyBookingsPage from './pages/account/MyBookingsPage'
+import BookingDetailPage from './pages/account/BookingDetailPage'
+import ProfilePage from './pages/account/ProfilePage'
 
 export default function App() {
   return (
@@ -43,10 +47,15 @@ export default function App() {
                 path="account"
                 element={
                   <ProtectedRoute>
-                    <AccountOverviewPage />
+                    <AccountLayout />
                   </ProtectedRoute>
                 }
-              />
+              >
+                <Route index element={<DashboardPage />} />
+                <Route path="bookings" element={<MyBookingsPage />} />
+                <Route path="bookings/:bookingNumber" element={<BookingDetailPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+              </Route>
             </Route>
             <Route path="*" element={<LocaleRedirect />} />
           </Routes>

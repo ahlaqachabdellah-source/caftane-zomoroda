@@ -146,7 +146,9 @@ export default function BookingPage() {
           </dl>
           <div className="mt-2 flex flex-col gap-3 sm:flex-row">
             <Button asChild>
-              <Link to={localePath('/account')}>{t('booking.go_to_account')}</Link>
+              <Link to={localePath(`/account/bookings/${created.booking_number}`)}>
+                {t('booking.go_to_account')}
+              </Link>
             </Button>
             <Button asChild variant="outline">
               <Link to={localePath('/caftans')}>{t('catalog.back_to_catalog')}</Link>

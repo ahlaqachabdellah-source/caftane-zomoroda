@@ -141,6 +141,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [],
   )
 
+  const refreshProfile = useCallback(async () => {
+    if (!supabase) return
+    const { data } = await supabase.auth.getSession()
+    const currentUser = data.session?.user
+    if (!currentUser) return
+    const p = await loadProfile(currentUser.id)
+    setProfile(p)
+  }, [loadProfile])
+
   const signOut = useCallback(async () => {
     if (!supabase) return
     await supabase.auth.signOut()
@@ -163,9 +172,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signUp,
       sendPasswordReset,
       updatePassword,
+      refreshProfile,
       signOut,
     }
-  }, [session, profile, loading, signIn, signUp, sendPasswordReset, updatePassword, signOut])
+  }, [session, profile, loading, signIn, signUp, sendPasswordReset, updatePassword, refreshProfile, signOut])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

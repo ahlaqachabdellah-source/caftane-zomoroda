@@ -126,7 +126,10 @@ describe('BookingPage', () => {
       customerNotes: '',
     })
     expect(screen.getByText(/2\.400,00/)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Suivre ma réservation' })).toHaveAttribute('href', '/fr/account')
+    expect(screen.getByRole('link', { name: 'Suivre ma réservation' })).toHaveAttribute(
+      'href',
+      '/fr/account/bookings/CF-2026-0042',
+    )
   })
 
   it('shows the friendly overlap message when the dates are already taken', async () => {

@@ -1,5 +1,6 @@
 import type { CatalogCaftan } from '@/lib/caftans'
-import type { CaftanImage, Category } from '@/types/database.types'
+import type { MyBooking } from '@/hooks/useMyBookings'
+import type { BookingStatusHistory, CaftanImage, Category } from '@/types/database.types'
 
 /** Shared catalog fixtures for Phase 5 tests. */
 
@@ -54,4 +55,44 @@ export function makeCaftan(overrides: CaftanOverrides): CatalogCaftan {
     images: [makeImage(overrides.id, 1, true)],
   }
   return { ...base, ...overrides }
+}
+
+type BookingOverrides = Partial<MyBooking> & { id: string }
+
+/** Booking fixture for Phase 7 account tests. */
+export function makeBooking(overrides: BookingOverrides): MyBooking {
+  const base: MyBooking = {
+    id: overrides.id,
+    booking_number: 'CF-2026-0007',
+    customer_id: 'user-1',
+    caftan_id: 'c1',
+    start_date: '2030-05-10',
+    end_date: '2030-05-12',
+    status: 'pending',
+    total_price: 2400,
+    deposit_status: 'unpaid',
+    customer_notes: '',
+    admin_notes: '',
+    rental_period: '[2030-05-10,2030-05-13)',
+    created_at: '2026-09-26T10:00:00Z',
+    updated_at: '2026-09-26T10:00:00Z',
+    caftan: makeCaftan({ id: 'c1', slug: 'caftan-andalou-rouge' }),
+  }
+  return { ...base, ...overrides }
+}
+
+export function makeHistoryEntry(
+  id: string,
+  toStatus: BookingStatusHistory['to_status'],
+  fromStatus: BookingStatusHistory['from_status'] = 'pending',
+): BookingStatusHistory {
+  return {
+    id,
+    booking_id: 'b-1',
+    from_status: fromStatus,
+    to_status: toStatus,
+    changed_by: null,
+    note: '',
+    created_at: '2026-09-26T10:00:00Z',
+  }
 }

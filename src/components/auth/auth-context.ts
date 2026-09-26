@@ -32,6 +32,8 @@ export type AuthContextValue = {
   }) => Promise<AuthResult>
   sendPasswordReset: (email: string) => Promise<AuthResult>
   updatePassword: (password: string) => Promise<AuthResult>
+  /** Re-reads the profile row (used after the customer edits it, Phase 7). */
+  refreshProfile: () => Promise<void>
   signOut: () => Promise<void>
 }
 

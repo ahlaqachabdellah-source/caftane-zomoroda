@@ -79,11 +79,12 @@ async function main() {
       host: '127.0.0.1', port: PORT,
       user: 'tester', password: 'tester', database: 'postgres',
     })
-    // One session: phase 6 reuses the pg_temp helpers created by phase 1.
+    // One session: later phases reuse the pg_temp helpers created by phase 1.
     await runFile(tester, path.join(__dirname, 'phase1_rls_tests.sql'))
     await runFile(tester, path.join(__dirname, 'phase6_booking_tests.sql'))
+    await runFile(tester, path.join(__dirname, 'phase7_account_tests.sql'))
 
-    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + phase 6)')
+    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + phase 6 + phase 7)')
   } catch (err) {
     console.error('\nRESULT: DB TEST RUN FAILED')
     console.error(err.message || err)
