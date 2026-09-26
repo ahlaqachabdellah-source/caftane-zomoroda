@@ -1,5 +1,5 @@
-import { act, render, screen } from '@testing-library/react'
-import { MemoryRouter, Route, Routes } from 'react-router'
+import { act, fireEvent, render, screen } from '@testing-library/react'
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import i18n from '@/i18n'
 import { makeCaftan, makeImage } from '@/test/fixtures'
@@ -41,13 +41,20 @@ const caftan = makeCaftan({
   images: [makeImage('c1', 1, true), makeImage('c1', 2, false)],
 })
 
+/** Shows where the login page would send the user back to. */
+function LoginProbe() {
+  const location = useLocation()
+  const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? 'aucun'
+  return <div>CONNEXION puis {from}</div>
+}
+
 function renderDetail(slug = 'caftan-andalou-rouge') {
   return render(
     <MemoryRouter initialEntries={[`/fr/caftans/${slug}`]}>
       <Routes>
         <Route path="/fr/caftans/:slug" element={<CaftanDetailPage />} />
         <Route path="/fr/caftans" element={<div>CATALOGUE</div>} />
-        <Route path="/fr/login" element={<div>CONNEXION</div>} />
+        <Route path="/fr/login" element={<LoginProbe />} />
       </Routes>
     </MemoryRouter>,
   )
@@ -93,7 +100,7 @@ describe('CaftanDetailPage', () => {
     expect(screen.getAllByRole('button', { name: 'Photo' })).toHaveLength(2)
   })
 
-  it('offers sign-in to anonymous visitors when WhatsApp is not configured', () => {
+  it('offers sign-in to anonymous visitors when WhatsApp is not configured', async () => {
     mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
     renderDetail()
     expect(
@@ -103,6 +110,27 @@ describe('CaftanDetailPage', () => {
       'href',
       '/fr/register',
     )
+    // The login link carries the return location so the customer lands
+    // back on this caftan after signing in.
+    fireEvent.click(screen.getByRole('link', { name: 'Connectez-vous pour réserver' }))
+    expect(await screen.findByText('CONNEXION puis /fr/caftans/caftan-andalou-rouge')).toBeInTheDocument()
+  })
+
+  it('links signed-in customers to the real booking page', () => {
+    mockUseAuth.mockReturnValue({
+      ...anonymousAuth,
+      session: { user: { id: 'user-1' } },
+      user: { id: 'user-1' },
+    })
+    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    renderDetail()
+    expect(screen.getByRole('link', { name: 'Réserver ce caftan' })).toHaveAttribute(
+      'href',
+      '/fr/caftans/caftan-andalou-rouge/book',
+    )
+    expect(
+      screen.queryByRole('link', { name: 'Connectez-vous pour réserver' }),
+    ).not.toBeInTheDocument()
   })
 
   it('offers a pre-filled WhatsApp inquiry when the number is configured', () => {
@@ -113,7 +141,7 @@ describe('CaftanDetailPage', () => {
     })
     mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
     renderDetail()
-    const link = screen.getByRole('link', { name: /Demander sur WhatsApp/ })
+    const link = screen.getByRole('link', { name: /demander sur WhatsApp/i })
     expect(link).toHaveAttribute(
       'href',
       expect.stringContaining('https://wa.me/212612345678?text='),

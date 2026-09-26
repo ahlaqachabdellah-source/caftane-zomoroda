@@ -39,12 +39,41 @@
     "size_label": "Size",
     "color_label": "Color",
     "maintenance_notice": "This piece is currently in maintenance and cannot be booked right now.",
-    "book_whatsapp": "Inquire on WhatsApp",
+    "book_cta": "Book this caftan",
+    "book_whatsapp": "Or inquire on WhatsApp",
     "whatsapp_message": "Hello Caftan Zomoroda, I am interested in renting \"{{name}}\". Is it available on my dates?",
     "book_login_cta": "Sign in to book",
     "book_no_account": "No account yet?",
-    "book_register_link": "Create one in a minute",
-    "book_online_coming": "Online booking is coming very soon. In the meantime, contact us — our details are in the footer."
+    "book_register_link": "Create one in a minute"
+  },
+  "booking": {
+    "form_title": "Your booking request",
+    "back_to_caftan": "Back to the caftan",
+    "start_label": "Start date",
+    "end_label": "End date",
+    "notes_label": "Notes for the team",
+    "notes_ph": "Occasion, desired adjustments, questions…",
+    "estimate_hint": "Pick your dates to see the estimate",
+    "estimate_days": "{{count}} day",
+    "submit": "Send my request",
+    "submitting": "Sending…",
+    "success_title": "Request sent",
+    "success_body": "Your booking request has been recorded. Our team confirms availability and replies quickly.",
+    "number_label": "Booking number",
+    "dates_label": "Period",
+    "total_label": "Estimated total",
+    "status_label": "Status",
+    "status_pending": "Pending confirmation",
+    "go_to_account": "Track my booking",
+    "error_overlap": "This caftan is already booked for this period. Please choose other dates.",
+    "error_permission": "This booking could not be created. The caftan may no longer be available.",
+    "error_generic": "Your request could not be sent. Check your connection and try again.",
+    "estimate_days_one": "{{count}} day",
+    "estimate_days_other": "{{count}} days",
+    "estimate_days_zero": "{{count}} days",
+    "estimate_days_two": "{{count}} days",
+    "estimate_days_few": "{{count}} days",
+    "estimate_days_many": "{{count}} days"
   },
   "footer": {
     "rights": "© {{year}} Caftan Zomoroda — Caftan rental",
@@ -151,6 +180,11 @@
     "name_min": "Full name is required (2 characters minimum)",
     "phone_invalid": "Invalid phone number",
     "password_min": "Password must be at least 8 characters",
-    "password_mismatch": "Passwords do not match"
+    "password_mismatch": "Passwords do not match",
+    "start_date_required": "Start date is required",
+    "end_date_required": "End date is required",
+    "start_in_past": "Start date cannot be in the past",
+    "end_before_start": "End date must be after the start date",
+    "notes_max": "500 characters maximum"
   }
 }

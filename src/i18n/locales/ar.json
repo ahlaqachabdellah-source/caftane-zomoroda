@@ -39,12 +39,41 @@
     "size_label": "المقاس",
     "color_label": "اللون",
     "maintenance_notice": "هذه القطعة قيد الصيانة حالياً وغير متاحة للحجز في الوقت الراهن.",
-    "book_whatsapp": "اطلبي عبر واتساب",
+    "book_cta": "احجزي هذا القفطان",
+    "book_whatsapp": "أو اطلبي عبر واتساب",
     "whatsapp_message": "مرحباً قفطان زمردة، أنا مهتمة بكراء « {{name}} ». هل هو متوفر في تواريخي؟",
     "book_login_cta": "سجلي الدخول للحجز",
     "book_no_account": "لا تملكين حساباً بعد؟",
-    "book_register_link": "أنشئيه في دقيقة واحدة",
-    "book_online_coming": "الحجز عبر الإنترنت سيصل قريباً جداً. في الانتظار، تواصلي معنا — تجدين معلومات الاتصال أسفل الصفحة."
+    "book_register_link": "أنشئيه في دقيقة واحدة"
+  },
+  "booking": {
+    "form_title": "طلب الحجز الخاص بك",
+    "back_to_caftan": "العودة إلى القفطان",
+    "start_label": "تاريخ البداية",
+    "end_label": "تاريخ النهاية",
+    "notes_label": "ملاحظات للفريق",
+    "notes_ph": "المناسبة، التعديلات المطلوبة، الأسئلة…",
+    "estimate_hint": "اختاري تواريخك لرؤية التقدير",
+    "estimate_days": "{{count}} يوم",
+    "submit": "إرسال طلبي",
+    "submitting": "جارٍ الإرسال…",
+    "success_title": "تم إرسال الطلب",
+    "success_body": "تم تسجيل طلب الحجز الخاص بك بنجاح. فريقنا يؤكد التوفر ويرد عليك بسرعة.",
+    "number_label": "رقم الحجز",
+    "dates_label": "الفترة",
+    "total_label": "المجموع التقديري",
+    "status_label": "الحالة",
+    "status_pending": "في انتظار التأكيد",
+    "go_to_account": "تتبع حجزي",
+    "error_overlap": "هذا القفطان محجوز بالفعل في هذه الفترة. اختاري تواريخ أخرى.",
+    "error_permission": "تعذر إنشاء هذا الحجز. ربما لم يعد القفطان متوفراً.",
+    "error_generic": "تعذر إرسال طلبك. تحققي من اتصالك ثم أعيدي المحاولة.",
+    "estimate_days_zero": "{{count}} يوم",
+    "estimate_days_one": "{{count}} يوم",
+    "estimate_days_two": "{{count}} يومان",
+    "estimate_days_few": "{{count}} أيام",
+    "estimate_days_many": "{{count}} يومًا",
+    "estimate_days_other": "{{count}} يوم"
   },
   "footer": {
     "rights": "© {{year}} قفطان زمردة — تأجير القفطان",
@@ -151,6 +180,11 @@
     "name_min": "الاسم الكامل مطلوب (حرفان على الأقل)",
     "phone_invalid": "رقم الهاتف غير صالح",
     "password_min": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
-    "password_mismatch": "كلمتا المرور غير متطابقتين"
+    "password_mismatch": "كلمتا المرور غير متطابقتين",
+    "start_date_required": "تاريخ البداية مطلوب",
+    "end_date_required": "تاريخ النهاية مطلوب",
+    "start_in_past": "تاريخ البداية لا يمكن أن يكون في الماضي",
+    "end_before_start": "تاريخ النهاية يجب أن يكون بعد تاريخ البداية",
+    "notes_max": "500 حرف كحد أقصى"
   }
 }

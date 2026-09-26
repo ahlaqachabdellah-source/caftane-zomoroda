@@ -74,16 +74,18 @@ async function main() {
     await runFile(admin, path.join(supabaseDir, 'seed.sql'))
     await runFile(admin, path.join(__dirname, 'local', '02_test_users.sql'))
 
-    console.log('\n[4/4] RLS / constraint suite (as unprivileged role)')
+    console.log('\n[4/4] RLS / constraint / booking suites (as unprivileged role)')
     const tester = await connect({
       host: '127.0.0.1', port: PORT,
       user: 'tester', password: 'tester', database: 'postgres',
     })
+    // One session: phase 6 reuses the pg_temp helpers created by phase 1.
     await runFile(tester, path.join(__dirname, 'phase1_rls_tests.sql'))
+    await runFile(tester, path.join(__dirname, 'phase6_booking_tests.sql'))
 
-    console.log('\nRESULT: ALL PHASE 1 TESTS PASSED')
+    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + phase 6)')
   } catch (err) {
-    console.error('\nRESULT: PHASE 1 TEST RUN FAILED')
+    console.error('\nRESULT: DB TEST RUN FAILED')
     console.error(err.message || err)
     process.exitCode = 1
   } finally {

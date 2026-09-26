@@ -8,6 +8,7 @@ import SiteFooter from '@/components/layout/SiteFooter'
 import Home from './pages/Home'
 import CatalogPage from './pages/catalog/CatalogPage'
 import CaftanDetailPage from './pages/catalog/CaftanDetailPage'
+import BookingPage from './pages/catalog/BookingPage'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -26,6 +27,14 @@ export default function App() {
               <Route index element={<Home />} />
               <Route path="caftans" element={<CatalogPage />} />
               <Route path="caftans/:slug" element={<CaftanDetailPage />} />
+              <Route
+                path="caftans/:slug/book"
+                element={
+                  <ProtectedRoute>
+                    <BookingPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="forgot-password" element={<ForgotPasswordPage />} />
