@@ -4,7 +4,16 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        // Latin first, Arabic-capable faces as fallback per script
+        sans: ['Inter', 'Cairo', 'system-ui', 'Segoe UI', 'sans-serif'],
+        display: ['"Cormorant Garamond"', 'Amiri', 'Georgia', 'serif'],
+      },
       colors: {
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          foreground: "hsl(var(--gold-foreground))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -9,16 +9,50 @@
     "home_aria": "Caftan Zomoroda — accueil"
   },
   "nav": {
+    "home": "Accueil",
     "login": "Connexion",
-    "account": "Mon compte"
+    "account": "Mon compte",
+    "primary_aria": "Navigation principale",
+    "mobile_aria": "Navigation mobile"
   },
   "footer": {
-    "rights": "© {{year}} Caftan Zomoroda — Location de caftans"
+    "rights": "© {{year}} Caftan Zomoroda — Location de caftans",
+    "nav_heading": "Navigation",
+    "nav_aria": "Navigation du pied de page",
+    "contact_heading": "Contact"
   },
   "home": {
-    "kicker": "Location de Caftans",
-    "title": "Caftan Zomoroda",
-    "body": "La boutique en ligne est en cours de construction. Le catalogue arrive dans les prochaines phases."
+    "hero_kicker": "Caftans & Takchitas — Location",
+    "hero_title": "L'élégance du caftan, pour vos plus beaux moments",
+    "hero_lede": "Caftan Zomoroda vous ouvre sa garde-robe de caftans, takchitas et jellabas d'exception. Choisissez votre pièce, réservez vos dates, et brillez — sans compromis.",
+    "hero_cta_primary": "Créer un compte",
+    "hero_cta_secondary": "Comment ça marche",
+    "steps_kicker": "Le principe",
+    "steps_title": "Comment ça marche",
+    "steps_description": "Trois étapes simples, de la première visite au grand jour.",
+    "step1_title": "Choisissez votre caftan",
+    "step1_body": "Parcourez la collection et trouvez la pièce faite pour votre occasion — mariage, fiançailles, soirée ou fête.",
+    "step2_title": "Réservez vos dates",
+    "step2_body": "Créez votre compte, indiquez vos dates de location et envoyez votre demande. Nous confirmons la disponibilité rapidement.",
+    "step3_title": "Brillez le jour J",
+    "step3_body": "Récupérez votre caftan préparé avec soin, portez-le, puis retournez-le simplement. Nous nous occupons du reste.",
+    "values_kicker": "Notre engagement",
+    "values_title": "L'excellence Zomoroda",
+    "values_description": "Une maison dédiée à l'art du caftan marocain et au soin de chaque cliente.",
+    "value1_title": "Pièces authentiques",
+    "value1_body": "Des caftans sélectionnés pour leur savoir-faire : broderies, tissus nobles et finitions traditionnelles.",
+    "value2_title": "Entretien expert",
+    "value2_body": "Chaque pièce est inspectée, nettoyée et préparée par des professionnels entre chaque location.",
+    "value3_title": "Accompagnement direct",
+    "value3_body": "Une question de taille, de date ou de style ? Notre équipe vous répond directement sur WhatsApp.",
+    "cta_title": "Prête pour votre prochaine occasion ?",
+    "cta_body": "Créez votre compte en une minute pour réserver vos caftans et suivre vos demandes en ligne.",
+    "cta_button": "Créer mon compte"
+  },
+  "states": {
+    "empty_title": "Rien à afficher pour le moment",
+    "error_title": "Une erreur est survenue",
+    "retry": "Réessayer"
   },
   "auth": {
     "login_title": "Connexion",

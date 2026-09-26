@@ -9,16 +9,50 @@
     "home_aria": "Caftan Zomoroda — home"
   },
   "nav": {
+    "home": "Home",
     "login": "Sign in",
-    "account": "My account"
+    "account": "My account",
+    "primary_aria": "Primary navigation",
+    "mobile_aria": "Mobile navigation"
   },
   "footer": {
-    "rights": "© {{year}} Caftan Zomoroda — Caftan rental"
+    "rights": "© {{year}} Caftan Zomoroda — Caftan rental",
+    "nav_heading": "Navigation",
+    "nav_aria": "Footer navigation",
+    "contact_heading": "Contact"
   },
   "home": {
-    "kicker": "Caftan Rental",
-    "title": "Caftan Zomoroda",
-    "body": "The online store is under construction. The catalogue arrives in the next phases."
+    "hero_kicker": "Caftans & Takchitas — Rental",
+    "hero_title": "The elegance of the caftan, for your finest moments",
+    "hero_lede": "Caftan Zomoroda opens its wardrobe of exceptional caftans, takchitas and jellabas. Choose your piece, book your dates, and shine — without compromise.",
+    "hero_cta_primary": "Create an account",
+    "hero_cta_secondary": "How it works",
+    "steps_kicker": "The principle",
+    "steps_title": "How it works",
+    "steps_description": "Three simple steps, from your first visit to the big day.",
+    "step1_title": "Choose your caftan",
+    "step1_body": "Browse the collection and find the piece made for your occasion — wedding, engagement, evening or celebration.",
+    "step2_title": "Book your dates",
+    "step2_body": "Create your account, enter your rental dates and send your request. We confirm availability quickly.",
+    "step3_title": "Shine on the day",
+    "step3_body": "Pick up your caftan prepared with care, wear it, then simply return it. We take care of the rest.",
+    "values_kicker": "Our commitment",
+    "values_title": "The Zomoroda standard",
+    "values_description": "A house dedicated to the art of the Moroccan caftan and to the care of every client.",
+    "value1_title": "Authentic pieces",
+    "value1_body": "Caftans selected for their craftsmanship: embroidery, noble fabrics and traditional finishing.",
+    "value2_title": "Expert care",
+    "value2_body": "Every piece is inspected, cleaned and prepared by professionals between rentals.",
+    "value3_title": "Direct support",
+    "value3_body": "A question about size, dates or style? Our team answers you directly on WhatsApp.",
+    "cta_title": "Ready for your next occasion?",
+    "cta_body": "Create your account in one minute to book your caftans and track your requests online.",
+    "cta_button": "Create my account"
+  },
+  "states": {
+    "empty_title": "Nothing to display yet",
+    "error_title": "Something went wrong",
+    "retry": "Try again"
   },
   "auth": {
     "login_title": "Sign in",

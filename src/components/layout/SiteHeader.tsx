@@ -1,22 +1,32 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Menu, UserRound, X } from 'lucide-react'
 import Logo from '@/components/brand/Logo'
 import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
+import { cn } from '@/lib/utils'
 
 /**
- * Site header — brand logo on all viewports, language switcher + auth
- * entry point on the right, hamburger menu on mobile.
- * Catalog navigation links are added in a later phase when routes exist.
+ * Site header (Phase 4) — official logo, primary navigation, language
+ * switcher and account entry point. Sticky with an ivory blur backdrop;
+ * the mobile menu opens below the bar. Catalog links join the nav in
+ * Phase 5 when those routes exist.
  */
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { t } = useTranslation()
   const { session, loading } = useAuth()
   const { localePath } = useLocale()
+
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      'inline-flex h-10 items-center border-b-2 px-1 text-sm font-medium transition-colors',
+      isActive
+        ? 'border-gold text-foreground'
+        : 'border-transparent text-muted-foreground hover:border-gold/50 hover:text-foreground',
+    )
 
   const accountLink = session ? (
     <Link
@@ -38,14 +48,20 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link to={localePath('/')} aria-label={t('common.home_aria')} className="flex items-center">
           <Logo className="h-12 w-auto sm:h-14" />
         </Link>
 
+        {/* Desktop primary nav */}
+        <nav aria-label={t('nav.primary_aria')} className="hidden items-center gap-6 md:flex">
+          <NavLink to={localePath('/')} end className={navLinkClass}>
+            {t('nav.home')}
+          </NavLink>
+        </nav>
+
         <div className="flex items-center gap-1">
           <LanguageSwitcher className="hidden md:inline-flex" />
-          {/* Desktop auth link */}
           {!loading && <div className="hidden md:block">{accountLink}</div>}
 
           <button
@@ -62,15 +78,18 @@ export default function SiteHeader() {
 
       {menuOpen && (
         <nav
-          aria-label="Navigation mobile"
+          aria-label={t('nav.mobile_aria')}
           className="border-t border-border bg-background md:hidden"
         >
           <div className="flex flex-col items-center gap-4 px-4 py-8">
             <Logo className="h-24 w-auto" />
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground rtl:tracking-normal">
+            <p className="text-xs uppercase tracking-[0.3em] text-gold rtl:tracking-normal">
               {t('common.tagline')}
             </p>
             <div onClick={() => setMenuOpen(false)} className="flex flex-col items-center gap-1">
+              <NavLink to={localePath('/')} end className={navLinkClass}>
+                {t('nav.home')}
+              </NavLink>
               {!loading && accountLink}
               <LanguageSwitcher />
             </div>
