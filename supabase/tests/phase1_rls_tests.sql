@@ -135,14 +135,12 @@ begin
        current_date + 60, current_date + 61, 1200.00, 'confirmed')$q$,
     'B2 customer cannot insert a pre-confirmed booking');
 
-  -- B3: cannot inject admin notes
+  -- B3: cannot inject admin notes (Phase 11: notes live in the admin-only
+  -- booking_admin_notes table; customers have no write policy at all)
   perform pg_temp.assert_blocked('42501', $q$
-    insert into public.bookings
-      (customer_id, caftan_id, start_date, end_date, total_price, admin_notes)
+    insert into public.booking_admin_notes (booking_id, notes)
     values
-      ('bbbbbbbb-0000-0000-0000-000000000001',
-       '20000000-0000-0000-0000-000000000002',
-       current_date + 60, current_date + 61, 1200.00, 'vip')$q$,
+      ((select val from test_vars where key = 'booking1'), 'vip')$q$,
     'B3 customer cannot set admin_notes');
 
   -- B4/B5: cannot book a retired or under-maintenance caftan
@@ -312,10 +310,12 @@ begin
     (select count(*) from public.bookings) = 5,
     'D1 admin sees all 5 bookings');
 
-  -- D2: confirm customer1's pending booking
+  -- D2: confirm customer1's pending booking (+ internal note, Phase 11 table)
   update public.bookings
-  set status = 'confirmed', admin_notes = 'Confirmed by phone'
+  set status = 'confirmed'
   where id = (select val from test_vars where key = 'booking3');
+  insert into public.booking_admin_notes (booking_id, notes)
+  values ((select val from test_vars where key = 'booking3'), 'Confirmed by phone');
   get diagnostics n = row_count;
   perform pg_temp.assert_true(n = 1, 'D2 admin can confirm a booking');
   perform pg_temp.assert_true(

@@ -203,7 +203,6 @@ export type Database = {
           total_price: number
           deposit_status: DepositStatus
           customer_notes: string
-          admin_notes: string
           created_at: string
           updated_at: string
           rental_period: string
@@ -219,7 +218,6 @@ export type Database = {
           total_price: number
           deposit_status?: DepositStatus
           customer_notes?: string
-          admin_notes?: string
           created_at?: string
           updated_at?: string
         }
@@ -234,7 +232,6 @@ export type Database = {
           total_price?: number
           deposit_status?: DepositStatus
           customer_notes?: string
-          admin_notes?: string
           created_at?: string
           updated_at?: string
         }
@@ -293,6 +290,32 @@ export type Database = {
           },
         ]
       }
+      booking_admin_notes: {
+        Row: {
+          booking_id: string
+          notes: string
+          updated_at: string
+        }
+        Insert: {
+          booking_id: string
+          notes?: string
+          updated_at?: string
+        }
+        Update: {
+          booking_id?: string
+          notes?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'booking_admin_notes_booking_id_fkey'
+            columns: ['booking_id']
+            isOneToOne: true
+            referencedRelation: 'bookings'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       site_settings: {
         Row: {
           id: number
@@ -341,6 +364,34 @@ export type Database = {
       }
       admin_recent_activity: {
         Args: { p_limit?: number }
+        Returns: Json
+      }
+      admin_list_bookings: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_get_booking: {
+        Args: { p_booking_id: string }
+        Returns: Json
+      }
+      admin_update_booking_status: {
+        Args: { p_booking_id: string; p_new_status: string; p_note?: string }
+        Returns: Json
+      }
+      admin_set_booking_notes: {
+        Args: { p_booking_id: string; p_notes: string }
+        Returns: undefined
+      }
+      admin_list_customers: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_get_customer: {
+        Args: { p_customer_id: string }
+        Returns: Json
+      }
+      admin_caftan_occupancy: {
+        Args: { p_from: string; p_to: string }
         Returns: Json
       }
     }

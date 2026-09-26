@@ -31,7 +31,6 @@ const created: Booking = {
   total_price: 2400,
   status: 'pending',
   deposit_status: 'unpaid',
-  admin_notes: '',
   customer_notes: '',
   rental_period: '[2026-10-01,2026-10-04)',
   created_at: '2026-09-26T10:00:00Z',

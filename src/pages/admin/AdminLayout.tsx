@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { LayoutDashboard, LogOut, Menu, Shirt, Store, Tags, X } from 'lucide-react'
+import { CalendarDays, ClipboardList, LayoutDashboard, LogOut, Menu, Shirt, Store, Tags, Users, X } from 'lucide-react'
 import Logo from '@/components/brand/Logo'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
@@ -31,6 +31,9 @@ const ADMIN_NAV: AdminNavItem[] = [
   { to: '/admin', labelKey: 'admin.nav_overview', icon: LayoutDashboard, end: true },
   { to: '/admin/caftans', labelKey: 'admin.nav_caftans', icon: Shirt, end: false },
   { to: '/admin/categories', labelKey: 'admin.nav_categories', icon: Tags, end: false },
+  { to: '/admin/bookings', labelKey: 'admin.nav_bookings', icon: ClipboardList, end: false },
+  { to: '/admin/calendar', labelKey: 'admin.nav_calendar', icon: CalendarDays, end: false },
+  { to: '/admin/customers', labelKey: 'admin.nav_customers', icon: Users, end: false },
 ]
 
 function AdminNav({ onNavigate }: { onNavigate?: () => void }) {

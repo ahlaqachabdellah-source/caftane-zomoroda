@@ -22,6 +22,11 @@ import AdminOverviewPage from './pages/admin/AdminOverviewPage'
 import AdminCaftansPage from './pages/admin/AdminCaftansPage'
 import AdminCaftanFormPage from './pages/admin/AdminCaftanFormPage'
 import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
+import AdminBookingsPage from './pages/admin/AdminBookingsPage'
+import AdminBookingDetailPage from './pages/admin/AdminBookingDetailPage'
+import AdminCalendarPage from './pages/admin/AdminCalendarPage'
+import AdminCustomersPage from './pages/admin/AdminCustomersPage'
+import AdminCustomerDetailPage from './pages/admin/AdminCustomerDetailPage'
 
 export default function App() {
   return (
@@ -77,6 +82,11 @@ export default function App() {
             <Route path="caftans/new" element={<AdminCaftanFormPage />} />
             <Route path="caftans/:caftanId/edit" element={<AdminCaftanFormPage />} />
             <Route path="categories" element={<AdminCategoriesPage />} />
+            <Route path="bookings" element={<AdminBookingsPage />} />
+            <Route path="bookings/:bookingId" element={<AdminBookingDetailPage />} />
+            <Route path="calendar" element={<AdminCalendarPage />} />
+            <Route path="customers" element={<AdminCustomersPage />} />
+            <Route path="customers/:customerId" element={<AdminCustomerDetailPage />} />
           </Route>
         </Route>
         <Route path="*" element={<LocaleRedirect />} />

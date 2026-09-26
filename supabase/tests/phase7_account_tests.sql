@@ -140,12 +140,9 @@ do $$ begin
     'P7-5 customer cannot insert a pre-paid booking');
 
   perform pg_temp.assert_blocked('42501', $q$
-    insert into public.bookings
-      (customer_id, caftan_id, start_date, end_date, total_price, admin_notes)
+    insert into public.booking_admin_notes (booking_id, notes)
     values
-      ('bbbbbbbb-0000-0000-0000-000000000001',
-       '20000000-0000-0000-0000-000000000003',
-       date '2027-05-01', date '2027-05-02', 0, 'forged note')$q$,
+      ((select val from test_vars where key = 'booking1'), 'forged note')$q$,
     'P7-6 customer cannot attach admin notes');
 end $$;
 
