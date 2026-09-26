@@ -60,7 +60,7 @@ export default function Home() {
               <Link to={localePath('/register')}>{t('home.hero_cta_primary')}</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-gold/60 px-8 text-foreground hover:bg-accent">
-              <a href="#how-it-works">{t('home.hero_cta_secondary')}</a>
+              <Link to={localePath('/caftans')}>{t('home.hero_cta_secondary')}</Link>
             </Button>
           </div>
         </Container>

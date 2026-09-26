@@ -58,6 +58,9 @@ export default function SiteHeader() {
           <NavLink to={localePath('/')} end className={navLinkClass}>
             {t('nav.home')}
           </NavLink>
+          <NavLink to={localePath('/caftans')} className={navLinkClass}>
+            {t('nav.collection')}
+          </NavLink>
         </nav>
 
         <div className="flex items-center gap-1">
@@ -89,6 +92,9 @@ export default function SiteHeader() {
             <div onClick={() => setMenuOpen(false)} className="flex flex-col items-center gap-1">
               <NavLink to={localePath('/')} end className={navLinkClass}>
                 {t('nav.home')}
+              </NavLink>
+              <NavLink to={localePath('/caftans')} className={navLinkClass}>
+                {t('nav.collection')}
               </NavLink>
               {!loading && accountLink}
               <LanguageSwitcher />

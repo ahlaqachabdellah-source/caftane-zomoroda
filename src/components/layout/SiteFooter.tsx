@@ -50,6 +50,9 @@ export default function SiteFooter() {
           <Link to={localePath('/')} className="text-primary-foreground/80 transition-colors hover:text-gold">
             {t('nav.home')}
           </Link>
+          <Link to={localePath('/caftans')} className="text-primary-foreground/80 transition-colors hover:text-gold">
+            {t('nav.collection')}
+          </Link>
           <Link to={localePath('/account')} className="text-primary-foreground/80 transition-colors hover:text-gold">
             {t('nav.account')}
           </Link>

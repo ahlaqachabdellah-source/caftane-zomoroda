@@ -25,14 +25,14 @@ describe('Home', () => {
         name: "L'élégance du caftan, pour vos plus beaux moments",
       }),
     ).toBeInTheDocument()
-    // Primary CTA → real /register route, secondary → on-page anchor
+    // Primary CTA → real /register route, secondary → real catalog route
     expect(screen.getByRole('link', { name: 'Créer un compte' })).toHaveAttribute(
       'href',
       '/fr/register',
     )
-    expect(screen.getByRole('link', { name: 'Comment ça marche' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Découvrir la collection' })).toHaveAttribute(
       'href',
-      '#how-it-works',
+      '/fr/caftans',
     )
   })
 

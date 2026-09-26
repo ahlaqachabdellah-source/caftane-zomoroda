@@ -6,6 +6,8 @@ import LocaleRedirect from '@/components/i18n/LocaleRedirect'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
 import Home from './pages/Home'
+import CatalogPage from './pages/catalog/CatalogPage'
+import CaftanDetailPage from './pages/catalog/CaftanDetailPage'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -22,6 +24,8 @@ export default function App() {
             <Route path="/" element={<LocaleRedirect />} />
             <Route path="/:locale" element={<LocaleLayout />}>
               <Route index element={<Home />} />
+              <Route path="caftans" element={<CatalogPage />} />
+              <Route path="caftans/:slug" element={<CaftanDetailPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="forgot-password" element={<ForgotPasswordPage />} />
