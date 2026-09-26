@@ -75,7 +75,7 @@ describe('LoginPage', () => {
   })
 
   it('displays the server error returned by signIn', async () => {
-    signIn.mockResolvedValueOnce({ error: 'Email ou mot de passe incorrect.' })
+    signIn.mockResolvedValueOnce({ error: 'errors.auth_invalid_credentials' })
     setup()
     await userEvent.type(screen.getByLabelText('Email'), 'cliente@example.com')
     await userEvent.type(screen.getByLabelText('Mot de passe'), 'mauvais-mot-de-passe')

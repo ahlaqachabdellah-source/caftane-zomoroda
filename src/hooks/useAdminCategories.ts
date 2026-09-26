@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabaseClient'
 import type { CategoryFormValues } from '@/lib/validation/admin'
 import type { Category } from '@/types/database.types'
 import type { MutationResult } from './useCaftanMutations'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin category management (Phase 10). The list embeds the caftan count
@@ -31,12 +32,13 @@ export function useAdminCategories(): UseAdminCategoriesResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
-    const { data, error: queryError } = await supabase
+    const { data, error: queryError } = await withRetry(() => client
       .from('categories')
       .select('*, caftans(count)')
-      .order('sort_order', { ascending: true })
+      .order('sort_order', { ascending: true }))
     if (queryError) {
       setError('admin.categories.error_load')
     } else {

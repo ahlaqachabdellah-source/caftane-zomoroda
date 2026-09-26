@@ -4,7 +4,7 @@ import { formatDate, formatNumber, formatPrice } from './format'
 describe('formatPrice (MAD)', () => {
   it('formats French prices with a dirham marker', () => {
     const out = formatPrice(1200, 'fr')
-    expect(out).toMatch(/1[.\s ]?200/)
+    expect(out).toMatch(/1[.\s\u00a0]?200/)
     expect(out).toMatch(/MAD|DH|د\.م\./)
   })
 

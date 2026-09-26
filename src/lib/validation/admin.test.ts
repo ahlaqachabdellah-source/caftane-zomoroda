@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { altTextSchema, categoryFormSchema, caftanFormSchema } from './admin'
+import { actionNoteSchema, adminNotesSchema, altTextSchema, categoryFormSchema, caftanFormSchema } from './admin'
 
 const VALID_CAFTAN = {
   slug: 'caftan-test-1',
@@ -86,5 +86,30 @@ describe('altTextSchema', () => {
 
   it('rejects overly long alt text', () => {
     expect(altTextSchema.safeParse('x'.repeat(201)).success).toBe(false)
+  })
+})
+
+describe('adminNotesSchema (Phase 12)', () => {
+  it('accepts empty and normal notes, trims whitespace', () => {
+    expect(adminNotesSchema.safeParse('').success).toBe(true)
+    expect(adminNotesSchema.safeParse('  Dossier VIP  ').data).toBe('Dossier VIP')
+  })
+
+  it('rejects notes over 2000 characters with the localized key', () => {
+    const res = adminNotesSchema.safeParse('x'.repeat(2001))
+    expect(res.success).toBe(false)
+    expect(res.error?.issues[0]?.message).toBe('validation.admin_notes_max')
+  })
+})
+
+describe('actionNoteSchema (Phase 12)', () => {
+  it('accepts a short customer-visible reason', () => {
+    expect(actionNoteSchema.safeParse('Retard de retour').success).toBe(true)
+  })
+
+  it('rejects notes over 500 characters', () => {
+    const res = actionNoteSchema.safeParse('x'.repeat(501))
+    expect(res.success).toBe(false)
+    expect(res.error?.issues[0]?.message).toBe('validation.notes_max')
   })
 })

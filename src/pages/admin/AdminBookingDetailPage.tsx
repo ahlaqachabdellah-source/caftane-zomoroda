@@ -25,6 +25,7 @@ import { useLocale } from '@/hooks/useLocale'
 import { localizedText } from '@/lib/localized'
 import { formatDate, formatDateTime, formatPrice } from '@/lib/format'
 import { rentalDays } from '@/lib/booking'
+import { actionNoteSchema, adminNotesSchema } from '@/lib/validation/admin'
 import { buildWhatsappLink } from '@/lib/whatsapp'
 import i18n from '@/i18n'
 import { BOOKING_TRANSITIONS } from '@/types/admin'
@@ -55,7 +56,7 @@ export default function AdminBookingDetailPage() {
   const { acting, updateStatus, saveNotes } = useAdminBookingActions()
 
   const [notesDraft, setNotesDraft] = useState<string | null>(null)
-  const [notesNotice, setNotesNotice] = useState<'saved' | 'error' | null>(null)
+  const [notesNotice, setNotesNotice] = useState<'saved' | 'error' | 'invalid' | null>(null)
   const [pendingAction, setPendingAction] = useState<BookingStatus | null>(null)
   const [actionNote, setActionNote] = useState('')
   const [actionErrorKey, setActionErrorKey] = useState<string | null>(null)
@@ -102,7 +103,13 @@ export default function AdminBookingDetailPage() {
 
   const handleConfirmAction = async () => {
     if (!pendingAction) return
-    const result = await updateStatus(booking.id, pendingAction, actionNote.trim())
+    const note = actionNote.trim()
+    const noteCheck = actionNoteSchema.safeParse(note)
+    if (!noteCheck.success) {
+      setActionErrorKey(noteCheck.error.issues[0]?.message ?? 'validation.notes_max')
+      return
+    }
+    const result = await updateStatus(booking.id, pendingAction, note)
     if (result.ok) {
       setLastTransition(pendingAction)
       setPendingAction(null)
@@ -115,7 +122,12 @@ export default function AdminBookingDetailPage() {
   }
 
   const handleSaveNotes = async () => {
-    const result = await saveNotes(booking.id, notesDraft ?? '')
+    const parsed = adminNotesSchema.safeParse(notesDraft ?? '')
+    if (!parsed.success) {
+      setNotesNotice('invalid')
+      return
+    }
+    const result = await saveNotes(booking.id, parsed.data)
     setNotesNotice(result.ok ? 'saved' : 'error')
   }
 
@@ -370,6 +382,11 @@ export default function AdminBookingDetailPage() {
             {notesNotice === 'error' && (
               <p role="alert" className="text-sm text-destructive">
                 {t('admin.bookings.error_action')}
+              </p>
+            )}
+            {notesNotice === 'invalid' && (
+              <p role="alert" className="text-sm text-destructive">
+                {t('validation.admin_notes_max')}
               </p>
             )}
           </div>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { AdminBookingListItem } from '@/types/admin'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin booking list (Phase 11) — every booking with customer + caftan
@@ -23,10 +24,11 @@ export function useAdminBookings(): UseAdminBookingsResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
-    const { data, error: rpcError } = await supabase.rpc('admin_list_bookings')
+    const { data, error: rpcError } = await withRetry(() => client.rpc('admin_list_bookings'))
 
     if (rpcError) {
       setError('admin.bookings.error_load')

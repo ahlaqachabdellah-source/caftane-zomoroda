@@ -7,6 +7,7 @@ import {
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { isSupabaseConfigured, supabase } from '@/lib/supabaseClient'
+import { mapAuthError } from '@/lib/errors'
 import { DEFAULT_LOCALE, isSupportedLocale } from '@/lib/locale'
 import i18n from '@/i18n'
 import type { Profile } from '@/types/database.types'
@@ -19,23 +20,11 @@ import { AuthContext, type AuthContextValue } from './auth-context'
  * auth actions. When the backend env vars are not configured the context
  * reports `configured: false` and stays signed out instead of crashing —
  * auth pages then show a configuration notice (no mocked sessions).
+ *
+ * Phase 12: auth failures are returned as translation KEYS (`errors.*`),
+ * resolved with t() by the pages — no hardcoded user-facing language here,
+ * and raw Supabase Auth messages never reach the UI.
  */
-
-/** Map Supabase Auth error messages to user-facing French messages. */
-function mapAuthError(message: string): string {
-  const m = message.toLowerCase()
-  if (m.includes('invalid login credentials'))
-    return 'Email ou mot de passe incorrect.'
-  if (m.includes('email not confirmed'))
-    return 'Veuillez confirmer votre email avant de vous connecter.'
-  if (m.includes('user already registered'))
-    return 'Un compte existe déjà avec cet email.'
-  if (m.includes('password') && m.includes('at least'))
-    return 'Le mot de passe est trop court.'
-  if (m.includes('rate limit'))
-    return 'Trop de tentatives. Veuillez réessayer dans quelques minutes.'
-  return 'Une erreur est survenue. Veuillez réessayer.'
-}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
@@ -95,14 +84,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [loadProfile])
 
   const signIn = useCallback<AuthContextValue['signIn']>(async (email, password) => {
-    if (!supabase) return { error: 'Backend non configuré.' }
+    if (!supabase) return { error: 'errors.not_configured' }
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) return { error: mapAuthError(error.message) }
+    if (error) return { error: mapAuthError(error) }
     return { error: null, session: data.session }
   }, [])
 
   const signUp = useCallback<AuthContextValue['signUp']>(async (input) => {
-    if (!supabase) return { error: 'Backend non configuré.' }
+    if (!supabase) return { error: 'errors.not_configured' }
     const { data, error } = await supabase.auth.signUp({
       email: input.email,
       password: input.password,
@@ -113,19 +102,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
       },
     })
-    if (error) return { error: mapAuthError(error.message) }
+    if (error) return { error: mapAuthError(error) }
     // With email confirmation enabled, data.session is null until confirmed.
     return { error: null, session: data.session }
   }, [])
 
   const sendPasswordReset = useCallback<AuthContextValue['sendPasswordReset']>(
     async (email) => {
-      if (!supabase) return { error: 'Backend non configuré.' }
+      if (!supabase) return { error: 'errors.not_configured' }
       const locale = isSupportedLocale(i18n.language) ? i18n.language : DEFAULT_LOCALE
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/${locale}/reset-password`,
       })
-      if (error) return { error: mapAuthError(error.message) }
+      if (error) return { error: mapAuthError(error) }
       return { error: null }
     },
     [],
@@ -133,9 +122,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updatePassword = useCallback<AuthContextValue['updatePassword']>(
     async (password) => {
-      if (!supabase) return { error: 'Backend non configuré.' }
+      if (!supabase) return { error: 'errors.not_configured' }
       const { error } = await supabase.auth.updateUser({ password })
-      if (error) return { error: mapAuthError(error.message) }
+      if (error) return { error: mapAuthError(error) }
       return { error: null }
     },
     [],

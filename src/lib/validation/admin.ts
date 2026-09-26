@@ -64,3 +64,15 @@ export type CategoryFormValues = z.infer<typeof categoryFormSchema>
 
 /** Image alt text: optional, one input per locale, capped length. */
 export const altTextSchema = z.string().trim().max(200, 'validation.alt_max')
+
+/**
+ * Internal admin notes on a booking (Phase 12) — capped at 2000 chars,
+ * mirroring the server-side CHECK on booking_admin_notes.notes.
+ */
+export const adminNotesSchema = z.string().trim().max(2000, 'validation.admin_notes_max')
+
+/**
+ * Customer-visible transition note (Phase 12) — capped at 500 chars,
+ * mirroring the server-side validation in admin_update_booking_status.
+ */
+export const actionNoteSchema = z.string().trim().max(500, 'validation.notes_max')

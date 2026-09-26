@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { CatalogCaftan } from '@/lib/caftans'
 import type { Category } from '@/types/database.types'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Single caftan for the admin edit form (Phase 10), plus the category
@@ -26,17 +27,22 @@ export function useAdminCaftan(caftanId: string | undefined): UseAdminCaftanResu
 
   const load = useCallback(async () => {
     if (!supabase || !caftanId) return
+    const client = supabase
     setLoading(true)
     setError(null)
     setNotFound(false)
 
     const [caftanResult, categoriesResult] = await Promise.all([
-      supabase
-        .from('caftans')
-        .select('*, category:categories(*), images:caftan_images(*)')
-        .eq('id', caftanId)
-        .maybeSingle(),
-      supabase.from('categories').select('*').order('sort_order', { ascending: true }),
+      withRetry(() =>
+        client
+          .from('caftans')
+          .select('*, category:categories(*), images:caftan_images(*)')
+          .eq('id', caftanId)
+          .maybeSingle(),
+      ),
+      withRetry(() =>
+        client.from('categories').select('*').order('sort_order', { ascending: true }),
+      ),
     ])
 
     if (caftanResult.error || categoriesResult.error) {

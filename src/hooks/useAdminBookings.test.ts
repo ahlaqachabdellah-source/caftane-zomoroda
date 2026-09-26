@@ -42,6 +42,28 @@ describe('useAdminBookingActions', () => {
     expect(res).toEqual({ ok: false, errorKey: 'admin.bookings.error_invalid_transition' })
   })
 
+  it('maps oversized-note 22023 to the note validation keys', async () => {
+    mockRpc.mockResolvedValue({
+      data: null,
+      error: { code: '22023', message: 'Status note too long' },
+    })
+    const { result } = renderHook(() => useAdminBookingActions())
+    let res: { ok: boolean; errorKey: string | null } | undefined
+    await act(async () => {
+      res = await result.current.updateStatus('b-1', 'confirmed', 'x'.repeat(501))
+    })
+    expect(res).toEqual({ ok: false, errorKey: 'validation.notes_max' })
+
+    mockRpc.mockResolvedValue({
+      data: null,
+      error: { code: '22023', message: 'Notes too long' },
+    })
+    await act(async () => {
+      res = await result.current.saveNotes('b-1', 'x'.repeat(2001))
+    })
+    expect(res).toEqual({ ok: false, errorKey: 'validation.admin_notes_max' })
+  })
+
   it('maps P0002 and 42501', async () => {
     const { result } = renderHook(() => useAdminBookingActions())
     mockRpc.mockResolvedValue({ data: null, error: { code: 'P0002' } })

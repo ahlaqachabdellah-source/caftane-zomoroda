@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { CatalogCaftan } from '@/lib/caftans'
 import type { Category } from '@/types/database.types'
+import { mapSupabaseError, withRetry } from '@/lib/errors'
 
 /**
  * Catalog data (Phase 5) — all publicly visible caftans with their
@@ -27,23 +28,28 @@ export function useCaftans(): UseCaftansResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
     const [caftansResult, categoriesResult] = await Promise.all([
-      supabase
-        .from('caftans')
-        .select('*, category:categories(*), images:caftan_images(*)')
-        .neq('status', 'retired')
-        .order('featured', { ascending: false })
-        .order('price_per_day', { ascending: true }),
-      supabase.from('categories').select('*').order('sort_order', { ascending: true }),
+      withRetry(() =>
+        client
+          .from('caftans')
+          .select('*, category:categories(*), images:caftan_images(*)')
+          .neq('status', 'retired')
+          .order('featured', { ascending: false })
+          .order('price_per_day', { ascending: true }),
+      ),
+      withRetry(() =>
+        client.from('categories').select('*').order('sort_order', { ascending: true }),
+      ),
     ])
 
     if (caftansResult.error) {
-      setError(caftansResult.error.message)
+      setError(mapSupabaseError(caftansResult.error, 'catalog.error_body'))
     } else if (categoriesResult.error) {
-      setError(categoriesResult.error.message)
+      setError(mapSupabaseError(categoriesResult.error, 'catalog.error_body'))
     } else {
       setCaftans((caftansResult.data ?? []) as CatalogCaftan[])
       setCategories(categoriesResult.data ?? [])

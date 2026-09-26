@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { CatalogCaftan } from '@/lib/caftans'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin caftan list (Phase 10) — ALL caftans including maintenance and
@@ -24,13 +25,14 @@ export function useAdminCaftans(): UseAdminCaftansResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
-    const { data, error: queryError } = await supabase
+    const { data, error: queryError } = await withRetry(() => client
       .from('caftans')
       .select('*, category:categories(*), images:caftan_images(*)')
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }))
 
     if (queryError) {
       setError('admin.caftans.error_load')

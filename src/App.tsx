@@ -3,8 +3,10 @@ import { AuthProvider } from '@/components/auth/AuthProvider'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import LocaleLayout from '@/components/i18n/LocaleLayout'
 import LocaleRedirect from '@/components/i18n/LocaleRedirect'
+import ErrorBoundary from '@/components/states/ErrorBoundary'
 import SiteChrome from '@/components/layout/SiteChrome'
 import Home from './pages/Home'
+import NotFoundPage from './pages/NotFoundPage'
 import CatalogPage from './pages/catalog/CatalogPage'
 import CaftanDetailPage from './pages/catalog/CaftanDetailPage'
 import BookingPage from './pages/catalog/BookingPage'
@@ -30,8 +32,9 @@ import AdminCustomerDetailPage from './pages/admin/AdminCustomerDetailPage'
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Routes>
+    <ErrorBoundary>
+      <AuthProvider>
+        <Routes>
         <Route path="/" element={<LocaleRedirect />} />
         <Route path="/:locale" element={<LocaleLayout />}>
           {/* Public site + customer account: branded chrome (header/footer) */}
@@ -63,7 +66,9 @@ export default function App() {
               <Route path="bookings" element={<MyBookingsPage />} />
               <Route path="bookings/:bookingNumber" element={<BookingDetailPage />} />
               <Route path="profile" element={<ProfilePage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
 
           {/* Admin area: own dashboard shell, no public chrome. The guard
@@ -87,10 +92,12 @@ export default function App() {
             <Route path="calendar" element={<AdminCalendarPage />} />
             <Route path="customers" element={<AdminCustomersPage />} />
             <Route path="customers/:customerId" element={<AdminCustomerDetailPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Route>
         <Route path="*" element={<LocaleRedirect />} />
       </Routes>
-    </AuthProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   )
 }

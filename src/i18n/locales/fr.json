@@ -264,7 +264,8 @@
     "color_max": "La couleur est trop longue (50 caractères maximum).",
     "sort_order_required": "L'ordre d'affichage est requis.",
     "sort_order_invalid": "L'ordre d'affichage doit être un entier positif.",
-    "alt_max": "Le texte alternatif est trop long (200 caractères maximum)."
+    "alt_max": "Le texte alternatif est trop long (200 caractères maximum).",
+    "admin_notes_max": "Les notes internes ne peuvent pas dépasser 2000 caractères."
   },
   "whatsapp": {
     "floating_label": "Discuter avec Caftan Zomoroda sur WhatsApp",
@@ -542,5 +543,32 @@
       "empty_body": "Aucune réservation active ou passée en {{month}}.",
       "error_load": "Impossible de charger le calendrier. Réessayez."
     }
+  },
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer.",
+    "network": "Connexion impossible. Vérifiez votre connexion internet et réessayez.",
+    "rate_limited": "Trop de tentatives. Veuillez réessayer dans quelques minutes.",
+    "session_expired": "Votre session a expiré. Veuillez vous reconnecter.",
+    "permission": "Vous n'avez pas les droits nécessaires pour cette action.",
+    "duplicate": "Ces données existent déjà.",
+    "invalid_data": "Certaines données sont invalides. Vérifiez votre saisie.",
+    "restricted": "Cette action est impossible : l'élément est encore utilisé.",
+    "not_found": "L'élément demandé est introuvable ou a été supprimé.",
+    "booking_overlap": "Ce caftan est déjà réservé sur cette période.",
+    "auth_invalid_credentials": "Email ou mot de passe incorrect.",
+    "auth_email_not_confirmed": "Veuillez confirmer votre email avant de vous connecter.",
+    "auth_email_taken": "Un compte existe déjà avec cet email.",
+    "auth_password_weak": "Le mot de passe est trop court.",
+    "auth_generic": "Une erreur est survenue. Veuillez réessayer.",
+    "not_configured": "Backend non configuré.",
+    "page_title": "Une erreur inattendue est survenue",
+    "page_body": "Nous sommes désolés, quelque chose s'est mal passé. Vous pouvez réessayer ou revenir à l'accueil.",
+    "back_home": "Retour à l'accueil"
+  },
+  "notfound": {
+    "title": "Page introuvable",
+    "body": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "back": "Retour",
+    "home": "Retour à l'accueil"
   }
 }

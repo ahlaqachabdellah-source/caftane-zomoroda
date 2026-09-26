@@ -31,8 +31,12 @@ export function useCreateBooking() {
   const [submitting, setSubmitting] = useState(false)
 
   async function createBooking(input: CreateBookingInput): Promise<CreateBookingResult> {
-    if (!supabase || !session) {
+    if (!supabase) {
       return { booking: null, errorKey: 'booking.error_generic' }
+    }
+    if (!session) {
+      // Session expired between page load and submit — ask to sign in again.
+      return { booking: null, errorKey: 'errors.session_expired' }
     }
     setSubmitting(true)
     const { data, error } = await supabase

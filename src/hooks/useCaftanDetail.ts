@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { CatalogCaftan } from '@/lib/caftans'
+import { mapSupabaseError, withRetry } from '@/lib/errors'
 
 /**
  * Single caftan by slug (Phase 5) — detail page data.
@@ -25,19 +26,20 @@ export function useCaftanDetail(slug: string | undefined): UseCaftanDetailResult
       if (!slug) setNotFound(true)
       return
     }
+    const client = supabase
     setLoading(true)
     setError(null)
     setNotFound(false)
 
-    const { data, error: queryError } = await supabase
+    const { data, error: queryError } = await withRetry(() => client
       .from('caftans')
       .select('*, category:categories(*), images:caftan_images(*)')
       .eq('slug', slug)
       .neq('status', 'retired')
-      .maybeSingle()
+      .maybeSingle())
 
     if (queryError) {
-      setError(queryError.message)
+      setError(mapSupabaseError(queryError, 'catalog.error_body'))
     } else if (!data) {
       setNotFound(true)
     } else {

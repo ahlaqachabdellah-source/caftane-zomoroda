@@ -50,7 +50,9 @@ describe('useMyBookings', () => {
     const { result } = renderHook(() => useMyBookings())
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(result.current.bookings).toHaveLength(0)
-    expect(result.current.error).toBe('permission denied')
+    // Phase 12: raw PostgREST messages never leave the mapping layer —
+    // the state carries a safe translation key.
+    expect(result.current.error).toBe('account.error_body')
   })
 })
 

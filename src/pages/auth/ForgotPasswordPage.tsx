@@ -63,7 +63,7 @@ export default function ForgotPasswordPage() {
       )}
       {serverError && (
         <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {serverError}
+          {t(serverError)}
         </p>
       )}
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">

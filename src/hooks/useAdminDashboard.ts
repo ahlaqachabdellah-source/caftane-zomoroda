@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { AdminActivityEvent, AdminKpis } from '@/types/admin'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin overview data (Phase 9) — KPIs and the recent-activity feed.
@@ -27,12 +28,13 @@ export function useAdminDashboard(): UseAdminDashboardResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
     const [kpiResult, activityResult] = await Promise.all([
-      supabase.rpc('admin_dashboard_kpis'),
-      supabase.rpc('admin_recent_activity', { p_limit: ACTIVITY_LIMIT }),
+      withRetry(() => client.rpc('admin_dashboard_kpis')),
+      withRetry(() => client.rpc('admin_recent_activity', { p_limit: ACTIVITY_LIMIT })),
     ])
 
     if (kpiResult.error || activityResult.error) {

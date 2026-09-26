@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import { mapSupabaseError } from '@/lib/errors'
 import type { Booking } from '@/types/database.types'
 
 /**
@@ -38,7 +39,10 @@ export function useCancelBooking() {
     if (error) {
       return {
         booking: null,
-        errorKey: error.code === 'PGRST116' ? 'account.cancel_not_allowed' : 'account.cancel_failed',
+        errorKey:
+          error.code === 'PGRST116'
+            ? 'account.cancel_not_allowed'
+            : mapSupabaseError(error, 'account.cancel_failed'),
       }
     }
     return { booking: data, errorKey: null }

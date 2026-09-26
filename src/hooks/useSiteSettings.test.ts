@@ -69,6 +69,6 @@ describe('useSiteSettings', () => {
     const { result } = renderHook(() => useSiteSettings())
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(result.current.settings).toBeNull()
-    expect(result.current.error).toBe('permission denied')
+    expect(result.current.error).toBe('errors.generic')
   })
 })

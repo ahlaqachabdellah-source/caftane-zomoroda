@@ -96,7 +96,9 @@ describe('useUpdateProfile', () => {
     })
 
     expect(outcome?.profile).toBeNull()
-    expect(outcome?.errorKey).toBe('account.profile_error')
+    // 42501 is now mapped by the shared layer to the permission message;
+    // unknown errors still fall back to the profile-specific generic key.
+    expect(outcome?.errorKey).toBe('errors.permission')
     expect(mocks.refreshProfile).not.toHaveBeenCalled()
   })
 })

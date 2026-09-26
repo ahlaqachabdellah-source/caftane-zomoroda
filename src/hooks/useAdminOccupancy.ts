@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { AdminOccupancyRow } from '@/types/admin'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin occupancy feed (Phase 11) — real bookings overlapping a date
@@ -21,13 +22,14 @@ export function useAdminOccupancy(from: string, to: string): UseAdminOccupancyRe
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
-    const { data, error: rpcError } = await supabase.rpc('admin_caftan_occupancy', {
+    const { data, error: rpcError } = await withRetry(() => client.rpc('admin_caftan_occupancy', {
       p_from: from,
       p_to: to,
-    })
+    }))
 
     if (rpcError) {
       setError('admin.calendar.error_load')

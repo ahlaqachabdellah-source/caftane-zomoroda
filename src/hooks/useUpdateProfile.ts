@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import { mapSupabaseError } from '@/lib/errors'
 import { useAuth } from '@/hooks/useAuth'
 import type { Profile } from '@/types/database.types'
 
@@ -42,7 +43,9 @@ export function useUpdateProfile() {
     setSaving(false)
 
     if (error) {
-      return { profile: null, errorKey: 'account.profile_error' }
+      // Phase 12: shared mapping — expired sessions / network failures get
+      // their specific localized message, anything else stays generic.
+      return { profile: null, errorKey: mapSupabaseError(error, 'account.profile_error') }
     }
     // Keep the shared auth state (header greeting etc.) in sync.
     await refreshProfile()

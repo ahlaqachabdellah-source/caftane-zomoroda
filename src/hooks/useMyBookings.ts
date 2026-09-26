@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { CatalogCaftan } from '@/lib/caftans'
 import type { Booking } from '@/types/database.types'
+import { mapSupabaseError, withRetry } from '@/lib/errors'
 
 /**
  * The authenticated customer's own bookings (Phase 7).
@@ -28,16 +29,17 @@ export function useMyBookings(): UseMyBookingsResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
-    const { data, error: queryError } = await supabase
+    const { data, error: queryError } = await withRetry(() => client
       .from('bookings')
       .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false }))
 
     if (queryError) {
-      setError(queryError.message)
+      setError(mapSupabaseError(queryError, 'account.error_body'))
     } else {
       setBookings((data ?? []) as MyBooking[])
     }

@@ -99,7 +99,7 @@ describe('RegisterPage', () => {
   })
 
   it('displays the server error returned by signUp', async () => {
-    signUp.mockResolvedValueOnce({ error: 'Un compte existe déjà avec cet email.' })
+    signUp.mockResolvedValueOnce({ error: 'errors.auth_email_taken' })
     setup()
     await fillValidForm()
     await userEvent.type(screen.getByLabelText('Confirmer le mot de passe'), 'motdepasse8')

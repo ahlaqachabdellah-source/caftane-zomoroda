@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { AdminCustomerListItem, AdminCustomerDetail } from '@/types/admin'
+import { withRetry } from '@/lib/errors'
 
 /**
  * Admin customer list (Phase 11) — profiles with role='customer' plus
@@ -21,10 +22,11 @@ export function useAdminCustomers(): UseAdminCustomersResult {
 
   const load = useCallback(async () => {
     if (!supabase) return
+    const client = supabase
     setLoading(true)
     setError(null)
 
-    const { data, error: rpcError } = await supabase.rpc('admin_list_customers')
+    const { data, error: rpcError } = await withRetry(() => client.rpc('admin_list_customers'))
 
     if (rpcError) {
       setError('admin.customers.error_load')

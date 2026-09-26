@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import type { MyBooking } from '@/hooks/useMyBookings'
 import type { BookingStatusHistory } from '@/types/database.types'
+import { mapSupabaseError, withRetry } from '@/lib/errors'
 
 /**
  * One of the customer's own bookings, addressed by its public booking
@@ -30,18 +31,19 @@ export function useBookingDetail(bookingNumber: string | undefined): UseBookingD
       if (!bookingNumber) setNotFound(true)
       return
     }
+    const client = supabase
     setLoading(true)
     setError(null)
     setNotFound(false)
 
-    const { data, error: bookingError } = await supabase
+    const { data, error: bookingError } = await withRetry(() => client
       .from('bookings')
       .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
       .eq('booking_number', bookingNumber)
-      .maybeSingle()
+      .maybeSingle())
 
     if (bookingError) {
-      setError(bookingError.message)
+      setError(mapSupabaseError(bookingError, 'account.error_body'))
       setLoading(false)
       return
     }
@@ -55,14 +57,14 @@ export function useBookingDetail(bookingNumber: string | undefined): UseBookingD
 
     setBooking(data as MyBooking)
 
-    const { data: historyRows, error: historyError } = await supabase
+    const { data: historyRows, error: historyError } = await withRetry(() => client
       .from('booking_status_history')
       .select('*')
       .eq('booking_id', data.id)
-      .order('created_at', { ascending: true })
+      .order('created_at', { ascending: true }))
 
     if (historyError) {
-      setError(historyError.message)
+      setError(mapSupabaseError(historyError, 'account.error_body'))
     } else {
       setHistory((historyRows ?? []) as BookingStatusHistory[])
     }
