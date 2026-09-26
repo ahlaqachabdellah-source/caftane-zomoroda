@@ -335,6 +335,14 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
+      admin_dashboard_kpis: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      admin_recent_activity: {
+        Args: { p_limit?: number }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

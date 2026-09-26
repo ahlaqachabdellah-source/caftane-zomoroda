@@ -14,7 +14,8 @@
     "login": "تسجيل الدخول",
     "account": "حسابي",
     "primary_aria": "التنقل الرئيسي",
-    "mobile_aria": "قائمة الجوال"
+    "mobile_aria": "قائمة الجوال",
+    "admin": "الإدارة"
   },
   "catalog": {
     "kicker": "المجموعة",
@@ -254,5 +255,41 @@
     "floating_message": "مرحباً قفطان زمردة، أودّ الاستفسار عن كراء القفطان.",
     "booking_cta": "اسألي عبر واتساب",
     "booking_message": "مرحباً قفطان زمردة، أودّ الاستفسار عن حجزي {{number}}."
+  },
+  "admin": {
+    "shell_title": "لوحة الإدارة",
+    "shell_aria": "قفطان زمردة — الإدارة",
+    "nav_aria": "تنقل لوحة الإدارة",
+    "nav_overview": "نظرة عامة",
+    "view_site": "عرض الموقع",
+    "role_badge": "إدارة",
+    "identity_fallback": "مديرة المتجر",
+    "loading": "جارٍ تحميل لوحة المعلومات",
+    "load_error_title": "تعذر تحميل لوحة المعلومات",
+    "load_error_body": "تحققي من اتصالك ثم أعيدي المحاولة.",
+    "overview_title": "نظرة عامة",
+    "overview_subtitle": "نشاط المتجر في لمحة سريعة.",
+    "kpi_bookings_month": "حجوزات هذا الشهر",
+    "kpi_bookings_month_hint": "الطلبات المستلمة منذ بداية الشهر.",
+    "kpi_revenue": "الإيرادات التقديرية",
+    "kpi_revenue_hint": "مجموع الحجوزات: {{statuses}}.",
+    "kpi_pending": "طلبات قيد الانتظار",
+    "kpi_pending_hint": "حجوزات تحتاج إلى معالجة حالياً.",
+    "top_title": "القفاطن الأكثر طلباً",
+    "top_empty_title": "لا توجد حجوزات بعد",
+    "top_empty_body": "سيظهر الترتيب مع أولى الطلبات.",
+    "top_requests_zero": "لا طلبات",
+    "top_requests_one": "طلب واحد",
+    "top_requests_two": "طلبان",
+    "top_requests_few": "{{count}} طلبات",
+    "top_requests_many": "{{count}} طلباً",
+    "top_requests_other": "{{count}} طلب",
+    "activity_title": "النشاط الأخير",
+    "activity_empty_title": "لا يوجد نشاط بعد",
+    "activity_empty_body": "ستظهر الحجوزات الجديدة وتغييرات الحالة هنا.",
+    "activity_booking_created": "حجز جديد {{number}} — {{name}}",
+    "activity_status_change": "{{number}}: {{from}} ← {{to}}",
+    "activity_customer_registered": "زبونة جديدة مسجلة: {{name}}",
+    "unknown_customer": "زبونة"
   }
 }

@@ -14,7 +14,8 @@
     "login": "Sign in",
     "account": "My account",
     "primary_aria": "Primary navigation",
-    "mobile_aria": "Mobile navigation"
+    "mobile_aria": "Mobile navigation",
+    "admin": "Admin"
   },
   "catalog": {
     "kicker": "The collection",
@@ -254,5 +255,41 @@
     "floating_message": "Hello Caftan Zomoroda, I would like to ask about caftan rental.",
     "booking_cta": "Ask on WhatsApp",
     "booking_message": "Hello Caftan Zomoroda, I would like to ask about my booking {{number}}."
+  },
+  "admin": {
+    "shell_title": "Administration",
+    "shell_aria": "Caftan Zomoroda — administration",
+    "nav_aria": "Admin navigation",
+    "nav_overview": "Overview",
+    "view_site": "View site",
+    "role_badge": "Admin",
+    "identity_fallback": "Administrator",
+    "loading": "Loading dashboard",
+    "load_error_title": "The dashboard could not be loaded",
+    "load_error_body": "Check your connection and try again.",
+    "overview_title": "Overview",
+    "overview_subtitle": "Your shop activity at a glance.",
+    "kpi_bookings_month": "Bookings this month",
+    "kpi_bookings_month_hint": "Requests received since the start of the month.",
+    "kpi_revenue": "Estimated revenue",
+    "kpi_revenue_hint": "Total of bookings: {{statuses}}.",
+    "kpi_pending": "Pending requests",
+    "kpi_pending_hint": "Bookings currently awaiting review.",
+    "top_title": "Most requested caftans",
+    "top_empty_title": "No bookings yet",
+    "top_empty_body": "The ranking will appear with the first requests.",
+    "top_requests_zero": "No requests",
+    "top_requests_one": "{{count}} request",
+    "top_requests_two": "{{count}} requests",
+    "top_requests_few": "{{count}} requests",
+    "top_requests_many": "{{count}} requests",
+    "top_requests_other": "{{count}} requests",
+    "activity_title": "Recent activity",
+    "activity_empty_title": "No activity yet",
+    "activity_empty_body": "New bookings and status changes will appear here.",
+    "activity_booking_created": "New booking {{number}} — {{name}}",
+    "activity_status_change": "{{number}}: {{from}} → {{to}}",
+    "activity_customer_registered": "New customer registered: {{name}}",
+    "unknown_customer": "Customer"
   }
 }

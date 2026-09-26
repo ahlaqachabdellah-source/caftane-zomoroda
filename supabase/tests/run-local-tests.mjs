@@ -74,7 +74,7 @@ async function main() {
     await runFile(admin, path.join(supabaseDir, 'seed.sql'))
     await runFile(admin, path.join(__dirname, 'local', '02_test_users.sql'))
 
-    console.log('\n[4/4] RLS / constraint / booking suites (as unprivileged role)')
+    console.log('\n[4/4] RLS / constraint / booking / account / admin suites (as unprivileged role)')
     const tester = await connect({
       host: '127.0.0.1', port: PORT,
       user: 'tester', password: 'tester', database: 'postgres',
@@ -83,8 +83,11 @@ async function main() {
     await runFile(tester, path.join(__dirname, 'phase1_rls_tests.sql'))
     await runFile(tester, path.join(__dirname, 'phase6_booking_tests.sql'))
     await runFile(tester, path.join(__dirname, 'phase7_account_tests.sql'))
+    await runFile(tester, path.join(__dirname, 'phase9_admin_tests.sql'))
+    await runFile(tester, path.join(__dirname, 'phase9b_admin_reaction_setup.sql'))
+    await runFile(tester, path.join(__dirname, 'phase9c_admin_reaction_assert.sql'))
 
-    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + phase 6 + phase 7)')
+    console.log('\nRESULT: ALL DB TESTS PASSED (phase 1 + phase 6 + phase 7 + phase 9)')
   } catch (err) {
     console.error('\nRESULT: DB TEST RUN FAILED')
     console.error(err.message || err)

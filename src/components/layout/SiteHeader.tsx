@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Menu, UserRound, X } from 'lucide-react'
+import { Menu, ShieldCheck, UserRound, X } from 'lucide-react'
 import Logo from '@/components/brand/Logo'
 import LanguageSwitcher from '@/components/i18n/LanguageSwitcher'
 import { useAuth } from '@/hooks/useAuth'
@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils'
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { t } = useTranslation()
-  const { session, loading } = useAuth()
+  const { session, isAdmin, loading } = useAuth()
   const { localePath } = useLocale()
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -46,6 +46,17 @@ export default function SiteHeader() {
     </Link>
   )
 
+  // Admins get a direct entry point to the dashboard (Phase 9).
+  const adminLink = isAdmin ? (
+    <Link
+      to={localePath('/admin')}
+      className="inline-flex h-10 items-center gap-2 rounded-md px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+    >
+      <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+      {t('nav.admin')}
+    </Link>
+  ) : null
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
@@ -65,7 +76,12 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-1">
           <LanguageSwitcher className="hidden md:inline-flex" />
-          {!loading && <div className="hidden md:block">{accountLink}</div>}
+          {!loading && (
+            <div className="hidden items-center md:flex">
+              {adminLink}
+              {accountLink}
+            </div>
+          )}
 
           <button
             type="button"
@@ -96,7 +112,12 @@ export default function SiteHeader() {
               <NavLink to={localePath('/caftans')} className={navLinkClass}>
                 {t('nav.collection')}
               </NavLink>
-              {!loading && accountLink}
+              {!loading && (
+                <>
+                  {adminLink}
+                  {accountLink}
+                </>
+              )}
               <LanguageSwitcher />
             </div>
           </div>

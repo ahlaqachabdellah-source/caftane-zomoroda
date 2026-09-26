@@ -14,7 +14,8 @@
     "login": "Connexion",
     "account": "Mon compte",
     "primary_aria": "Navigation principale",
-    "mobile_aria": "Navigation mobile"
+    "mobile_aria": "Navigation mobile",
+    "admin": "Admin"
   },
   "catalog": {
     "kicker": "La collection",
@@ -254,5 +255,41 @@
     "floating_message": "Bonjour Caftan Zomoroda, j'aimerais un renseignement sur la location de caftans.",
     "booking_cta": "Poser une question sur WhatsApp",
     "booking_message": "Bonjour Caftan Zomoroda, je souhaite poser une question au sujet de ma réservation {{number}}."
+  },
+  "admin": {
+    "shell_title": "Administration",
+    "shell_aria": "Caftan Zomoroda — administration",
+    "nav_aria": "Navigation d'administration",
+    "nav_overview": "Vue d'ensemble",
+    "view_site": "Voir le site",
+    "role_badge": "Admin",
+    "identity_fallback": "Administratrice",
+    "loading": "Chargement du tableau de bord",
+    "load_error_title": "Le tableau de bord n'a pas pu être chargé",
+    "load_error_body": "Vérifiez votre connexion puis réessayez.",
+    "overview_title": "Vue d'ensemble",
+    "overview_subtitle": "L'activité de la boutique en un coup d'œil.",
+    "kpi_bookings_month": "Réservations ce mois-ci",
+    "kpi_bookings_month_hint": "Demandes reçues depuis le début du mois.",
+    "kpi_revenue": "Revenu estimé",
+    "kpi_revenue_hint": "Total des réservations : {{statuses}}.",
+    "kpi_pending": "Demandes en attente",
+    "kpi_pending_hint": "Réservations à traiter actuellement.",
+    "top_title": "Caftans les plus demandés",
+    "top_empty_title": "Aucune réservation pour le moment",
+    "top_empty_body": "Le classement apparaîtra dès les premières demandes.",
+    "top_requests_zero": "Aucune demande",
+    "top_requests_one": "{{count}} demande",
+    "top_requests_two": "{{count}} demandes",
+    "top_requests_few": "{{count}} demandes",
+    "top_requests_many": "{{count}} demandes",
+    "top_requests_other": "{{count}} demandes",
+    "activity_title": "Activité récente",
+    "activity_empty_title": "Aucune activité pour le moment",
+    "activity_empty_body": "Les nouvelles réservations et les changements de statut apparaîtront ici.",
+    "activity_booking_created": "Nouvelle réservation {{number}} — {{name}}",
+    "activity_status_change": "{{number}} : {{from}} → {{to}}",
+    "activity_customer_registered": "Nouvelle cliente inscrite : {{name}}",
+    "unknown_customer": "Cliente"
   }
 }
