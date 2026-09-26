@@ -6,7 +6,9 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  // Absolute base: locale-prefixed routes (/fr/login, /ar/account…) are two
+  // levels deep, so relative asset URLs would resolve to /fr/assets/* and 404.
+  base: '/',
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,

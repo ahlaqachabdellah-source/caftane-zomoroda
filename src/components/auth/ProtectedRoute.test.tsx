@@ -45,7 +45,7 @@ function renderGuard(requireAdmin = false) {
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<div>PAGE CONNEXION</div>} />
+        <Route path="/fr/login" element={<div>PAGE CONNEXION</div>} />
         <Route path="/" element={<div>ACCUEIL</div>} />
       </Routes>
     </MemoryRouter>,

@@ -1,0 +1,91 @@
+{
+  "common": {
+    "tagline": "Location de caftans",
+    "loading": "Chargement",
+    "back_home": "Retour à l'accueil",
+    "menu_open": "Ouvrir le menu",
+    "menu_close": "Fermer le menu",
+    "language": "Langue",
+    "home_aria": "Caftan Zomoroda — accueil"
+  },
+  "nav": {
+    "login": "Connexion",
+    "account": "Mon compte"
+  },
+  "footer": {
+    "rights": "© {{year}} Caftan Zomoroda — Location de caftans"
+  },
+  "home": {
+    "kicker": "Location de Caftans",
+    "title": "Caftan Zomoroda",
+    "body": "La boutique en ligne est en cours de construction. Le catalogue arrive dans les prochaines phases."
+  },
+  "auth": {
+    "login_title": "Connexion",
+    "login_subtitle": "Accédez à votre compte Caftan Zomoroda",
+    "email": "Email",
+    "email_ph": "vous@exemple.com",
+    "password": "Mot de passe",
+    "password_forgot": "Mot de passe oublié ?",
+    "submit_login": "Se connecter",
+    "no_account": "Pas encore de compte ?",
+    "create_account": "Créer un compte",
+    "register_title": "Créer un compte",
+    "register_subtitle": "Réservez vos caftans en quelques clics",
+    "full_name": "Nom complet",
+    "full_name_ph": "Votre nom et prénom",
+    "phone": "Téléphone / WhatsApp",
+    "optional": "(optionnel)",
+    "phone_ph": "+212 6 00 00 00 00",
+    "password_confirm": "Confirmer le mot de passe",
+    "submit_register": "Créer mon compte",
+    "have_account": "Déjà un compte ?",
+    "verify_email_title": "Vérifiez votre email",
+    "verify_email_body": "Un email de confirmation a été envoyé à {{email}}. Cliquez sur le lien qu'il contient pour activer votre compte.",
+    "already_confirmed": "Déjà confirmé ?",
+    "backend_notice": "Le backend n'est pas encore configuré (variables Supabase manquantes).",
+    "forgot_title": "Mot de passe oublié",
+    "forgot_subtitle": "Nous vous enverrons un lien de réinitialisation",
+    "submit_reset_link": "Envoyer le lien",
+    "reset_sent_title": "Email envoyé",
+    "reset_sent_body": "Si un compte est associé à {{email}}, vous recevrez un lien de réinitialisation dans quelques minutes.",
+    "back_to_login": "Retour à la connexion",
+    "reset_title": "Nouveau mot de passe",
+    "reset_subtitle": "Choisissez un mot de passe sécurisé",
+    "new_password": "Nouveau mot de passe",
+    "submit_update_password": "Mettre à jour",
+    "reset_done_title": "Mot de passe mis à jour",
+    "reset_done_body": "Votre mot de passe a été modifié avec succès.",
+    "go_to_account": "Aller à mon compte",
+    "reset_invalid_title": "Lien invalide ou expiré",
+    "reset_invalid_body": "Ce lien de réinitialisation n'est plus valide. Demandez un nouveau lien.",
+    "request_new_link": "Demander un nouveau lien"
+  },
+  "account": {
+    "title": "Mon compte",
+    "greeting_named": "Bonjour {{name}} — bienvenue dans votre espace Caftan Zomoroda.",
+    "greeting_plain": "Bonjour — bienvenue dans votre espace Caftan Zomoroda.",
+    "sign_out": "Se déconnecter",
+    "profile_section": "Profil",
+    "name_label": "Nom complet",
+    "email_label": "Email",
+    "phone_label": "Téléphone / WhatsApp",
+    "city_label": "Ville",
+    "role_label": "Type de compte",
+    "role_admin": "Administrateur",
+    "role_customer": "Cliente",
+    "not_provided": "—"
+  },
+  "guards": {
+    "access_denied_title": "Accès réservé",
+    "access_denied_body": "Cette section est réservée à l'administration de Caftan Zomoroda."
+  },
+  "validation": {
+    "email_invalid": "Adresse email invalide",
+    "password_required": "Mot de passe requis",
+    "name_min": "Le nom complet est requis (2 caractères minimum)",
+    "phone_invalid": "Numéro de téléphone invalide",
+    "password_min": "Le mot de passe doit contenir au moins 8 caractères",
+    "password_mismatch": "Les mots de passe ne correspondent pas"
+  }
+}

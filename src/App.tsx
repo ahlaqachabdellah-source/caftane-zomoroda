@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import LocaleLayout from '@/components/i18n/LocaleLayout'
+import LocaleRedirect from '@/components/i18n/LocaleRedirect'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
 import Home from './pages/Home'
@@ -17,19 +19,23 @@ export default function App() {
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route
-              path="/account"
-              element={
-                <ProtectedRoute>
-                  <AccountOverviewPage />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/" element={<LocaleRedirect />} />
+            <Route path="/:locale" element={<LocaleLayout />}>
+              <Route index element={<Home />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="register" element={<RegisterPage />} />
+              <Route path="forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="reset-password" element={<ResetPasswordPage />} />
+              <Route
+                path="account"
+                element={
+                  <ProtectedRoute>
+                    <AccountOverviewPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+            <Route path="*" element={<LocaleRedirect />} />
           </Routes>
         </div>
         <SiteFooter />

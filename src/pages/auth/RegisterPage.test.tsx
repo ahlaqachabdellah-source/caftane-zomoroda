@@ -28,8 +28,8 @@ function setup() {
     <MemoryRouter initialEntries={['/register']}>
       <Routes>
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/account" element={<div>MON COMPTE</div>} />
-        <Route path="/login" element={<div>CONNEXION</div>} />
+        <Route path="/fr/account" element={<div>MON COMPTE</div>} />
+        <Route path="/fr/login" element={<div>CONNEXION</div>} />
       </Routes>
     </MemoryRouter>,
   )
@@ -86,7 +86,7 @@ describe('RegisterPage', () => {
       phone: '+212612345678',
     })
     expect(await screen.findByText('Vérifiez votre email')).toBeInTheDocument()
-    expect(screen.getByText('fatima@example.com')).toBeInTheDocument()
+    expect(screen.getByText(/fatima@example\.com/)).toBeInTheDocument()
   })
 
   it('navigates straight to the account when a session is returned immediately', async () => {

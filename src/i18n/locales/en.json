@@ -1,0 +1,91 @@
+{
+  "common": {
+    "tagline": "Caftan rental",
+    "loading": "Loading",
+    "back_home": "Back to home",
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "language": "Language",
+    "home_aria": "Caftan Zomoroda — home"
+  },
+  "nav": {
+    "login": "Sign in",
+    "account": "My account"
+  },
+  "footer": {
+    "rights": "© {{year}} Caftan Zomoroda — Caftan rental"
+  },
+  "home": {
+    "kicker": "Caftan Rental",
+    "title": "Caftan Zomoroda",
+    "body": "The online store is under construction. The catalogue arrives in the next phases."
+  },
+  "auth": {
+    "login_title": "Sign in",
+    "login_subtitle": "Access your Caftan Zomoroda account",
+    "email": "Email",
+    "email_ph": "you@example.com",
+    "password": "Password",
+    "password_forgot": "Forgot your password?",
+    "submit_login": "Sign in",
+    "no_account": "No account yet?",
+    "create_account": "Create an account",
+    "register_title": "Create an account",
+    "register_subtitle": "Book your caftan in a few clicks",
+    "full_name": "Full name",
+    "full_name_ph": "Your full name",
+    "phone": "Phone / WhatsApp",
+    "optional": "(optional)",
+    "phone_ph": "+212 6 00 00 00 00",
+    "password_confirm": "Confirm password",
+    "submit_register": "Create my account",
+    "have_account": "Already have an account?",
+    "verify_email_title": "Check your email",
+    "verify_email_body": "A confirmation email has been sent to {{email}}. Click the link it contains to activate your account.",
+    "already_confirmed": "Already confirmed?",
+    "backend_notice": "The backend is not configured yet (missing Supabase variables).",
+    "forgot_title": "Forgot your password",
+    "forgot_subtitle": "We'll send you a reset link",
+    "submit_reset_link": "Send the link",
+    "reset_sent_title": "Email sent",
+    "reset_sent_body": "If an account is linked to {{email}}, you will receive a reset link within a few minutes.",
+    "back_to_login": "Back to sign in",
+    "reset_title": "New password",
+    "reset_subtitle": "Choose a secure password",
+    "new_password": "New password",
+    "submit_update_password": "Update",
+    "reset_done_title": "Password updated",
+    "reset_done_body": "Your password has been changed successfully.",
+    "go_to_account": "Go to my account",
+    "reset_invalid_title": "Invalid or expired link",
+    "reset_invalid_body": "This reset link is no longer valid. Please request a new one.",
+    "request_new_link": "Request a new link"
+  },
+  "account": {
+    "title": "My account",
+    "greeting_named": "Hello {{name}} — welcome to your Caftan Zomoroda space.",
+    "greeting_plain": "Hello — welcome to your Caftan Zomoroda space.",
+    "sign_out": "Sign out",
+    "profile_section": "Profile",
+    "name_label": "Full name",
+    "email_label": "Email",
+    "phone_label": "Phone / WhatsApp",
+    "city_label": "City",
+    "role_label": "Account type",
+    "role_admin": "Administrator",
+    "role_customer": "Customer",
+    "not_provided": "—"
+  },
+  "guards": {
+    "access_denied_title": "Restricted area",
+    "access_denied_body": "This section is reserved for Caftan Zomoroda administration."
+  },
+  "validation": {
+    "email_invalid": "Invalid email address",
+    "password_required": "Password is required",
+    "name_min": "Full name is required (2 characters minimum)",
+    "phone_invalid": "Invalid phone number",
+    "password_min": "Password must be at least 8 characters",
+    "password_mismatch": "Passwords do not match"
+  }
+}

@@ -7,6 +7,8 @@ import {
 } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { isSupabaseConfigured, supabase } from '@/lib/supabaseClient'
+import { DEFAULT_LOCALE, isSupportedLocale } from '@/lib/locale'
+import i18n from '@/i18n'
 import type { Profile } from '@/types/database.types'
 import { AuthContext, type AuthContextValue } from './auth-context'
 
@@ -119,8 +121,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const sendPasswordReset = useCallback<AuthContextValue['sendPasswordReset']>(
     async (email) => {
       if (!supabase) return { error: 'Backend non configuré.' }
+      const locale = isSupportedLocale(i18n.language) ? i18n.language : DEFAULT_LOCALE
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: `${window.location.origin}/${locale}/reset-password`,
       })
       if (error) return { error: mapAuthError(error.message) }
       return { error: null }

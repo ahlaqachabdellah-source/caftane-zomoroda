@@ -28,9 +28,9 @@ function setup(signInImpl?: typeof signIn) {
     <MemoryRouter initialEntries={['/login']}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/account" element={<div>MON COMPTE</div>} />
-        <Route path="/register" element={<div>INSCRIPTION</div>} />
-        <Route path="/forgot-password" element={<div>MOT DE PASSE OUBLIÉ</div>} />
+        <Route path="/fr/account" element={<div>MON COMPTE</div>} />
+        <Route path="/fr/register" element={<div>INSCRIPTION</div>} />
+        <Route path="/fr/forgot-password" element={<div>MOT DE PASSE OUBLIÉ</div>} />
       </Routes>
     </MemoryRouter>,
   )

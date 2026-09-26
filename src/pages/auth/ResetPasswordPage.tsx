@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import AuthLayout from '@/components/auth/AuthLayout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/hooks/useAuth'
+import { useLocale } from '@/hooks/useLocale'
 import { resetPasswordSchema, type ResetPasswordFormValues } from '@/lib/validation/auth'
 
 /**
@@ -18,6 +20,8 @@ import { resetPasswordSchema, type ResetPasswordFormValues } from '@/lib/validat
  */
 export default function ResetPasswordPage() {
   const { updatePassword, session, loading, configured } = useAuth()
+  const { t } = useTranslation()
+  const { localePath } = useLocale()
   const [serverError, setServerError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
 
@@ -39,14 +43,14 @@ export default function ResetPasswordPage() {
 
   if (done) {
     return (
-      <AuthLayout title="Mot de passe mis à jour">
+      <AuthLayout title={t('auth.reset_done_title')}>
         <div className="flex flex-col items-center gap-4 text-center">
           <CheckCircle2 className="h-10 w-10 text-muted-foreground" aria-hidden="true" />
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Votre mot de passe a été modifié avec succès.
+            {t('auth.reset_done_body')}
           </p>
           <Button asChild className="w-full">
-            <Link to="/account">Aller à mon compte</Link>
+            <Link to={localePath('/account')}>{t('auth.go_to_account')}</Link>
           </Button>
         </div>
       </AuthLayout>
@@ -55,13 +59,13 @@ export default function ResetPasswordPage() {
 
   if (!loading && !session) {
     return (
-      <AuthLayout title="Lien invalide ou expiré">
+      <AuthLayout title={t('auth.reset_invalid_title')}>
         <div className="flex flex-col items-center gap-4 text-center">
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Ce lien de réinitialisation n'est plus valide. Demandez un nouveau lien.
+            {t('auth.reset_invalid_body')}
           </p>
           <Button asChild className="w-full">
-            <Link to="/forgot-password">Demander un nouveau lien</Link>
+            <Link to={localePath('/forgot-password')}>{t('auth.request_new_link')}</Link>
           </Button>
         </div>
       </AuthLayout>
@@ -69,10 +73,10 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <AuthLayout title="Nouveau mot de passe" subtitle="Choisissez un mot de passe sécurisé">
+    <AuthLayout title={t('auth.reset_title')} subtitle={t('auth.reset_subtitle')}>
       {!configured && (
         <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
-          Le backend n'est pas encore configuré (variables Supabase manquantes).
+          {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
@@ -82,7 +86,7 @@ export default function ResetPasswordPage() {
       )}
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="password">Nouveau mot de passe</Label>
+          <Label htmlFor="password">{t('auth.new_password')}</Label>
           <Input
             id="password"
             type="password"
@@ -91,11 +95,11 @@ export default function ResetPasswordPage() {
             {...register('password')}
           />
           {errors.password && (
-            <p className="text-sm text-destructive">{errors.password.message}</p>
+            <p className="text-sm text-destructive">{t(errors.password.message ?? '')}</p>
           )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword">Confirmer le mot de passe</Label>
+          <Label htmlFor="confirmPassword">{t('auth.password_confirm')}</Label>
           <Input
             id="confirmPassword"
             type="password"
@@ -104,12 +108,12 @@ export default function ResetPasswordPage() {
             {...register('confirmPassword')}
           />
           {errors.confirmPassword && (
-            <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>
+            <p className="text-sm text-destructive">{t(errors.confirmPassword.message ?? '')}</p>
           )}
         </div>
         <Button type="submit" className="w-full" disabled={isSubmitting || !configured}>
           {isSubmitting && <Loader2 className="animate-spin" />}
-          Mettre à jour
+          {t('auth.submit_update_password')}
         </Button>
       </form>
     </AuthLayout>

@@ -2,16 +2,20 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { Loader2, MailCheck } from 'lucide-react'
 import AuthLayout from '@/components/auth/AuthLayout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/hooks/useAuth'
+import { useLocale } from '@/hooks/useLocale'
 import { forgotPasswordSchema, type ForgotPasswordFormValues } from '@/lib/validation/auth'
 
 export default function ForgotPasswordPage() {
   const { sendPasswordReset, configured } = useAuth()
+  const { t } = useTranslation()
+  const { localePath } = useLocale()
   const [serverError, setServerError] = useState<string | null>(null)
   const [sentTo, setSentTo] = useState<string | null>(null)
 
@@ -33,19 +37,17 @@ export default function ForgotPasswordPage() {
 
   if (sentTo) {
     return (
-      <AuthLayout title="Email envoyé">
+      <AuthLayout title={t('auth.reset_sent_title')}>
         <div className="flex flex-col items-center gap-4 text-center">
           <MailCheck className="h-10 w-10 text-muted-foreground" aria-hidden="true" />
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Si un compte est associé à{' '}
-            <span className="font-medium text-foreground">{sentTo}</span>, vous recevrez un
-            lien de réinitialisation dans quelques minutes.
+            {t('auth.reset_sent_body', { email: sentTo })}
           </p>
           <Link
-            to="/login"
+            to={localePath('/login')}
             className="text-sm font-medium text-foreground underline underline-offset-4"
           >
-            Retour à la connexion
+            {t('auth.back_to_login')}
           </Link>
         </div>
       </AuthLayout>
@@ -53,13 +55,10 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <AuthLayout
-      title="Mot de passe oublié"
-      subtitle="Nous vous enverrons un lien de réinitialisation"
-    >
+    <AuthLayout title={t('auth.forgot_title')} subtitle={t('auth.forgot_subtitle')}>
       {!configured && (
         <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
-          Le backend n'est pas encore configuré (variables Supabase manquantes).
+          {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
@@ -69,27 +68,27 @@ export default function ForgotPasswordPage() {
       )}
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t('auth.email')}</Label>
           <Input
             id="email"
             type="email"
             autoComplete="email"
-            placeholder="vous@exemple.com"
+            placeholder={t('auth.email_ph')}
             aria-invalid={Boolean(errors.email)}
             {...register('email')}
           />
           {errors.email && (
-            <p className="text-sm text-destructive">{errors.email.message}</p>
+            <p className="text-sm text-destructive">{t(errors.email.message ?? '')}</p>
           )}
         </div>
         <Button type="submit" className="w-full" disabled={isSubmitting || !configured}>
           {isSubmitting && <Loader2 className="animate-spin" />}
-          Envoyer le lien
+          {t('auth.submit_reset_link')}
         </Button>
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        <Link to="/login" className="font-medium text-foreground underline underline-offset-4">
-          ← Retour à la connexion
+        <Link to={localePath('/login')} className="font-medium text-foreground underline underline-offset-4">
+          {t('auth.back_to_login')}
         </Link>
       </p>
     </AuthLayout>

@@ -1,0 +1,91 @@
+{
+  "common": {
+    "tagline": "تأجير القفطان",
+    "loading": "جارٍ التحميل",
+    "back_home": "العودة إلى الرئيسية",
+    "menu_open": "فتح القائمة",
+    "menu_close": "إغلاق القائمة",
+    "language": "اللغة",
+    "home_aria": "قفطان زمردة — الصفحة الرئيسية"
+  },
+  "nav": {
+    "login": "تسجيل الدخول",
+    "account": "حسابي"
+  },
+  "footer": {
+    "rights": "© {{year}} قفطان زمردة — تأجير القفطان"
+  },
+  "home": {
+    "kicker": "تأجير القفطان",
+    "title": "قفطان زمردة",
+    "body": "المتجر الإلكتروني قيد الإنشاء. الكتالوج سيصل في المراحل القادمة."
+  },
+  "auth": {
+    "login_title": "تسجيل الدخول",
+    "login_subtitle": "ادخلي إلى حسابك في قفطان زمردة",
+    "email": "البريد الإلكتروني",
+    "email_ph": "you@example.com",
+    "password": "كلمة المرور",
+    "password_forgot": "نسيت كلمة المرور؟",
+    "submit_login": "دخول",
+    "no_account": "ليس لديك حساب بعد؟",
+    "create_account": "إنشاء حساب",
+    "register_title": "إنشاء حساب",
+    "register_subtitle": "احجزي قفطانك في خطوات بسيطة",
+    "full_name": "الاسم الكامل",
+    "full_name_ph": "اسمك الكامل",
+    "phone": "الهاتف / واتساب",
+    "optional": "(اختياري)",
+    "phone_ph": "+212 6 00 00 00 00",
+    "password_confirm": "تأكيد كلمة المرور",
+    "submit_register": "إنشاء حسابي",
+    "have_account": "لديك حساب بالفعل؟",
+    "verify_email_title": "تحققي من بريدك الإلكتروني",
+    "verify_email_body": "تم إرسال رسالة تأكيد إلى {{email}}. انقري على الرابط الوارد فيها لتفعيل حسابك.",
+    "already_confirmed": "تم التأكيد؟",
+    "backend_notice": "الخادم غير مهيأ بعد (متغيرات Supabase مفقودة).",
+    "forgot_title": "نسيت كلمة المرور",
+    "forgot_subtitle": "سنرسل لك رابط إعادة التعيين",
+    "submit_reset_link": "إرسال الرابط",
+    "reset_sent_title": "تم إرسال البريد",
+    "reset_sent_body": "إذا كان هناك حساب مرتبط بـ {{email}}، فستصلك رسالة تحتوي على رابط إعادة التعيين خلال دقائق.",
+    "back_to_login": "العودة إلى تسجيل الدخول",
+    "reset_title": "كلمة مرور جديدة",
+    "reset_subtitle": "اختاري كلمة مرور آمنة",
+    "new_password": "كلمة المرور الجديدة",
+    "submit_update_password": "تحديث",
+    "reset_done_title": "تم تحديث كلمة المرور",
+    "reset_done_body": "تم تغيير كلمة المرور بنجاح.",
+    "go_to_account": "الذهاب إلى حسابي",
+    "reset_invalid_title": "رابط غير صالح أو منتهي الصلاحية",
+    "reset_invalid_body": "رابط إعادة التعيين هذا لم يعد صالحاً. اطلبي رابطاً جديداً.",
+    "request_new_link": "طلب رابط جديد"
+  },
+  "account": {
+    "title": "حسابي",
+    "greeting_named": "مرحباً {{name}} — أهلاً بك في مساحتك لدى قفطان زمردة.",
+    "greeting_plain": "مرحباً — أهلاً بك في مساحتك لدى قفطان زمردة.",
+    "sign_out": "تسجيل الخروج",
+    "profile_section": "الملف الشخصي",
+    "name_label": "الاسم الكامل",
+    "email_label": "البريد الإلكتروني",
+    "phone_label": "الهاتف / واتساب",
+    "city_label": "المدينة",
+    "role_label": "نوع الحساب",
+    "role_admin": "مديرة",
+    "role_customer": "زبونة",
+    "not_provided": "—"
+  },
+  "guards": {
+    "access_denied_title": "منطقة محجوزة",
+    "access_denied_body": "هذا القسم مخصص لإدارة قفطان زمردة."
+  },
+  "validation": {
+    "email_invalid": "عنوان البريد الإلكتروني غير صالح",
+    "password_required": "كلمة المرور مطلوبة",
+    "name_min": "الاسم الكامل مطلوب (حرفان على الأقل)",
+    "phone_invalid": "رقم الهاتف غير صالح",
+    "password_min": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
+    "password_mismatch": "كلمتا المرور غير متطابقتين"
+  }
+}
