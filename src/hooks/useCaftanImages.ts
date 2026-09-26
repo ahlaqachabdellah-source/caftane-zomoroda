@@ -20,6 +20,19 @@ function safeFileName(name: string): string {
   return cleaned.replace(/^-+|-+$/g, '') || 'image'
 }
 
+/**
+ * Client-side upload validation (Phase 13). Mirrors the bucket-level
+ * restrictions (allowed_mime_types + file_size_limit) so an invalid file
+ * is rejected before any network request; the bucket remains the final
+ * authority if this check is bypassed.
+ */
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024 // 10 MiB, matches the bucket limit
+const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif'])
+
+function isValidImageFile(file: File): boolean {
+  return ALLOWED_IMAGE_TYPES.has(file.type) && file.size > 0 && file.size <= MAX_IMAGE_BYTES
+}
+
 export function useCaftanImages(caftanId: string | undefined) {
   const [busy, setBusy] = useState(false)
 
@@ -33,6 +46,9 @@ export function useCaftanImages(caftanId: string | undefined) {
         let nextSort = existing.reduce((max, img) => Math.max(max, img.sort_order), -1) + 1
         const makePrimary = existing.length === 0
         for (const [index, file] of files.entries()) {
+          if (!isValidImageFile(file)) {
+            return { ok: false, errorKey: 'admin.images.error_invalid_file' }
+          }
           const path = `${caftanId}/${crypto.randomUUID()}-${safeFileName(file.name)}`
           const { error: uploadError } = await supabase.storage
             .from(CAFTAN_IMAGES_BUCKET)

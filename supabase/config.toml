@@ -34,6 +34,16 @@ enable_signup = true
 double_confirm_changes = true
 enable_confirmations = true
 
+# Rate limits enforced by Supabase Auth (GoTrue) on the hosted project and
+# local `supabase start` — Phase 13 hardening against credential brute-force
+# and confirmation/recovery email flooding. Values are per-hour per-IP and
+# stay well above normal usage. (The embedded DB test harness does not
+# parse this file.)
+[auth.rate_limit]
+email_sent = 10
+sign_in_sign_ups = 30
+token_refresh = 150
+
 [auth.email.template.confirmation]
 subject = "Confirmez votre inscription — Caftan Zomoroda"
 content_path = "./templates/confirmation.html"

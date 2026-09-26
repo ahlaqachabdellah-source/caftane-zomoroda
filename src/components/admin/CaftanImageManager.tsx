@@ -128,7 +128,7 @@ export default function CaftanImageManager({ caftanId, images, onChanged }: Caft
           <input
             ref={fileInput}
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp,image/avif"
             multiple
             className="sr-only"
             aria-label={t('admin.images.upload_aria')}

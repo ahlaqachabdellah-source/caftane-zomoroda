@@ -394,6 +394,7 @@
       "notice_primary": "Primary image updated.",
       "notice_alt_saved": "Alt text saved.",
       "error_upload": "Upload failed. Check the file and try again.",
+      "error_invalid_file": "Invalid image format or size. Use a JPEG, PNG, WebP or AVIF image up to 10 MB.",
       "error_delete": "Image deletion failed. Try again.",
       "error_reorder": "Reordering failed. Try again.",
       "error_primary": "Changing the primary image failed. Try again.",

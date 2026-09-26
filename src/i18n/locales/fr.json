@@ -394,6 +394,7 @@
       "notice_primary": "Image principale mise à jour.",
       "notice_alt_saved": "Texte alternatif enregistré.",
       "error_upload": "Le téléversement a échoué. Vérifiez le fichier puis réessayez.",
+      "error_invalid_file": "Format ou taille d'image non valide. Utilisez une image JPEG, PNG, WebP ou AVIF de 10 Mo maximum.",
       "error_delete": "La suppression de l'image a échoué. Réessayez.",
       "error_reorder": "Le réordonnancement a échoué. Réessayez.",
       "error_primary": "Le changement d'image principale a échoué. Réessayez.",

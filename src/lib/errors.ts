@@ -67,6 +67,7 @@ export function mapSupabaseError(
   }
 
   // Booking conflicts & invalid data.
+  if (message.includes('booking_rate_limited')) return 'errors.rate_limited'
   if (code === '23P01' || message.includes('no_overlapping_active_bookings')) {
     return 'errors.booking_overlap'
   }

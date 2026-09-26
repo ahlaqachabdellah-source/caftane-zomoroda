@@ -58,6 +58,11 @@ create table if not exists storage.buckets (
   created_at timestamptz not null default now()
 );
 
+-- Supabase bucket hardening columns (real storage.buckets has many more;
+-- only the ones migrations touch are stubbed).
+alter table storage.buckets add column if not exists allowed_mime_types text[];
+alter table storage.buckets add column if not exists file_size_limit bigint;
+
 create table if not exists storage.objects (
   id         uuid primary key default gen_random_uuid(),
   bucket_id  text references storage.buckets (id) on delete cascade,
