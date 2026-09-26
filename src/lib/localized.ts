@@ -21,3 +21,14 @@ export function localizedText(value: Json, locale: Locale): string {
   }
   return ''
 }
+
+/**
+ * Reads a single language from a translatable jsonb column WITHOUT fallback.
+ * Used by admin screens that display/search each language explicitly.
+ */
+export function nameInLocale(value: Json, lang: Locale): string {
+  if (typeof value === 'string') return value
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return ''
+  const text = (value as Record<string, unknown>)[lang]
+  return typeof text === 'string' ? text : ''
+}

@@ -19,6 +19,9 @@ import BookingDetailPage from './pages/account/BookingDetailPage'
 import ProfilePage from './pages/account/ProfilePage'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminOverviewPage from './pages/admin/AdminOverviewPage'
+import AdminCaftansPage from './pages/admin/AdminCaftansPage'
+import AdminCaftanFormPage from './pages/admin/AdminCaftanFormPage'
+import AdminCategoriesPage from './pages/admin/AdminCategoriesPage'
 
 export default function App() {
   return (
@@ -70,6 +73,10 @@ export default function App() {
             }
           >
             <Route index element={<AdminOverviewPage />} />
+            <Route path="caftans" element={<AdminCaftansPage />} />
+            <Route path="caftans/new" element={<AdminCaftanFormPage />} />
+            <Route path="caftans/:caftanId/edit" element={<AdminCaftanFormPage />} />
+            <Route path="categories" element={<AdminCategoriesPage />} />
           </Route>
         </Route>
         <Route path="*" element={<LocaleRedirect />} />
