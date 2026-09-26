@@ -1,20 +1,19 @@
-import { useState } from 'react'
-import '../App.css'
-
 export default function Home() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <main className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md text-center space-y-6">
+        <p className="text-xs sm:text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
+          Location de Caftans
         </p>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground">
+          Caftan Rental
+        </h1>
+        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          Foundation ready — database schema, security policies and seed data
+          are in place. The storefront is built in the next phases.
+        </p>
+        <div className="mx-auto h-px w-16 bg-border" aria-hidden="true" />
       </div>
-    </>
+    </main>
   )
 }
