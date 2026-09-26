@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { localizedText } from '@/lib/localized'
+import { buildWhatsappLink } from '@/lib/whatsapp'
 import type { CatalogCaftan } from '@/lib/caftans'
 
 /**
@@ -33,12 +34,15 @@ export default function BookingCta({ caftan }: { caftan: CatalogCaftan }) {
     )
   }
 
-  const whatsapp = settings?.whatsapp_number?.trim()
-  const whatsappLink = whatsapp ? (
+  // Phase 8: centralized builder handles Moroccan formats and encoding;
+  // an unconfigured/invalid number simply hides the link.
+  const whatsappHref = buildWhatsappLink(
+    settings?.whatsapp_number,
+    t('catalog.whatsapp_message', { name: localizedText(caftan.name, locale) }),
+  )
+  const whatsappLink = whatsappHref ? (
     <a
-      href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-        t('catalog.whatsapp_message', { name: localizedText(caftan.name, locale) }),
-      )}`}
+      href={whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"

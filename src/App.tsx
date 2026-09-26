@@ -5,6 +5,7 @@ import LocaleLayout from '@/components/i18n/LocaleLayout'
 import LocaleRedirect from '@/components/i18n/LocaleRedirect'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
+import WhatsAppFloat from '@/components/WhatsAppFloat'
 import Home from './pages/Home'
 import CatalogPage from './pages/catalog/CatalogPage'
 import CaftanDetailPage from './pages/catalog/CaftanDetailPage'
@@ -61,6 +62,7 @@ export default function App() {
           </Routes>
         </div>
         <SiteFooter />
+        <WhatsAppFloat />
       </div>
     </AuthProvider>
   )

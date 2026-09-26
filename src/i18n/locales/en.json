@@ -248,5 +248,11 @@
     "start_in_past": "Start date cannot be in the past",
     "end_before_start": "End date must be after the start date",
     "notes_max": "500 characters maximum"
+  },
+  "whatsapp": {
+    "floating_label": "Chat with Caftan Zomoroda on WhatsApp",
+    "floating_message": "Hello Caftan Zomoroda, I would like to ask about caftan rental.",
+    "booking_cta": "Ask on WhatsApp",
+    "booking_message": "Hello Caftan Zomoroda, I would like to ask about my booking {{number}}."
   }
 }

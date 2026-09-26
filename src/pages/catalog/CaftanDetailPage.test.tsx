@@ -149,6 +149,31 @@ describe('CaftanDetailPage', () => {
     expect(link.getAttribute('href')).toContain(encodeURIComponent('« Caftan Andalou Rouge »'))
   })
 
+  it('normalizes a Moroccan local 06 number from site_settings', () => {
+    mockUseSiteSettings.mockReturnValue({
+      settings: { whatsapp_number: '0612 345 678' },
+      loading: false,
+      error: null,
+    })
+    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    renderDetail()
+    expect(screen.getByRole('link', { name: /WhatsApp/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('https://wa.me/212612345678?text='),
+    )
+  })
+
+  it('hides the WhatsApp link when the configured number is invalid', () => {
+    mockUseSiteSettings.mockReturnValue({
+      settings: { whatsapp_number: '123' },
+      loading: false,
+      error: null,
+    })
+    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    renderDetail()
+    expect(screen.queryByRole('link', { name: /WhatsApp/ })).not.toBeInTheDocument()
+  })
+
   it('shows an honest notice instead of a CTA for maintenance caftans', () => {
     mockUseCaftanDetail.mockReturnValue({
       caftan: { ...caftan, status: 'maintenance' },

@@ -5,6 +5,7 @@ import Logo from '@/components/brand/Logo'
 import OrnamentDivider from '@/components/layout/OrnamentDivider'
 import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
+import { buildWhatsappLink } from '@/lib/whatsapp'
 
 /**
  * Site footer (Phase 4) — brand block, navigation and real contact
@@ -18,6 +19,9 @@ export default function SiteFooter() {
   const { settings } = useSiteSettings()
 
   const whatsapp = settings?.whatsapp_number?.trim()
+  // Phase 8: centralized normalization (Moroccan formats) — invalid
+  // numbers hide the link instead of producing a broken wa.me URL.
+  const whatsappHref = buildWhatsappLink(whatsapp, '')
   const phone = settings?.phone?.trim()
   const email = settings?.email?.trim()
   const social = (settings?.social_links ?? {}) as Record<string, string>
@@ -26,7 +30,7 @@ export default function SiteFooter() {
     { key: 'facebook', url: social.facebook?.trim(), icon: Facebook, label: 'Facebook' },
     { key: 'tiktok', url: social.tiktok?.trim(), icon: Music2, label: 'TikTok' },
   ].filter((s) => s.url)
-  const hasContact = Boolean(whatsapp || phone || email || socialLinks.length > 0)
+  const hasContact = Boolean(whatsappHref || phone || email || socialLinks.length > 0)
 
   return (
     <footer className="border-t border-border bg-primary text-primary-foreground">
@@ -65,9 +69,9 @@ export default function SiteFooter() {
         {hasContact && (
           <div className="flex flex-col items-center gap-2 text-sm md:items-start">
             <p className="mb-1 font-display text-lg font-semibold">{t('footer.contact_heading')}</p>
-            {whatsapp && (
+            {whatsappHref && (
               <a
-                href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
+                href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold"

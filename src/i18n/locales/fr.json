@@ -248,5 +248,11 @@
     "start_in_past": "La date de début ne peut pas être dans le passé",
     "end_before_start": "La date de fin doit suivre la date de début",
     "notes_max": "500 caractères maximum"
+  },
+  "whatsapp": {
+    "floating_label": "Discuter avec Caftan Zomoroda sur WhatsApp",
+    "floating_message": "Bonjour Caftan Zomoroda, j'aimerais un renseignement sur la location de caftans.",
+    "booking_cta": "Poser une question sur WhatsApp",
+    "booking_message": "Bonjour Caftan Zomoroda, je souhaite poser une question au sujet de ma réservation {{number}}."
   }
 }

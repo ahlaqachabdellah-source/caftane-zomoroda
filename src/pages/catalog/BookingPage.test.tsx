@@ -8,10 +8,12 @@ import BookingPage from './BookingPage'
 
 const mockUseCaftanDetail = vi.fn()
 const mockCreateBooking = vi.fn()
+const mockUseSiteSettings = vi.fn()
 vi.mock('@/hooks/useCaftanDetail', () => ({ useCaftanDetail: (slug?: string) => mockUseCaftanDetail(slug) }))
 vi.mock('@/hooks/useCreateBooking', () => ({
   useCreateBooking: () => ({ createBooking: mockCreateBooking, submitting: false }),
 }))
+vi.mock('@/hooks/useSiteSettings', () => ({ useSiteSettings: () => mockUseSiteSettings() }))
 
 const caftan = makeCaftan({
   id: 'c1',
@@ -59,6 +61,11 @@ function fillDates(start = '2030-05-10', end = '2030-05-12') {
 describe('BookingPage', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
+    mockUseSiteSettings.mockReturnValue({
+      settings: { whatsapp_number: '+212 612 345 678' },
+      loading: false,
+      error: null,
+    })
     await act(() => i18n.changeLanguage('fr'))
   })
 
@@ -130,6 +137,26 @@ describe('BookingPage', () => {
       'href',
       '/fr/account/bookings/CF-2026-0042',
     )
+    // WhatsApp follow-up includes the booking number, number from site_settings
+    const wa = screen.getByRole('link', { name: 'Poser une question sur WhatsApp' })
+    expect(wa).toHaveAttribute(
+      'href',
+      expect.stringContaining('https://wa.me/212612345678?text='),
+    )
+    expect(wa.getAttribute('href')).toContain('CF-2026-0042')
+  })
+
+  it('hides the WhatsApp follow-up when the number is not configured', async () => {
+    mockUseSiteSettings.mockReturnValue({ settings: { whatsapp_number: '' }, loading: false, error: null })
+    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockCreateBooking.mockResolvedValue({ booking: createdBooking, errorKey: null })
+    renderBooking()
+    fillDates()
+    fireEvent.click(screen.getByRole('button', { name: 'Envoyer ma demande' }))
+    expect(await screen.findByText('CF-2026-0042')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('link', { name: /WhatsApp/ }),
+    ).not.toBeInTheDocument()
   })
 
   it('shows the friendly overlap message when the dates are already taken', async () => {

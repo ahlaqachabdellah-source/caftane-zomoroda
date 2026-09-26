@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, CalendarCheck, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowLeft, CalendarCheck, CheckCircle2, Loader2, MessageCircle } from 'lucide-react'
 import CaftanImage from '@/components/catalog/CaftanImage'
 import Container from '@/components/layout/Container'
 import EmptyState from '@/components/states/EmptyState'
@@ -16,6 +16,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { useCaftanDetail } from '@/hooks/useCaftanDetail'
 import { useCreateBooking } from '@/hooks/useCreateBooking'
 import { useLocale } from '@/hooks/useLocale'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
+import { buildWhatsappLink } from '@/lib/whatsapp'
 import { rentalDays } from '@/lib/booking'
 import { sortCaftanImages } from '@/lib/caftans'
 import { formatDate, formatPrice } from '@/lib/format'
@@ -35,6 +37,7 @@ export default function BookingPage() {
   const { locale, localePath } = useLocale()
   const { caftan, loading, error, notFound, refetch } = useCaftanDetail(slug)
   const { createBooking, submitting } = useCreateBooking()
+  const { settings } = useSiteSettings()
   const [serverErrorKey, setServerErrorKey] = useState<string | null>(null)
   const [created, setCreated] = useState<Booking | null>(null)
 
@@ -106,6 +109,12 @@ export default function BookingPage() {
 
   /* ---------------------------------------------------------------- success */
   if (created) {
+    // WhatsApp follow-up with the booking number prefilled (Phase 8);
+    // hidden when the business number is not configured or invalid.
+    const waHref = buildWhatsappLink(
+      settings?.whatsapp_number,
+      t('whatsapp.booking_message', { number: created.booking_number }),
+    )
     return (
       <main className="flex flex-1 flex-col">
         <Container className="flex flex-1 flex-col items-center justify-center gap-5 py-16 text-center">
@@ -154,6 +163,17 @@ export default function BookingPage() {
               <Link to={localePath('/caftans')}>{t('catalog.back_to_catalog')}</Link>
             </Button>
           </div>
+          {waHref && (
+            <a
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              {t('whatsapp.booking_cta')}
+            </a>
+          )}
         </Container>
       </main>
     )
