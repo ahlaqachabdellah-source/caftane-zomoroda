@@ -1,15 +1,35 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { Menu, X } from 'lucide-react'
+import { Menu, UserRound, X } from 'lucide-react'
 import Logo from '@/components/brand/Logo'
+import { useAuth } from '@/hooks/useAuth'
 
 /**
- * Site header — brand logo on all viewports, hamburger menu on mobile.
- * Navigation links are added in a later phase when routes exist;
- * the mobile panel currently shows the brand mark only (no dead links).
+ * Site header — brand logo on all viewports, auth entry point on the right,
+ * hamburger menu on mobile.
+ * Catalog navigation links are added in a later phase when routes exist.
  */
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { session, loading } = useAuth()
+
+  const accountLink = session ? (
+    <Link
+      to="/account"
+      className="inline-flex h-10 items-center gap-2 rounded-md px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+    >
+      <UserRound className="h-4 w-4" aria-hidden="true" />
+      Mon compte
+    </Link>
+  ) : (
+    <Link
+      to="/login"
+      className="inline-flex h-10 items-center gap-2 rounded-md px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+    >
+      <UserRound className="h-4 w-4" aria-hidden="true" />
+      Connexion
+    </Link>
+  )
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -18,15 +38,20 @@ export default function SiteHeader() {
           <Logo className="h-12 w-auto sm:h-14" />
         </Link>
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent md:hidden"
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-1">
+          {/* Desktop auth link */}
+          {!loading && <div className="hidden md:block">{accountLink}</div>}
+
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent md:hidden"
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {menuOpen && (
@@ -34,11 +59,14 @@ export default function SiteHeader() {
           aria-label="Navigation mobile"
           className="border-t border-border bg-background md:hidden"
         >
-          <div className="flex flex-col items-center gap-3 px-4 py-8">
-            <Logo className="h-28 w-auto" />
+          <div className="flex flex-col items-center gap-4 px-4 py-8">
+            <Logo className="h-24 w-auto" />
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Location de caftans
             </p>
+            {!loading && (
+              <div onClick={() => setMenuOpen(false)}>{accountLink}</div>
+            )}
           </div>
         </nav>
       )}
