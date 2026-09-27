@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
+import Seo from '@/components/seo/Seo'
 import { forgotPasswordSchema, type ForgotPasswordFormValues } from '@/lib/validation/auth'
 
 export default function ForgotPasswordPage() {
@@ -56,6 +57,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthLayout title={t('auth.forgot_title')} subtitle={t('auth.forgot_subtitle')}>
+      <Seo title={t('seo.password_title')} description={t('seo.home_description')} noindex />
       {!configured && (
         <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
           {t('auth.backend_notice')}

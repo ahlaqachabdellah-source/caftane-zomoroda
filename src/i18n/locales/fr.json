@@ -571,5 +571,20 @@
     "body": "La page que vous cherchez n'existe pas ou a été déplacée.",
     "back": "Retour",
     "home": "Retour à l'accueil"
+  },
+  "seo": {
+    "home_title": "Caftan Zomoroda — Location de caftans de luxe au Maroc",
+    "home_description": "Louez des caftans, takchitas et jellabas d'exception pour vos mariages et célébrations. Parcourez la collection et réservez en ligne.",
+    "catalog_title": "Catalogue — Caftans, takchitas et jellabas à louer | Caftan Zomoroda",
+    "catalog_description": "Parcourez notre collection de caftans, takchitas et jellabas disponibles à la location et trouvez la pièce parfaite pour votre occasion.",
+    "detail_description": "{{name}} — disponible à la location chez Caftan Zomoroda à {{price}} par jour. Consultez les photos et réservez en ligne.",
+    "booking_title": "Demande de réservation | Caftan Zomoroda",
+    "login_title": "Connexion | Caftan Zomoroda",
+    "register_title": "Créer un compte | Caftan Zomoroda",
+    "password_title": "Mot de passe | Caftan Zomoroda",
+    "account_title": "Mon compte | Caftan Zomoroda",
+    "admin_title": "Administration | Caftan Zomoroda",
+    "notfound_title": "Page introuvable | Caftan Zomoroda",
+    "business_description": "Location de caftans, takchitas et jellabas de luxe pour mariages et célébrations."
   }
 }

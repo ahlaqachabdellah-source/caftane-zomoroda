@@ -6,6 +6,10 @@ import SectionHeading from '@/components/layout/SectionHeading'
 import OrnamentDivider from '@/components/layout/OrnamentDivider'
 import { Button } from '@/components/ui/button'
 import { useLocale } from '@/hooks/useLocale'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
+import Seo from '@/components/seo/Seo'
+import { siteOrigin } from '@/lib/seo'
+import { normalizeWhatsappNumber } from '@/lib/whatsapp'
 
 /**
  * Home page (Phase 4) — branded landing built entirely on the design
@@ -15,6 +19,23 @@ import { useLocale } from '@/hooks/useLocale'
 export default function Home() {
   const { t } = useTranslation()
   const { localePath } = useLocale()
+  const { settings } = useSiteSettings()
+
+  // LocalBusiness structured data — only real, known information is
+  // included; anything missing (address, hours, ratings) is omitted,
+  // never fabricated.
+  const phone = settings?.whatsapp_number
+    ? `+${normalizeWhatsappNumber(settings.whatsapp_number)}`
+    : settings?.phone || null
+  const localBusinessLd: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Caftan Zomoroda',
+    description: t('seo.business_description'),
+    url: siteOrigin(),
+    image: `${siteOrigin()}/android-chrome-512x512.png`,
+    ...(phone ? { telephone: phone } : {}),
+  }
 
   const steps = [
     {
@@ -42,6 +63,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-1 flex-col">
+      <Seo
+        title={t('seo.home_title')}
+        description={t('seo.home_description')}
+        path="/"
+        jsonLd={[localBusinessLd]}
+      />
       {/* Hero */}
       <section className="border-b border-border">
         <Container className="flex flex-col items-center gap-6 py-16 text-center sm:py-24">

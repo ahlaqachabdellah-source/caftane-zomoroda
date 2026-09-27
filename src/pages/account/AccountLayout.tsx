@@ -6,6 +6,7 @@ import Container from '@/components/layout/Container'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
+import Seo from '@/components/seo/Seo'
 
 /**
  * Authenticated account shell (Phase 7): greeting, sign-out, tab
@@ -25,6 +26,7 @@ export default function AccountLayout() {
 
   return (
     <main className="flex flex-1 flex-col">
+      <Seo title={t('seo.account_title')} description={t('seo.home_description')} noindex />
       <Container className="flex flex-1 flex-col gap-8 py-10 sm:py-14">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>

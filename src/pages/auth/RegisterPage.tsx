@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
+import Seo from '@/components/seo/Seo'
 import { registerSchema, type RegisterFormValues } from '@/lib/validation/auth'
 
 export default function RegisterPage() {
@@ -71,6 +72,7 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout title={t('auth.register_title')} subtitle={t('auth.register_subtitle')}>
+      <Seo title={t('seo.register_title')} description={t('seo.home_description')} noindex />
       {!configured && (
         <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
           {t('auth.backend_notice')}

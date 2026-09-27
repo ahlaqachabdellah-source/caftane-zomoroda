@@ -1,0 +1,21 @@
+# Caftan Zomoroda — robots.txt (Phase 15)
+# Public catalog and localized pages are crawlable; private areas are not.
+# Booking flow pages (/:locale/caftans/:slug/book) are excluded via
+# noindex meta instead — they live under the public /caftans/ prefix and
+# must not drag the catalog out of the index.
+
+User-agent: *
+Allow: /
+
+# Admin area
+Disallow: /*/admin
+# Customer account (private)
+Disallow: /*/account
+# Authentication routes
+Disallow: /*/login
+Disallow: /*/register
+Disallow: /*/forgot-password
+Disallow: /*/reset-password
+
+# The Sitemap: line is appended by scripts/generate-sitemap.mjs at build
+# time when VITE_SITE_URL is configured.

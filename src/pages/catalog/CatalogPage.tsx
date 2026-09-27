@@ -7,6 +7,7 @@ import SectionHeading from '@/components/layout/SectionHeading'
 import EmptyState from '@/components/states/EmptyState'
 import ErrorState from '@/components/states/ErrorState'
 import { CatalogGridSkeleton } from '@/components/states/skeletons'
+import Seo from '@/components/seo/Seo'
 import { Input } from '@/components/ui/input'
 import { useCaftans } from '@/hooks/useCaftans'
 import { useLocale } from '@/hooks/useLocale'
@@ -42,6 +43,11 @@ export default function CatalogPage() {
   return (
     <main className="flex flex-1 flex-col">
       <Container className="flex flex-col gap-10 py-12 sm:py-16">
+        <Seo
+          title={t('seo.catalog_title')}
+          description={t('seo.catalog_description')}
+          path="/caftans"
+        />
         <SectionHeading
           kicker={t('catalog.kicker')}
           title={t('catalog.title')}

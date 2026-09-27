@@ -5,6 +5,7 @@ import { CalendarDays, ClipboardList, LayoutDashboard, LogOut, Menu, Shirt, Stor
 import Logo from '@/components/brand/Logo'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
+import Seo from '@/components/seo/Seo'
 import { cn } from '@/lib/utils'
 
 /**
@@ -119,6 +120,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <Seo title={t('seo.admin_title')} description={t('seo.home_description')} noindex />
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 start-0 z-40 hidden w-64 flex-col gap-6 border-e border-border bg-background p-4 lg:flex">
         <Link

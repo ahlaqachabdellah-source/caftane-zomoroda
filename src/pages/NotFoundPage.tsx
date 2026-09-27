@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router'
 import { Compass } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLocale } from '@/hooks/useLocale'
+import Seo from '@/components/seo/Seo'
 
 /**
  * Localized 404 page (Phase 12) — shown for unknown URLs inside a locale.
@@ -15,6 +16,7 @@ export default function NotFoundPage() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 px-4 py-24 text-center">
+      <Seo title={t('seo.notfound_title')} description={t('seo.home_description')} noindex />
       <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
         <Compass className="h-7 w-7" aria-hidden="true" />
       </span>

@@ -571,5 +571,20 @@
     "body": "The page you are looking for does not exist or has been moved.",
     "back": "Go back",
     "home": "Back to home"
+  },
+  "seo": {
+    "home_title": "Caftan Zomoroda — Luxury caftan rental in Morocco",
+    "home_description": "Rent exceptional caftans, takchitas and jellabas for weddings and celebrations. Browse the collection and book online.",
+    "catalog_title": "Collection — Caftans, takchitas and jellabas for rent | Caftan Zomoroda",
+    "catalog_description": "Browse our collection of caftans, takchitas and jellabas available for rent and find the perfect piece for your occasion.",
+    "detail_description": "{{name}} — available for rent at Caftan Zomoroda for {{price}} per day. View the photos and book online.",
+    "booking_title": "Booking request | Caftan Zomoroda",
+    "login_title": "Sign in | Caftan Zomoroda",
+    "register_title": "Create an account | Caftan Zomoroda",
+    "password_title": "Password | Caftan Zomoroda",
+    "account_title": "My account | Caftan Zomoroda",
+    "admin_title": "Administration | Caftan Zomoroda",
+    "notfound_title": "Page not found | Caftan Zomoroda",
+    "business_description": "Luxury caftan, takchita and jellaba rental for weddings and celebrations."
   }
 }

@@ -23,6 +23,7 @@ import { sortCaftanImages } from '@/lib/caftans'
 import { formatDate, formatPrice } from '@/lib/format'
 import { localizedText } from '@/lib/localized'
 import { bookingSchema, todayString, type BookingFormValues } from '@/lib/validation/booking'
+import Seo from '@/components/seo/Seo'
 import type { Booking } from '@/types/database.types'
 
 /**
@@ -182,6 +183,7 @@ export default function BookingPage() {
   /* ------------------------------------------------------------------ form */
   return (
     <main className="flex flex-1 flex-col">
+      <Seo title={t('seo.booking_title')} description={t('seo.home_description')} noindex />
       <Container className="flex flex-col gap-8 py-10 sm:py-14">
         <Link
           to={localePath(`/caftans/${caftan.slug}`)}

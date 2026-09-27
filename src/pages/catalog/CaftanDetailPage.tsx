@@ -12,9 +12,11 @@ import { CaftanDetailSkeleton } from '@/components/states/skeletons'
 import { Button } from '@/components/ui/button'
 import { useCaftanDetail } from '@/hooks/useCaftanDetail'
 import { useLocale } from '@/hooks/useLocale'
-import { sortCaftanImages } from '@/lib/caftans'
+import { sortCaftanImages, getCaftanImageUrl } from '@/lib/caftans'
 import { formatPrice } from '@/lib/format'
 import { localizedText } from '@/lib/localized'
+import { absoluteLocaleUrl } from '@/lib/seo'
+import Seo from '@/components/seo/Seo'
 import { cn } from '@/lib/utils'
 
 /**
@@ -69,8 +71,51 @@ export default function CaftanDetailPage() {
   const images = sortCaftanImages(caftan.images)
   const current = images[Math.min(activeImage, Math.max(images.length - 1, 0))] ?? null
 
+  // SEO (Phase 15): page-unique localized title/description, the primary
+  // photo as og:image, and Product/Offer JSON-LD built from real data
+  // only (real price in MAD, real availability from the caftan status).
+  const canonicalPath = `/caftans/${caftan.slug}`
+  const primaryImageUrl = images[0]
+    ? getCaftanImageUrl(images[0].storage_path, { width: 1200 })
+    : undefined
+  const detailDescription =
+    description ||
+    t('seo.detail_description', {
+      name,
+      price: formatPrice(Number(caftan.price_per_day), locale),
+    })
+  const productLd: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    description: detailDescription,
+    ...(primaryImageUrl ? { image: [primaryImageUrl] } : {}),
+    brand: { '@type': 'Brand', name: 'Caftan Zomoroda' },
+    url: absoluteLocaleUrl(canonicalPath, locale),
+    offers: {
+      '@type': 'Offer',
+      price: Number(caftan.price_per_day).toFixed(2),
+      priceCurrency: 'MAD',
+      availability:
+        caftan.status === 'available'
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+      url: absoluteLocaleUrl(canonicalPath, locale),
+      // Rental, not sale — declared honestly.
+      businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
+    },
+  }
+
   return (
     <main className="flex flex-1 flex-col">
+      <Seo
+        title={`${name} | Caftan Zomoroda`}
+        description={detailDescription}
+        path={canonicalPath}
+        type="product"
+        image={primaryImageUrl}
+        jsonLd={[productLd]}
+      />
       <Container className="flex flex-col gap-10 py-10 sm:py-14">
         <Link
           to={localePath('/caftans')}

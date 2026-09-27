@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Caftan Zomoroda — Location de Caftans</title>
-    <meta name="description" content="Location de caftans, takchitas et jellabas de luxe pour toutes vos occasions." />
+    <!--
+      Phase 15: no static <title>/<meta description> here on purpose.
+      React 19 hoists the per-page localized tags rendered by
+      src/components/seo/Seo.tsx into <head>; a static copy would remain
+      alongside them and produce duplicate title/description tags.
+      Crawlers get rendered metadata from the prerendered snapshots
+      (scripts/prerender.mjs) and from executing the SPA (Googlebot).
+    -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
