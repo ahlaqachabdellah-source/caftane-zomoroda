@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "comment": "Phase 17 — Vercel hosting config (alternative to Netlify/_redirects; pick one platform). SPA fallback that preserves real files (assets, robots.txt, sitemap.xml, prerendered locale snapshots) and serves the React shell for every other path so /fr, /ar, /en and deeper locale routes resolve client-side.",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/((?!assets/|robots.txt|sitemap.xml|favicon|android-chrome|apple-touch).*)", "destination": "/index.html" }
+  ]
+}

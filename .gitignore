@@ -26,3 +26,4 @@ supabase/tests/.pgdata/
 *.njsproj
 *.sln
 *.sw?
+dist-e2e

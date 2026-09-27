@@ -11,7 +11,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:db": "node supabase/tests/run-local-tests.mjs"
+    "test:db": "node supabase/tests/run-local-tests.mjs",
+    "test:migrations": "node supabase/tests/verify-fresh-migrations.mjs",
+    "test:drill": "node supabase/tests/backup-restore-drill.mjs",
+    "test:e2e": "rm -rf dist-e2e && VITE_SUPABASE_URL=http://127.0.0.1:4174 VITE_SUPABASE_ANON_KEY=mock-anon-key-for-e2e vite build --outDir dist-e2e && node tests/e2e/run-e2e.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -22,6 +25,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@sentry/react": "^11.0.0",
     "@supabase/supabase-js": "^2.109.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

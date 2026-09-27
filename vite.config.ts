@@ -19,6 +19,9 @@ export default defineConfig({
     },
   },
   build: {
+    // Phase 17: hidden source maps only when Sentry is configured at build
+    // time (uploaded to Sentry at deploy; never referenced from the HTML).
+    sourcemap: process.env.VITE_SENTRY_DSN ? 'hidden' : false,
     // Phase 14: split the heavy vendors into long-lived cacheable chunks;
     // route-level lazy() in App.tsx keeps admin/account code out of the
     // public bundle entirely.

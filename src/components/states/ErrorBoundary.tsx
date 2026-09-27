@@ -1,3 +1,4 @@
+import { reportError } from '@/lib/monitoring'
 import { Component, type ReactNode } from 'react'
 import { withTranslation, type WithTranslation } from 'react-i18next'
 import { TriangleAlert } from 'lucide-react'
@@ -29,6 +30,8 @@ class ErrorBoundaryInner extends Component<ErrorBoundaryProps, ErrorBoundaryStat
   componentDidCatch(error: unknown, info: { componentStack?: string | null }) {
     // Technical details go to the dev/monitoring channel only.
     console.error('[error-boundary]', error, info.componentStack ?? '')
+    // Phase 17: also forward to the monitoring backend when configured.
+    reportError(error, { componentStack: info.componentStack ?? '' })
   }
 
   handleRetry = () => {
