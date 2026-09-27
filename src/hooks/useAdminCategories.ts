@@ -35,10 +35,12 @@ export function useAdminCategories(): UseAdminCategoriesResult {
     const client = supabase
     setLoading(true)
     setError(null)
-    const { data, error: queryError } = await withRetry(() => client
-      .from('categories')
-      .select('*, caftans(count)')
-      .order('sort_order', { ascending: true }))
+    const { data, error: queryError } = await withRetry(() =>
+      client
+        .from('categories')
+        .select('*, caftans(count)')
+        .order('sort_order', { ascending: true }),
+    )
     if (queryError) {
       setError('admin.categories.error_load')
     } else {
@@ -89,7 +91,10 @@ export function useAdminCategories(): UseAdminCategoriesResult {
     const { error } = await supabase.from('categories').delete().eq('id', categoryId)
     if (error) {
       const inUse = error.code === '23001' || error.code === '23503'
-      return { ok: false, errorKey: inUse ? 'admin.categories.error_in_use' : 'admin.categories.error_delete' }
+      return {
+        ok: false,
+        errorKey: inUse ? 'admin.categories.error_in_use' : 'admin.categories.error_delete',
+      }
     }
     return { ok: true, errorKey: null }
   }, [])

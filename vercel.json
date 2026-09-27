@@ -4,6 +4,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/((?!assets/|robots.txt|sitemap.xml|favicon|android-chrome|apple-touch).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!assets/|robots.txt|sitemap.xml|favicon|android-chrome|apple-touch).*)",
+      "destination": "/index.html"
+    }
   ]
 }

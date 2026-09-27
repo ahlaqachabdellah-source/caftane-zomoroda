@@ -145,7 +145,13 @@ describe('AdminOverviewPage', () => {
   it('stays usable with no bookings yet (empty states, zero KPIs)', () => {
     mockUseAdminDashboard.mockReturnValue(
       hookReturn({
-        kpis: { ...KPIS, bookings_this_month: 0, pending_count: 0, revenue_estimate: 0, top_caftans: [] },
+        kpis: {
+          ...KPIS,
+          bookings_this_month: 0,
+          pending_count: 0,
+          revenue_estimate: 0,
+          top_caftans: [],
+        },
         activity: [],
       }),
     )

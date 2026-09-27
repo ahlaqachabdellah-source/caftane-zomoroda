@@ -58,17 +58,38 @@ describe('BookingDetailPage', () => {
   })
 
   it('shows loading, error and not-found states', () => {
-    mockUseBookingDetail.mockReturnValue({ booking: null, history: [], loading: true, error: null, notFound: false, refetch: vi.fn() })
+    mockUseBookingDetail.mockReturnValue({
+      booking: null,
+      history: [],
+      loading: true,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount } = renderDetail()
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
-    mockUseBookingDetail.mockReturnValue({ booking: null, history: [], loading: false, error: 'boom', notFound: false, refetch: vi.fn() })
+    mockUseBookingDetail.mockReturnValue({
+      booking: null,
+      history: [],
+      loading: false,
+      error: 'boom',
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount: unmount2 } = renderDetail()
     expect(screen.getByRole('alert')).toBeInTheDocument()
     unmount2()
 
-    mockUseBookingDetail.mockReturnValue({ booking: null, history: [], loading: false, error: null, notFound: true, refetch: vi.fn() })
+    mockUseBookingDetail.mockReturnValue({
+      booking: null,
+      history: [],
+      loading: false,
+      error: null,
+      notFound: true,
+      refetch: vi.fn(),
+    })
     renderDetail('CF-2026-9999')
     expect(screen.getByText('Réservation introuvable')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Retour à mes réservations' })).toHaveAttribute(
@@ -80,9 +101,7 @@ describe('BookingDetailPage', () => {
   it('renders booking number, caftan, dates, breakdown and statuses', () => {
     loaded()
     renderDetail()
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'CF-2026-0007' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: 'CF-2026-0007' })).toBeInTheDocument()
     expect(screen.getByText('Caftan Test')).toBeInTheDocument()
     expect(screen.getByText(/10 mai 2030/)).toBeInTheDocument()
     expect(screen.getAllByText(/3 jours/).length).toBeGreaterThan(0)
@@ -106,7 +125,10 @@ describe('BookingDetailPage', () => {
   it('lets the customer cancel a pending booking via confirmation dialog', async () => {
     const refetch = vi.fn()
     loaded({ refetch })
-    mockCancelBooking.mockResolvedValue({ booking: { ...booking, status: 'cancelled' }, errorKey: null })
+    mockCancelBooking.mockResolvedValue({
+      booking: { ...booking, status: 'cancelled' },
+      errorKey: null,
+    })
     renderDetail()
 
     fireEvent.click(screen.getAllByRole('button', { name: 'Annuler cette réservation' })[0])
@@ -125,9 +147,7 @@ describe('BookingDetailPage', () => {
     fireEvent.click(screen.getAllByRole('button', { name: 'Annuler cette réservation' })[0])
     fireEvent.click(await screen.findByRole('button', { name: 'Oui, annuler' }))
 
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'ne peut plus être annulée en ligne',
-    )
+    expect(await screen.findByRole('alert')).toHaveTextContent('ne peut plus être annulée en ligne')
   })
 
   it('offers no cancellation for non-pending bookings', () => {

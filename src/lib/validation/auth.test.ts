@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  forgotPasswordSchema,
-  loginSchema,
-  registerSchema,
-  resetPasswordSchema,
-} from './auth'
+import { forgotPasswordSchema, loginSchema, registerSchema, resetPasswordSchema } from './auth'
 
 describe('loginSchema', () => {
   it('accepts valid credentials', () => {
@@ -52,7 +47,11 @@ describe('registerSchema', () => {
   })
 
   it('rejects a password under 8 characters', () => {
-    const r = registerSchema.safeParse({ ...valid, password: '1234567', confirmPassword: '1234567' })
+    const r = registerSchema.safeParse({
+      ...valid,
+      password: '1234567',
+      confirmPassword: '1234567',
+    })
     expect(r.success).toBe(false)
   })
 
@@ -77,7 +76,10 @@ describe('forgotPasswordSchema', () => {
 
 describe('resetPasswordSchema', () => {
   it('accepts matching passwords of 8+ characters', () => {
-    const r = resetPasswordSchema.safeParse({ password: 'nouveaumot1', confirmPassword: 'nouveaumot1' })
+    const r = resetPasswordSchema.safeParse({
+      password: 'nouveaumot1',
+      confirmPassword: 'nouveaumot1',
+    })
     expect(r.success).toBe(true)
   })
 
@@ -87,7 +89,10 @@ describe('resetPasswordSchema', () => {
   })
 
   it('rejects mismatched passwords', () => {
-    const r = resetPasswordSchema.safeParse({ password: 'nouveaumot1', confirmPassword: 'nouveaumot2' })
+    const r = resetPasswordSchema.safeParse({
+      password: 'nouveaumot1',
+      confirmPassword: 'nouveaumot2',
+    })
     expect(r.success).toBe(false)
     if (!r.success) {
       expect(r.error.issues[0]?.path).toEqual(['confirmPassword'])

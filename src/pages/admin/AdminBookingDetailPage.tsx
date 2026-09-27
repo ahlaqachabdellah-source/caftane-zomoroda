@@ -42,10 +42,8 @@ import type { BookingStatus } from '@/types/database.types'
 const ACTION_STYLES: Record<string, string> = {
   confirmed: '',
   completed: '',
-  rejected:
-    'border-destructive text-destructive hover:bg-destructive/10',
-  cancelled:
-    'border-destructive text-destructive hover:bg-destructive/10',
+  rejected: 'border-destructive text-destructive hover:bg-destructive/10',
+  cancelled: 'border-destructive text-destructive hover:bg-destructive/10',
 }
 
 export default function AdminBookingDetailPage() {
@@ -62,7 +60,6 @@ export default function AdminBookingDetailPage() {
   const [actionErrorKey, setActionErrorKey] = useState<string | null>(null)
   const [lastTransition, setLastTransition] = useState<BookingStatus | null>(null)
 
-
   const whatsappLink = useMemo(() => {
     if (!detail?.customer || !lastTransition) return ''
     // Customer-facing message: no technical terms, no internal data.
@@ -73,10 +70,7 @@ export default function AdminBookingDetailPage() {
       number: detail.booking.booking_number,
       status: tFr(`account.status.${lastTransition}`),
     })
-    return buildWhatsappLink(
-      detail.customer.whatsapp_number ?? detail.customer.phone,
-      message,
-    )
+    return buildWhatsappLink(detail.customer.whatsapp_number ?? detail.customer.phone, message)
   }, [detail, lastTransition])
 
   if (loading) return <ListRowsSkeleton />
@@ -196,20 +190,28 @@ export default function AdminBookingDetailPage() {
             </div>
             <div>
               <dt className="text-muted-foreground">{t('admin.bookings.field_days')}</dt>
-              <dd className="font-medium text-foreground">{t('admin.bookings.days', { count: days })}</dd>
+              <dd className="font-medium text-foreground">
+                {t('admin.bookings.days', { count: days })}
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">{t('admin.bookings.field_total')}</dt>
-              <dd className="font-medium text-foreground">{formatPrice(booking.total_price, locale)}</dd>
+              <dd className="font-medium text-foreground">
+                {formatPrice(booking.total_price, locale)}
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">{t('admin.bookings.field_deposit')}</dt>
-              <dd><DepositStatusBadge status={booking.deposit_status} /></dd>
+              <dd>
+                <DepositStatusBadge status={booking.deposit_status} />
+              </dd>
             </div>
             <div>
               <dt className="text-muted-foreground">{t('admin.bookings.field_created')}</dt>
               <dd className="font-medium text-foreground">
-                <time dateTime={booking.created_at}>{formatDateTime(booking.created_at, locale)}</time>
+                <time dateTime={booking.created_at}>
+                  {formatDateTime(booking.created_at, locale)}
+                </time>
               </dd>
             </div>
           </dl>
@@ -281,7 +283,9 @@ export default function AdminBookingDetailPage() {
               </div>
               <div>
                 <dt className="text-muted-foreground">{t('admin.caftans.field_slug')}</dt>
-                <dd className="font-medium text-foreground" dir="ltr">{caftan.slug}</dd>
+                <dd className="font-medium text-foreground" dir="ltr">
+                  {caftan.slug}
+                </dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">{t('admin.bookings.field_price_day')}</dt>
@@ -290,7 +294,9 @@ export default function AdminBookingDetailPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-muted-foreground">{t('admin.bookings.field_deposit_amount')}</dt>
+                <dt className="text-muted-foreground">
+                  {t('admin.bookings.field_deposit_amount')}
+                </dt>
                 <dd className="font-medium text-foreground">
                   {formatPrice(caftan.deposit_amount, locale)}
                 </dd>
@@ -348,9 +354,7 @@ export default function AdminBookingDetailPage() {
         <h2 className="text-sm font-semibold text-foreground">
           {t('admin.bookings.section_admin_notes')}
         </h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {t('admin.bookings.admin_notes_hint')}
-        </p>
+        <p className="mt-1 text-xs text-muted-foreground">{t('admin.bookings.admin_notes_hint')}</p>
         <div className="mt-3 flex flex-col gap-2">
           <Label htmlFor="admin-notes" className="sr-only">
             {t('admin.bookings.section_admin_notes')}
@@ -367,11 +371,7 @@ export default function AdminBookingDetailPage() {
             placeholder={t('admin.bookings.admin_notes_placeholder')}
           />
           <div className="flex items-center gap-3">
-            <Button
-              size="sm"
-              onClick={() => void handleSaveNotes()}
-              disabled={acting}
-            >
+            <Button size="sm" onClick={() => void handleSaveNotes()} disabled={acting}>
               {t('admin.bookings.notes_save')}
             </Button>
             {notesNotice === 'saved' && (
@@ -451,9 +451,7 @@ export default function AdminBookingDetailPage() {
               maxLength={500}
               placeholder={t('admin.bookings.action_note_placeholder')}
             />
-            <p className="text-xs text-muted-foreground">
-              {t('admin.bookings.action_note_hint')}
-            </p>
+            <p className="text-xs text-muted-foreground">{t('admin.bookings.action_note_hint')}</p>
             {actionErrorKey && (
               <p role="alert" className="text-sm text-destructive">
                 {t(actionErrorKey)}
@@ -461,13 +459,15 @@ export default function AdminBookingDetailPage() {
             )}
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={acting}>
-              {t('admin.caftans.cancel')}
-            </AlertDialogCancel>
+            <AlertDialogCancel disabled={acting}>{t('admin.caftans.cancel')}</AlertDialogCancel>
             <Button
               onClick={() => void handleConfirmAction()}
               disabled={acting}
-              variant={pendingAction === 'rejected' || pendingAction === 'cancelled' ? 'destructive' : 'default'}
+              variant={
+                pendingAction === 'rejected' || pendingAction === 'cancelled'
+                  ? 'destructive'
+                  : 'default'
+              }
             >
               {pendingAction ? t(`admin.bookings.action_${pendingAction}`) : ''}
             </Button>

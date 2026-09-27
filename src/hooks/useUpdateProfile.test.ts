@@ -92,7 +92,11 @@ describe('useUpdateProfile', () => {
 
     let outcome: Outcome
     await act(async () => {
-      outcome = await result.current.updateProfile({ fullName: 'X y', phone: '', whatsappNumber: '' })
+      outcome = await result.current.updateProfile({
+        fullName: 'X y',
+        phone: '',
+        whatsappNumber: '',
+      })
     })
 
     expect(outcome?.profile).toBeNull()

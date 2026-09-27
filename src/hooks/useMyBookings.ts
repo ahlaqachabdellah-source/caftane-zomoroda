@@ -33,10 +33,12 @@ export function useMyBookings(): UseMyBookingsResult {
     setLoading(true)
     setError(null)
 
-    const { data, error: queryError } = await withRetry(() => client
-      .from('bookings')
-      .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
-      .order('created_at', { ascending: false }))
+    const { data, error: queryError } = await withRetry(() =>
+      client
+        .from('bookings')
+        .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
+        .order('created_at', { ascending: false }),
+    )
 
     if (queryError) {
       setError(mapSupabaseError(queryError, 'account.error_body'))

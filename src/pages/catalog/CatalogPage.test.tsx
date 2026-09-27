@@ -88,9 +88,10 @@ describe('CatalogPage', () => {
     expect(screen.getByText('Coup de cœur')).toBeInTheDocument()
     expect(screen.getByText('En entretien')).toBeInTheDocument()
     // Card links to the locale-prefixed detail page
-    expect(
-      screen.getByRole('link', { name: /Caftan Andalou Rouge/ }),
-    ).toHaveAttribute('href', '/fr/caftans/caftan-andalou-rouge')
+    expect(screen.getByRole('link', { name: /Caftan Andalou Rouge/ })).toHaveAttribute(
+      'href',
+      '/fr/caftans/caftan-andalou-rouge',
+    )
   })
 
   it('filters by category', async () => {
@@ -135,5 +136,66 @@ describe('CatalogPage', () => {
     expect(screen.getByText('قفطان أندلسي أحمر')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'قفطان' })).toBeInTheDocument()
     await act(() => i18n.changeLanguage('fr'))
+  })
+
+  it('filters by size', async () => {
+    const small = makeCaftan({
+      id: 'c9',
+      slug: 'caftan-petit',
+      size: 'S',
+      name: { ar: 'ص', fr: 'Caftan Petit', en: 'Small Caftan' },
+    })
+    mockUseCaftans.mockReturnValue({
+      ...idle,
+      caftans: [rouge, small],
+      categories: [categoryCaftan],
+    })
+    renderCatalog()
+    await userEvent.selectOptions(screen.getByLabelText('Taille'), 'S')
+    expect(screen.queryByText('Caftan Andalou Rouge')).not.toBeInTheDocument()
+    expect(screen.getByText('Caftan Petit')).toBeInTheDocument()
+  })
+
+  it('filters by max price per day', async () => {
+    mockUseCaftans.mockReturnValue({
+      ...idle,
+      caftans: [rouge, takchita],
+      categories: [categoryCaftan, categoryTakchita],
+    })
+    renderCatalog()
+    await userEvent.selectOptions(screen.getByLabelText('Prix max / jour'), '800')
+    expect(screen.getByText('Caftan Andalou Rouge')).toBeInTheDocument()
+    expect(screen.queryByText('Takchita Royale Dorée')).not.toBeInTheDocument()
+  })
+
+  it('sorts by descending price', async () => {
+    mockUseCaftans.mockReturnValue({
+      ...idle,
+      caftans: [rouge, takchita, mariee],
+      categories: [categoryCaftan, categoryTakchita],
+    })
+    renderCatalog()
+    await userEvent.selectOptions(screen.getByLabelText('Trier'), 'price_desc')
+    const links = screen.getAllByRole('link', { name: /Caftan|Takchita/ })
+    expect(links[0]).toHaveAttribute('href', '/fr/caftans/caftan-blanc-mariee')
+  })
+
+  it('paginates beyond 9 items and resets on filter change', async () => {
+    const many = Array.from({ length: 11 }, (_, i) =>
+      makeCaftan({
+        id: `p${i}`,
+        slug: `caftan-${i}`,
+        name: { ar: `ق${i}`, fr: `Caftan Numéro ${i}`, en: `Caftan ${i}` },
+      }),
+    )
+    mockUseCaftans.mockReturnValue({ ...idle, caftans: many, categories: [categoryCaftan] })
+    renderCatalog()
+    // 11 items → 9 on page 1, 2 on page 2
+    expect(screen.getAllByRole('link', { name: /Caftan Numéro/ })).toHaveLength(9)
+    await userEvent.click(screen.getByRole('button', { name: 'Suivant' }))
+    expect(screen.getAllByRole('link', { name: /Caftan Numéro/ })).toHaveLength(2)
+    // A filter change resets to page 1
+    await userEvent.type(screen.getByLabelText('Rechercher dans la collection'), 'Numéro 1')
+    expect(screen.queryByRole('button', { name: 'Suivant' })).not.toBeInTheDocument()
   })
 })

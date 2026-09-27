@@ -14,7 +14,9 @@
     "test:db": "node supabase/tests/run-local-tests.mjs",
     "test:migrations": "node supabase/tests/verify-fresh-migrations.mjs",
     "test:drill": "node supabase/tests/backup-restore-drill.mjs",
-    "test:e2e": "rm -rf dist-e2e && VITE_SUPABASE_URL=http://127.0.0.1:4174 VITE_SUPABASE_ANON_KEY=mock-anon-key-for-e2e vite build --outDir dist-e2e && node tests/e2e/run-e2e.mjs"
+    "test:e2e": "rm -rf dist-e2e && VITE_SUPABASE_URL=http://127.0.0.1:4174 VITE_SUPABASE_ANON_KEY=mock-anon-key-for-e2e vite build --outDir dist-e2e && node tests/e2e/run-e2e.mjs",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" \"tests/e2e/*.mjs\" \"scripts/*.mjs\" \"supabase/tests/*.mjs\" \"*.{js,ts,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\" \"tests/e2e/*.mjs\" \"scripts/*.mjs\" \"supabase/tests/*.mjs\" \"*.{js,ts,json}\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -61,6 +63,7 @@
     "kimi-plugin-inspect-react": "^1.0.3",
     "pg": "^8.23.0",
     "postcss": "^8.5.6",
+    "prettier": "^3.9.9",
     "tailwindcss": "^3.4.19",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.9.3",

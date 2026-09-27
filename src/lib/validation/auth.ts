@@ -14,10 +14,7 @@ export type LoginFormValues = z.infer<typeof loginSchema>
 
 export const registerSchema = z
   .object({
-    fullName: z
-      .string()
-      .trim()
-      .min(2, 'validation.name_min'),
+    fullName: z.string().trim().min(2, 'validation.name_min'),
     email: z.email('validation.email_invalid'),
     phone: z
       .string()
@@ -25,9 +22,7 @@ export const registerSchema = z
       .regex(/^\+?[0-9\s-]{6,15}$/, 'validation.phone_invalid')
       .optional()
       .or(z.literal('')),
-    password: z
-      .string()
-      .min(8, 'validation.password_min'),
+    password: z.string().min(8, 'validation.password_min'),
     confirmPassword: z.string(),
   })
   .refine((values) => values.password === values.confirmPassword, {
@@ -43,9 +38,7 @@ export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>
 
 export const resetPasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, 'validation.password_min'),
+    password: z.string().min(8, 'validation.password_min'),
     confirmPassword: z.string(),
   })
   .refine((values) => values.password === values.confirmPassword, {
@@ -53,4 +46,3 @@ export const resetPasswordSchema = z
     path: ['confirmPassword'],
   })
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>
-

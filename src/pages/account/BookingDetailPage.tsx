@@ -132,7 +132,9 @@ export default function BookingDetailPage() {
                   {formatPrice(rate ?? 0, locale)} {t('catalog.per_day')}
                 </p>
                 <Button asChild variant="link" className="w-fit px-0">
-                  <Link to={localePath(`/caftans/${caftan.slug}`)}>{t('account.view_details')}</Link>
+                  <Link to={localePath(`/caftans/${caftan.slug}`)}>
+                    {t('account.view_details')}
+                  </Link>
                 </Button>
               </>
             )}
@@ -146,7 +148,10 @@ export default function BookingDetailPage() {
             <dd className="text-sm font-medium text-foreground">
               {formatDate(booking.start_date, locale)} → {formatDate(booking.end_date, locale)}
               {days > 0 && (
-                <span className="text-muted-foreground"> · {t('account.days_count', { count: days })}</span>
+                <span className="text-muted-foreground">
+                  {' '}
+                  · {t('account.days_count', { count: days })}
+                </span>
               )}
             </dd>
           </div>

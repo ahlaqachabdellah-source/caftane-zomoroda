@@ -14,12 +14,7 @@ type ErrorStateProps = {
   className?: string
 }
 
-export default function ErrorState({
-  title,
-  description,
-  onRetry,
-  className,
-}: ErrorStateProps) {
+export default function ErrorState({ title, description, onRetry, className }: ErrorStateProps) {
   const { t } = useTranslation()
   return (
     <div

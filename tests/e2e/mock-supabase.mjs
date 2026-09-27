@@ -40,51 +40,332 @@ const PNG = Buffer.from(
 // ---------------------------------------------------------------------------
 function seed() {
   const categories = [
-    { id: '10000000-0000-0000-0000-000000000001', slug: 'caftan', name: { ar: 'قفطان', fr: 'Caftan', en: 'Caftan' }, description: { ar: 'قفطان مغربي تقليدي بقطعة واحدة', fr: 'Le caftan marocain traditionnel en une pièce', en: 'The traditional one-piece Moroccan caftan' }, sort_order: 1, created_at: '2026-09-26T12:00:00Z' },
-    { id: '10000000-0000-0000-0000-000000000002', slug: 'takchita', name: { ar: 'تكشيطة', fr: 'Takchita', en: 'Takchita' }, description: { ar: 'تكشيطة من قطعتين بأناقة ملكية', fr: 'La takchita deux pièces, élégance royale', en: 'The two-piece takchita, royal elegance' }, sort_order: 2, created_at: '2026-09-26T12:00:00Z' },
-    { id: '10000000-0000-0000-0000-000000000003', slug: 'jellaba', name: { ar: 'جلابة', fr: 'Jellaba', en: 'Jellaba' }, description: { ar: 'جلابة عصرية ومريحة لجميع المناسبات', fr: 'La jellaba moderne et confortable pour toutes les occasions', en: 'The modern, comfortable jellaba for every occasion' }, sort_order: 3, created_at: '2026-09-26T12:00:00Z' },
+    {
+      id: '10000000-0000-0000-0000-000000000001',
+      slug: 'caftan',
+      name: { ar: 'قفطان', fr: 'Caftan', en: 'Caftan' },
+      description: {
+        ar: 'قفطان مغربي تقليدي بقطعة واحدة',
+        fr: 'Le caftan marocain traditionnel en une pièce',
+        en: 'The traditional one-piece Moroccan caftan',
+      },
+      sort_order: 1,
+      created_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: '10000000-0000-0000-0000-000000000002',
+      slug: 'takchita',
+      name: { ar: 'تكشيطة', fr: 'Takchita', en: 'Takchita' },
+      description: {
+        ar: 'تكشيطة من قطعتين بأناقة ملكية',
+        fr: 'La takchita deux pièces, élégance royale',
+        en: 'The two-piece takchita, royal elegance',
+      },
+      sort_order: 2,
+      created_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: '10000000-0000-0000-0000-000000000003',
+      slug: 'jellaba',
+      name: { ar: 'جلابة', fr: 'Jellaba', en: 'Jellaba' },
+      description: {
+        ar: 'جلابة عصرية ومريحة لجميع المناسبات',
+        fr: 'La jellaba moderne et confortable pour toutes les occasions',
+        en: 'The modern, comfortable jellaba for every occasion',
+      },
+      sort_order: 3,
+      created_at: '2026-09-26T12:00:00Z',
+    },
   ]
   const C = (n) => `20000000-0000-0000-0000-0000000000${String(n).padStart(2, '0')}`
   const caftans = [
-    { id: C(1), slug: 'caftan-andalou-rouge', category_id: categories[0].id, name: { ar: 'قفطان أندلسي أحمر', fr: 'Caftan Andalou Rouge', en: 'Red Andalusian Caftan' }, description: { ar: 'قفطان أندلسي بتطريز يدوي فاخر وخيوط ذهبية.', fr: 'Caftan andalou avec broderie main raffinée et fils dorés.', en: 'Andalusian caftan with refined hand embroidery and golden threads.' }, size: 'M', color: 'Rouge', price_per_day: 800, deposit_amount: 2000, status: 'available', featured: true, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(2), slug: 'takchita-royale-doree', category_id: categories[1].id, name: { ar: 'تكشيطة ملكية ذهبية', fr: 'Takchita Royale Dorée', en: 'Golden Royal Takchita' }, description: { ar: 'تكشيطة فاخرة من قطعتين بقماش المخمل والتطريز الذهبي.', fr: 'Takchita deux pièces luxueuse en velours avec broderie dorée.', en: 'Luxurious two-piece velvet takchita with golden embroidery.' }, size: 'S', color: 'Doré', price_per_day: 1200, deposit_amount: 3000, status: 'available', featured: true, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(3), slug: 'caftan-bleu-roi', category_id: categories[0].id, name: { ar: 'قفطان أزرق ملكي', fr: 'Caftan Bleu Roi', en: 'Royal Blue Caftan' }, description: { ar: 'قفطان أزرق ملكي بأزرار العقيق وحزام مطرز.', fr: 'Caftan bleu roi avec boutons en pierres fines et ceinture brodée.', en: 'Royal blue caftan with gemstone buttons and embroidered belt.' }, size: 'L', color: 'Bleu roi', price_per_day: 700, deposit_amount: 1800, status: 'available', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(4), slug: 'jellaba-ivoire-brodee', category_id: categories[2].id, name: { ar: 'جلابة عاجية مطرزة', fr: 'Jellaba Ivoire Brodée', en: 'Embroidered Ivory Jellaba' }, description: { ar: 'جلابة عاجية خفيفة بتطريز دقيق عند الصدر والأكمام.', fr: 'Jellaba ivoire légère avec broderie fine au buste et aux manches.', en: 'Light ivory jellaba with fine embroidery on chest and sleeves.' }, size: 'Taille unique', color: 'Ivoire', price_per_day: 400, deposit_amount: 1000, status: 'available', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(5), slug: 'takchita-vert-emeraude', category_id: categories[1].id, name: { ar: 'تكشيطة خضراء زمردية', fr: 'Takchita Vert Émeraude', en: 'Emerald Green Takchita' }, description: { ar: 'تكشيطة زمردية بحرير طبيعي وتفاصيل فضية.', fr: 'Takchita émeraude en soie naturelle et détails argentés.', en: 'Emerald takchita in natural silk with silver details.' }, size: 'M', color: 'Vert émeraude', price_per_day: 1100, deposit_amount: 2500, status: 'available', featured: true, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(6), slug: 'caftan-rose-poudre', category_id: categories[0].id, name: { ar: 'قفطان وردي بودري', fr: 'Caftan Rose Poudré', en: 'Powder Pink Caftan' }, description: { ar: 'قفطان وردي ناعم مثالي للخطوبة والمناسبات النهارية.', fr: 'Caftan rose poudré doux, idéal pour fiançailles et réceptions de jour.', en: 'Soft powder pink caftan, ideal for engagements and daytime events.' }, size: 'S', color: 'Rose poudré', price_per_day: 650, deposit_amount: 1500, status: 'available', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(7), slug: 'caftan-bordeaux-perle', category_id: categories[0].id, name: { ar: 'قفطان عنابي مزين باللؤلؤ', fr: 'Caftan Bordeaux Perlé', en: 'Pearled Burgundy Caftan' }, description: { ar: 'قفطان عنابي فاخر مزين بحبات اللؤلؤ يدوياً.', fr: 'Caftan bordeaux luxueux orné de perles cousues main.', en: 'Luxurious burgundy caftan adorned with hand-sewn pearls.' }, size: 'M', color: 'Bordeaux', price_per_day: 900, deposit_amount: 2200, status: 'available', featured: true, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(8), slug: 'takchita-noire-et-or', category_id: categories[1].id, name: { ar: 'تكشيطة سوداء وذهبية', fr: 'Takchita Noire et Or', en: 'Black and Gold Takchita' }, description: { ar: 'تكشيطة سوداء أنيقة بلمسات ذهبية للسهرات.', fr: 'Takchita noire élégante aux touches dorées pour les soirées.', en: 'Elegant black takchita with golden touches for evening events.' }, size: 'L', color: 'Noir et or', price_per_day: 1000, deposit_amount: 2500, status: 'available', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(9), slug: 'caftan-blanc-mariee', category_id: categories[0].id, name: { ar: 'قفطان أبيض للعروس', fr: 'Caftan Blanc Mariée', en: 'Bridal White Caftan' }, description: { ar: 'قفطان أبيض فاخر مخصص للعرائس، قيد الصيانة حالياً.', fr: 'Caftan blanc haute couture dédié aux mariées, actuellement en entretien.', en: 'Haute couture white bridal caftan, currently under maintenance.' }, size: 'M', color: 'Blanc', price_per_day: 1800, deposit_amount: 4000, status: 'maintenance', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
-    { id: C(10), slug: 'jellaba-saumon', category_id: categories[2].id, name: { ar: 'جلابة سالمونية', fr: 'Jellaba Saumon', en: 'Salmon Jellaba' }, description: { ar: 'جلابة سالمونية كلاسيكية، خارجة من الكتالوج.', fr: 'Jellaba saumon classique, retirée du catalogue.', en: 'Classic salmon jellaba, retired from the catalogue.' }, size: 'Taille unique', color: 'Saumon', price_per_day: 350, deposit_amount: 800, status: 'retired', featured: false, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z' },
+    {
+      id: C(1),
+      slug: 'caftan-andalou-rouge',
+      category_id: categories[0].id,
+      name: { ar: 'قفطان أندلسي أحمر', fr: 'Caftan Andalou Rouge', en: 'Red Andalusian Caftan' },
+      description: {
+        ar: 'قفطان أندلسي بتطريز يدوي فاخر وخيوط ذهبية.',
+        fr: 'Caftan andalou avec broderie main raffinée et fils dorés.',
+        en: 'Andalusian caftan with refined hand embroidery and golden threads.',
+      },
+      size: 'M',
+      color: 'Rouge',
+      price_per_day: 800,
+      deposit_amount: 2000,
+      status: 'available',
+      featured: true,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(2),
+      slug: 'takchita-royale-doree',
+      category_id: categories[1].id,
+      name: { ar: 'تكشيطة ملكية ذهبية', fr: 'Takchita Royale Dorée', en: 'Golden Royal Takchita' },
+      description: {
+        ar: 'تكشيطة فاخرة من قطعتين بقماش المخمل والتطريز الذهبي.',
+        fr: 'Takchita deux pièces luxueuse en velours avec broderie dorée.',
+        en: 'Luxurious two-piece velvet takchita with golden embroidery.',
+      },
+      size: 'S',
+      color: 'Doré',
+      price_per_day: 1200,
+      deposit_amount: 3000,
+      status: 'available',
+      featured: true,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(3),
+      slug: 'caftan-bleu-roi',
+      category_id: categories[0].id,
+      name: { ar: 'قفطان أزرق ملكي', fr: 'Caftan Bleu Roi', en: 'Royal Blue Caftan' },
+      description: {
+        ar: 'قفطان أزرق ملكي بأزرار العقيق وحزام مطرز.',
+        fr: 'Caftan bleu roi avec boutons en pierres fines et ceinture brodée.',
+        en: 'Royal blue caftan with gemstone buttons and embroidered belt.',
+      },
+      size: 'L',
+      color: 'Bleu roi',
+      price_per_day: 700,
+      deposit_amount: 1800,
+      status: 'available',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(4),
+      slug: 'jellaba-ivoire-brodee',
+      category_id: categories[2].id,
+      name: {
+        ar: 'جلابة عاجية مطرزة',
+        fr: 'Jellaba Ivoire Brodée',
+        en: 'Embroidered Ivory Jellaba',
+      },
+      description: {
+        ar: 'جلابة عاجية خفيفة بتطريز دقيق عند الصدر والأكمام.',
+        fr: 'Jellaba ivoire légère avec broderie fine au buste et aux manches.',
+        en: 'Light ivory jellaba with fine embroidery on chest and sleeves.',
+      },
+      size: 'Taille unique',
+      color: 'Ivoire',
+      price_per_day: 400,
+      deposit_amount: 1000,
+      status: 'available',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(5),
+      slug: 'takchita-vert-emeraude',
+      category_id: categories[1].id,
+      name: {
+        ar: 'تكشيطة خضراء زمردية',
+        fr: 'Takchita Vert Émeraude',
+        en: 'Emerald Green Takchita',
+      },
+      description: {
+        ar: 'تكشيطة زمردية بحرير طبيعي وتفاصيل فضية.',
+        fr: 'Takchita émeraude en soie naturelle et détails argentés.',
+        en: 'Emerald takchita in natural silk with silver details.',
+      },
+      size: 'M',
+      color: 'Vert émeraude',
+      price_per_day: 1100,
+      deposit_amount: 2500,
+      status: 'available',
+      featured: true,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(6),
+      slug: 'caftan-rose-poudre',
+      category_id: categories[0].id,
+      name: { ar: 'قفطان وردي بودري', fr: 'Caftan Rose Poudré', en: 'Powder Pink Caftan' },
+      description: {
+        ar: 'قفطان وردي ناعم مثالي للخطوبة والمناسبات النهارية.',
+        fr: 'Caftan rose poudré doux, idéal pour fiançailles et réceptions de jour.',
+        en: 'Soft powder pink caftan, ideal for engagements and daytime events.',
+      },
+      size: 'S',
+      color: 'Rose poudré',
+      price_per_day: 650,
+      deposit_amount: 1500,
+      status: 'available',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(7),
+      slug: 'caftan-bordeaux-perle',
+      category_id: categories[0].id,
+      name: {
+        ar: 'قفطان عنابي مزين باللؤلؤ',
+        fr: 'Caftan Bordeaux Perlé',
+        en: 'Pearled Burgundy Caftan',
+      },
+      description: {
+        ar: 'قفطان عنابي فاخر مزين بحبات اللؤلؤ يدوياً.',
+        fr: 'Caftan bordeaux luxueux orné de perles cousues main.',
+        en: 'Luxurious burgundy caftan adorned with hand-sewn pearls.',
+      },
+      size: 'M',
+      color: 'Bordeaux',
+      price_per_day: 900,
+      deposit_amount: 2200,
+      status: 'available',
+      featured: true,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(8),
+      slug: 'takchita-noire-et-or',
+      category_id: categories[1].id,
+      name: {
+        ar: 'تكشيطة سوداء وذهبية',
+        fr: 'Takchita Noire et Or',
+        en: 'Black and Gold Takchita',
+      },
+      description: {
+        ar: 'تكشيطة سوداء أنيقة بلمسات ذهبية للسهرات.',
+        fr: 'Takchita noire élégante aux touches dorées pour les soirées.',
+        en: 'Elegant black takchita with golden touches for evening events.',
+      },
+      size: 'L',
+      color: 'Noir et or',
+      price_per_day: 1000,
+      deposit_amount: 2500,
+      status: 'available',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(9),
+      slug: 'caftan-blanc-mariee',
+      category_id: categories[0].id,
+      name: { ar: 'قفطان أبيض للعروس', fr: 'Caftan Blanc Mariée', en: 'Bridal White Caftan' },
+      description: {
+        ar: 'قفطان أبيض فاخر مخصص للعرائس، قيد الصيانة حالياً.',
+        fr: 'Caftan blanc haute couture dédié aux mariées, actuellement en entretien.',
+        en: 'Haute couture white bridal caftan, currently under maintenance.',
+      },
+      size: 'M',
+      color: 'Blanc',
+      price_per_day: 1800,
+      deposit_amount: 4000,
+      status: 'maintenance',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+    {
+      id: C(10),
+      slug: 'jellaba-saumon',
+      category_id: categories[2].id,
+      name: { ar: 'جلابة سالمونية', fr: 'Jellaba Saumon', en: 'Salmon Jellaba' },
+      description: {
+        ar: 'جلابة سالمونية كلاسيكية، خارجة من الكتالوج.',
+        fr: 'Jellaba saumon classique, retirée du catalogue.',
+        en: 'Classic salmon jellaba, retired from the catalogue.',
+      },
+      size: 'Taille unique',
+      color: 'Saumon',
+      price_per_day: 350,
+      deposit_amount: 800,
+      status: 'retired',
+      featured: false,
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
   ]
   const images = []
   let imgSeq = 0
   for (const c of caftans) {
-    images.push({ id: `30000000-0000-0000-0000-${String(++imgSeq).padStart(12, '0')}`, caftan_id: c.id, storage_path: `seed/${c.slug}-1.jpg`, alt_text: { ar: c.name.ar, fr: c.name.fr, en: c.name.en }, sort_order: 1, is_primary: true, created_at: '2026-09-26T12:00:00Z' })
+    images.push({
+      id: `30000000-0000-0000-0000-${String(++imgSeq).padStart(12, '0')}`,
+      caftan_id: c.id,
+      storage_path: `seed/${c.slug}-1.jpg`,
+      alt_text: { ar: c.name.ar, fr: c.name.fr, en: c.name.en },
+      sort_order: 1,
+      is_primary: true,
+      created_at: '2026-09-26T12:00:00Z',
+    })
   }
-  images.push({ id: `30000000-0000-0000-0000-${String(++imgSeq).padStart(12, '0')}`, caftan_id: C(1), storage_path: 'seed/caftan-andalou-rouge-2.jpg', alt_text: { ar: 'قفطان أندلسي أحمر - تفاصيل التطريز', fr: 'Caftan Andalou Rouge — détail de la broderie', en: 'Red Andalusian Caftan — embroidery detail' }, sort_order: 2, is_primary: false, created_at: '2026-09-26T12:00:00Z' })
+  images.push({
+    id: `30000000-0000-0000-0000-${String(++imgSeq).padStart(12, '0')}`,
+    caftan_id: C(1),
+    storage_path: 'seed/caftan-andalou-rouge-2.jpg',
+    alt_text: {
+      ar: 'قفطان أندلسي أحمر - تفاصيل التطريز',
+      fr: 'Caftan Andalou Rouge — détail de la broderie',
+      en: 'Red Andalusian Caftan — embroidery detail',
+    },
+    sort_order: 2,
+    is_primary: false,
+    created_at: '2026-09-26T12:00:00Z',
+  })
 
   const adminId = '40000000-0000-0000-0000-000000000001'
-  const users = [{
-    id: adminId, email: 'admin@zomoroda.ma', password: 'AdminPass123!',
-    user_metadata: { full_name: 'Admin Zomoroda', phone: null },
-    created_at: '2026-09-26T12:00:00Z',
-  }]
-  const profiles = [{
-    id: adminId, full_name: 'Admin Zomoroda', phone: null, whatsapp_number: null,
-    city: null, role: 'admin', created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z',
-  }]
+  const users = [
+    {
+      id: adminId,
+      email: 'admin@zomoroda.ma',
+      password: 'AdminPass123!',
+      user_metadata: { full_name: 'Admin Zomoroda', phone: null },
+      created_at: '2026-09-26T12:00:00Z',
+    },
+  ]
+  const profiles = [
+    {
+      id: adminId,
+      full_name: 'Admin Zomoroda',
+      phone: null,
+      whatsapp_number: null,
+      city: null,
+      role: 'admin',
+      created_at: '2026-09-26T12:00:00Z',
+      updated_at: '2026-09-26T12:00:00Z',
+    },
+  ]
 
   return {
-    users, profiles, categories, caftans, images,
-    bookings: [], history: [], adminNotes: {},
-    settings: [{
-      id: 1, whatsapp_number: '+212600000000', phone: '+212500000000',
-      email: 'contact@example.com', address: { fr: 'Casablanca, Maroc', ar: 'الدار البيضاء، المغرب', en: 'Casablanca, Morocco' },
-      social_links: {}, seo_defaults: {}, created_at: '2026-09-26T12:00:00Z', updated_at: '2026-09-26T12:00:00Z',
-    }],
+    users,
+    profiles,
+    categories,
+    caftans,
+    images,
+    bookings: [],
+    history: [],
+    adminNotes: {},
+    settings: [
+      {
+        id: 1,
+        whatsapp_number: '+212600000000',
+        phone: '+212500000000',
+        email: 'contact@example.com',
+        address: {
+          ar: 'قسارية الخليل رقم 29 أولاد تايمة (هوارة)',
+          fr: 'Quissariat Al Khalil n° 29, Oulad Teima (Houara), Maroc',
+          en: 'Quissariat Al Khalil No. 29, Oulad Teima (Houara), Morocco',
+        },
+        opening_hours: '10:00–20:00',
+        plus_code: '9QVP+M8G',
+        social_links: {},
+        seo_defaults: {},
+        created_at: '2026-09-26T12:00:00Z',
+        updated_at: '2026-09-26T12:00:00Z',
+      },
+    ],
     tokens: new Map(), // access_token -> user id
-    seq: 0,            // booking number sequence
+    seq: 0, // booking number sequence
   }
 }
 
@@ -93,7 +374,13 @@ function seed() {
 // ---------------------------------------------------------------------------
 const json = (res, status, body, headers = {}) => {
   const payload = body === undefined ? '' : JSON.stringify(body)
-  res.writeHead(status, { 'content-type': 'application/json', 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': '*', ...headers })
+  res.writeHead(status, {
+    'content-type': 'application/json',
+    'access-control-allow-origin': '*',
+    'access-control-allow-headers': '*',
+    'access-control-allow-methods': '*',
+    ...headers,
+  })
   res.end(payload)
 }
 const pgError = (res, code, message, status = 400) =>
@@ -112,8 +399,12 @@ function sessionFor(db, user) {
   }
 }
 const authUser = (u) => ({
-  id: u.id, email: u.email, aud: 'authenticated', role: 'authenticated',
-  user_metadata: u.user_metadata, created_at: u.created_at,
+  id: u.id,
+  email: u.email,
+  aud: 'authenticated',
+  role: 'authenticated',
+  user_metadata: u.user_metadata,
+  created_at: u.created_at,
   app_metadata: { provider: 'email' },
 })
 const caller = (db, req) => {
@@ -124,7 +415,7 @@ const caller = (db, req) => {
 }
 const callerProfile = (db, req) => {
   const u = caller(db, req)
-  return u ? db.profiles.find((p) => p.id === u.id) ?? null : null
+  return u ? (db.profiles.find((p) => p.id === u.id) ?? null) : null
 }
 const isAdmin = (db, req) => callerProfile(db, req)?.role === 'admin'
 
@@ -151,10 +442,12 @@ function applyQuery(rows, url) {
     for (const term of order.split(',')) {
       const [col, dir] = term.split('.')
       out.sort((a, b) => {
-        const av = a[col], bv = b[col]
-        const cmp = typeof av === 'number' && typeof bv === 'number'
-          ? av - bv
-          : String(av ?? '').localeCompare(String(bv ?? ''))
+        const av = a[col],
+          bv = b[col]
+        const cmp =
+          typeof av === 'number' && typeof bv === 'number'
+            ? av - bv
+            : String(av ?? '').localeCompare(String(bv ?? ''))
         return dir === 'desc' ? -cmp : cmp
       })
     }
@@ -178,7 +471,9 @@ function embed(db, table, row, select) {
   }
   if (table === 'bookings' && select.includes('caftan:caftans')) {
     const c = db.caftans.find((x) => x.id === row.caftan_id)
-    out.caftan = c ? embed(db, 'caftans', c, '*,category:categories(*),images:caftan_images(*)') : null
+    out.caftan = c
+      ? embed(db, 'caftans', c, '*,category:categories(*),images:caftan_images(*)')
+      : null
   }
   return out
 }
@@ -189,7 +484,12 @@ function restList(db, req, res, url, table, rows) {
   const wantsObject = (req.headers.accept ?? '').includes('vnd.pgrst.object+json')
   if (wantsObject) {
     if (filtered.length === 0) {
-      return json(res, 406, { code: 'PGRST116', message: 'The result contains 0 rows', details: null, hint: null })
+      return json(res, 406, {
+        code: 'PGRST116',
+        message: 'The result contains 0 rows',
+        details: null,
+        hint: null,
+      })
     }
     return json(res, 200, filtered[0])
   }
@@ -214,7 +514,8 @@ function handleTable(db, req, res, url, table, body) {
 
   if (table === 'profiles') {
     if (!me) return pgError(res, '42501', 'JWT required', 401)
-    const visible = meProfile?.role === 'admin' ? db.profiles : db.profiles.filter((p) => p.id === me.id)
+    const visible =
+      meProfile?.role === 'admin' ? db.profiles : db.profiles.filter((p) => p.id === me.id)
     if (req.method === 'GET') return restList(db, req, res, url, table, visible)
     if (req.method === 'PATCH') {
       // RLS: users update only their own row, and never the role column.
@@ -232,46 +533,75 @@ function handleTable(db, req, res, url, table, body) {
   if (table === 'bookings') {
     if (!me) return pgError(res, '42501', 'JWT required', 401)
     if (req.method === 'GET') {
-      const visible = meProfile?.role === 'admin'
-        ? db.bookings
-        : db.bookings.filter((b) => b.customer_id === me.id)
+      const visible =
+        meProfile?.role === 'admin'
+          ? db.bookings
+          : db.bookings.filter((b) => b.customer_id === me.id)
       return restList(db, req, res, url, table, visible)
     }
     if (req.method === 'POST') {
       const { caftan_id, customer_id, start_date, end_date, customer_notes } = body ?? {}
       // RLS WITH CHECK: customer_id must be the caller.
-      if (customer_id !== me.id) return pgError(res, '42501', 'new row violates row-level security policy for table "bookings"', 403)
+      if (customer_id !== me.id)
+        return pgError(
+          res,
+          '42501',
+          'new row violates row-level security policy for table "bookings"',
+          403,
+        )
       const caftan = db.caftans.find((c) => c.id === caftan_id)
       if (!caftan || caftan.status !== 'available') {
-        return pgError(res, '42501', 'new row violates row-level security policy for table "bookings"', 403)
+        return pgError(
+          res,
+          '42501',
+          'new row violates row-level security policy for table "bookings"',
+          403,
+        )
       }
       // Exclusion constraint: no overlap on the same caftan for
       // pending/confirmed bookings (daterange '[]' semantics).
-      const overlap = db.bookings.some((b) =>
-        b.caftan_id === caftan_id &&
-        (b.status === 'pending' || b.status === 'confirmed') &&
-        b.start_date <= end_date && b.end_date >= start_date)
+      const overlap = db.bookings.some(
+        (b) =>
+          b.caftan_id === caftan_id &&
+          (b.status === 'pending' || b.status === 'confirmed') &&
+          b.start_date <= end_date &&
+          b.end_date >= start_date,
+      )
       if (overlap) {
-        return pgError(res, '23P01', 'conflicting key value violates exclusion constraint "bookings_no_overlap"', 409)
+        return pgError(
+          res,
+          '23P01',
+          'conflicting key value violates exclusion constraint "bookings_no_overlap"',
+          409,
+        )
       }
       db.seq += 1
       const now = new Date().toISOString()
       const booking = {
         id: randomUUID(),
         booking_number: `CF-${new Date().getFullYear()}-${String(db.seq).padStart(4, '0')}`,
-        customer_id, caftan_id, start_date, end_date,
+        customer_id,
+        caftan_id,
+        start_date,
+        end_date,
         status: 'pending',
         total_price: daysBetween(start_date, end_date) * Number(caftan.price_per_day),
         deposit_status: 'unpaid',
         customer_notes: customer_notes ?? '',
         admin_notes: '',
-        created_at: now, updated_at: now,
+        created_at: now,
+        updated_at: now,
         rental_period: `[${start_date},${end_date}]`,
       }
       db.bookings.push(booking)
       db.history.push({
-        id: randomUUID(), booking_id: booking.id, from_status: null,
-        to_status: 'pending', changed_by: me.id, note: '', created_at: now,
+        id: randomUUID(),
+        booking_id: booking.id,
+        from_status: null,
+        to_status: 'pending',
+        changed_by: me.id,
+        note: '',
+        created_at: now,
       })
       const wantsObject = (req.headers.accept ?? '').includes('vnd.pgrst.object+json')
       return json(res, 201, wantsObject ? booking : [booking])
@@ -281,7 +611,8 @@ function handleTable(db, req, res, url, table, body) {
       const idEq = url.searchParams.get('id')
       const targetId = idEq?.startsWith('eq.') ? idEq.slice(3) : null
       const b = db.bookings.find((x) => x.id === targetId)
-      if (!b || b.customer_id !== me.id) return pgError(res, '42501', 'Insufficient privileges', 403)
+      if (!b || b.customer_id !== me.id)
+        return pgError(res, '42501', 'Insufficient privileges', 403)
       const statusEq = url.searchParams.get('status')
       if (statusEq === 'eq.pending' && b.status !== 'pending') {
         // 0 rows matched the update — PostgREST returns an empty array;
@@ -290,8 +621,13 @@ function handleTable(db, req, res, url, table, body) {
       }
       if (body?.status && body.status !== b.status) {
         db.history.push({
-          id: randomUUID(), booking_id: b.id, from_status: b.status,
-          to_status: body.status, changed_by: me.id, note: '', created_at: new Date().toISOString(),
+          id: randomUUID(),
+          booking_id: b.id,
+          from_status: b.status,
+          to_status: body.status,
+          changed_by: me.id,
+          note: '',
+          created_at: new Date().toISOString(),
         })
         b.status = body.status
         b.updated_at = new Date().toISOString()
@@ -304,12 +640,13 @@ function handleTable(db, req, res, url, table, body) {
 
   if (table === 'booking_status_history') {
     if (!me) return pgError(res, '42501', 'JWT required', 401)
-    const visible = meProfile?.role === 'admin'
-      ? db.history
-      : db.history.filter((h) => {
-          const b = db.bookings.find((x) => x.id === h.booking_id)
-          return b?.customer_id === me.id
-        })
+    const visible =
+      meProfile?.role === 'admin'
+        ? db.history
+        : db.history.filter((h) => {
+            const b = db.bookings.find((x) => x.id === h.booking_id)
+            return b?.customer_id === me.id
+          })
     return restList(db, req, res, url, table, visible)
   }
 
@@ -321,8 +658,14 @@ function handleTable(db, req, res, url, table, body) {
 // ---------------------------------------------------------------------------
 function handleRpc(db, req, res, name, body) {
   const guard = () => {
-    if (!caller(db, req)) { pgError(res, '42501', 'JWT required', 401); return false }
-    if (!isAdmin(db, req)) { pgError(res, '42501', 'Insufficient privileges'); return false }
+    if (!caller(db, req)) {
+      pgError(res, '42501', 'JWT required', 401)
+      return false
+    }
+    if (!isAdmin(db, req)) {
+      pgError(res, '42501', 'Insufficient privileges')
+      return false
+    }
     return true
   }
   const withCustomerCaftan = (b) => {
@@ -330,7 +673,15 @@ function handleRpc(db, req, res, name, body) {
     const c = db.caftans.find((x) => x.id === b.caftan_id)
     return {
       ...b,
-      customer: p ? { id: p.id, full_name: p.full_name, phone: p.phone, whatsapp_number: p.whatsapp_number, city: p.city } : null,
+      customer: p
+        ? {
+            id: p.id,
+            full_name: p.full_name,
+            phone: p.phone,
+            whatsapp_number: p.whatsapp_number,
+            city: p.city,
+          }
+        : null,
       caftan: c ? { id: c.id, slug: c.slug, name: c.name } : null,
     }
   }
@@ -338,7 +689,9 @@ function handleRpc(db, req, res, name, body) {
   switch (name) {
     case 'admin_dashboard_kpis': {
       if (!guard()) return
-      const monthStart = new Date(); monthStart.setUTCDate(1); monthStart.setUTCHours(0, 0, 0, 0)
+      const monthStart = new Date()
+      monthStart.setUTCDate(1)
+      monthStart.setUTCHours(0, 0, 0, 0)
       const counts = new Map()
       for (const b of db.bookings) counts.set(b.caftan_id, (counts.get(b.caftan_id) ?? 0) + 1)
       const top = [...counts.entries()]
@@ -346,12 +699,17 @@ function handleRpc(db, req, res, name, body) {
           const c = db.caftans.find((x) => x.id === cid)
           return { caftan_id: cid, slug: c?.slug, name: c?.name, booking_count: n }
         })
-        .sort((a, b) => b.booking_count - a.booking_count || String(a.slug).localeCompare(String(b.slug)))
+        .sort(
+          (a, b) =>
+            b.booking_count - a.booking_count || String(a.slug).localeCompare(String(b.slug)),
+        )
         .slice(0, 5)
       return json(res, 200, {
-        bookings_this_month: db.bookings.filter((b) => b.created_at >= monthStart.toISOString()).length,
+        bookings_this_month: db.bookings.filter((b) => b.created_at >= monthStart.toISOString())
+          .length,
         pending_count: db.bookings.filter((b) => b.status === 'pending').length,
-        revenue_estimate: db.bookings.filter((b) => b.status === 'confirmed' || b.status === 'completed')
+        revenue_estimate: db.bookings
+          .filter((b) => b.status === 'confirmed' || b.status === 'completed')
           .reduce((s, b) => s + Number(b.total_price), 0),
         revenue_statuses: ['confirmed', 'completed'],
         top_caftans: top,
@@ -368,19 +726,28 @@ function handleRpc(db, req, res, name, body) {
           type: h.from_status === null ? 'booking_created' : 'status_change',
           booking_number: b?.booking_number ?? null,
           customer_name: p?.full_name ?? null,
-          from_status: h.from_status, to_status: h.to_status,
+          from_status: h.from_status,
+          to_status: h.to_status,
           occurred_at: h.created_at,
         }
       })
       for (const p of db.profiles.filter((x) => x.role === 'customer')) {
-        events.push({ type: 'customer_registered', booking_number: null, customer_name: p.full_name, from_status: null, to_status: null, occurred_at: p.created_at })
+        events.push({
+          type: 'customer_registered',
+          booking_number: null,
+          customer_name: p.full_name,
+          from_status: null,
+          to_status: null,
+          occurred_at: p.created_at,
+        })
       }
       events.sort((a, b) => String(b.occurred_at).localeCompare(String(a.occurred_at)))
       return json(res, 200, events.slice(0, limit))
     }
     case 'admin_list_bookings': {
       if (!guard()) return
-      const rows = db.bookings.map(withCustomerCaftan)
+      const rows = db.bookings
+        .map(withCustomerCaftan)
         .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
       return json(res, 200, rows)
     }
@@ -392,7 +759,8 @@ function handleRpc(db, req, res, name, body) {
         booking: b,
         customer: db.profiles.find((x) => x.id === b.customer_id) ?? null,
         caftan: db.caftans.find((x) => x.id === b.caftan_id) ?? null,
-        history: db.history.filter((h) => h.booking_id === b.id)
+        history: db.history
+          .filter((h) => h.booking_id === b.id)
           .sort((a, c) => String(a.created_at).localeCompare(String(c.created_at))),
         admin_notes: db.adminNotes[b.id] ?? '',
       })
@@ -400,21 +768,32 @@ function handleRpc(db, req, res, name, body) {
     case 'admin_update_booking_status': {
       if (!guard()) return
       const { p_booking_id, p_new_status, p_note } = body ?? {}
-      if (p_note != null && String(p_note).length > 500) return pgError(res, '22023', 'Status note too long')
+      if (p_note != null && String(p_note).length > 500)
+        return pgError(res, '22023', 'Status note too long')
       const b = db.bookings.find((x) => x.id === p_booking_id)
       if (!b) return pgError(res, 'P0002', 'Booking not found')
       const valid = ['pending', 'confirmed', 'rejected', 'completed', 'cancelled']
-      if (!valid.includes(p_new_status)) return pgError(res, '22023', `Unknown status ${p_new_status}`)
-      if (b.status === p_new_status) return pgError(res, '22023', `Booking is already in status ${p_new_status}`)
+      if (!valid.includes(p_new_status))
+        return pgError(res, '22023', `Unknown status ${p_new_status}`)
+      if (b.status === p_new_status)
+        return pgError(res, '22023', `Booking is already in status ${p_new_status}`)
       const allowed =
         (b.status === 'pending' && ['confirmed', 'rejected', 'cancelled'].includes(p_new_status)) ||
         (b.status === 'confirmed' && ['completed', 'cancelled'].includes(p_new_status))
-      if (!allowed) return pgError(res, '22023', `Invalid status transition from ${b.status} to ${p_new_status}`)
+      if (!allowed)
+        return pgError(
+          res,
+          '22023',
+          `Invalid status transition from ${b.status} to ${p_new_status}`,
+        )
       const from = b.status
       b.status = p_new_status
       b.updated_at = new Date().toISOString()
       db.history.push({
-        id: randomUUID(), booking_id: b.id, from_status: from, to_status: p_new_status,
+        id: randomUUID(),
+        booking_id: b.id,
+        from_status: from,
+        to_status: p_new_status,
         changed_by: caller(db, req)?.id ?? null,
         note: p_note && String(p_note).trim() !== '' ? String(p_note).trim() : '',
         created_at: new Date().toISOString(),
@@ -424,52 +803,110 @@ function handleRpc(db, req, res, name, body) {
     case 'admin_set_booking_notes': {
       if (!guard()) return
       const { p_booking_id, p_notes } = body ?? {}
-      if (p_notes != null && String(p_notes).length > 2000) return pgError(res, '22023', 'Notes too long')
-      if (!db.bookings.some((x) => x.id === p_booking_id)) return pgError(res, 'P0002', 'Booking not found')
+      if (p_notes != null && String(p_notes).length > 2000)
+        return pgError(res, '22023', 'Notes too long')
+      if (!db.bookings.some((x) => x.id === p_booking_id))
+        return pgError(res, 'P0002', 'Booking not found')
       db.adminNotes[p_booking_id] = String(p_notes ?? '').trim()
       return json(res, 200, null)
     }
     case 'admin_list_customers': {
       if (!guard()) return
-      const rows = db.profiles.filter((p) => p.role === 'customer').map((p) => {
-        const bs = db.bookings.filter((b) => b.customer_id === p.id)
-          .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
-        return {
-          id: p.id, full_name: p.full_name, phone: p.phone,
-          whatsapp_number: p.whatsapp_number, city: p.city, created_at: p.created_at,
-          booking_count: bs.length,
-          last_booking_at: bs[0]?.created_at ?? null,
-          last_booking_status: bs[0]?.status ?? null,
-        }
-      }).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
+      const rows = db.profiles
+        .filter((p) => p.role === 'customer')
+        .map((p) => {
+          const bs = db.bookings
+            .filter((b) => b.customer_id === p.id)
+            .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
+          return {
+            id: p.id,
+            full_name: p.full_name,
+            phone: p.phone,
+            whatsapp_number: p.whatsapp_number,
+            city: p.city,
+            created_at: p.created_at,
+            booking_count: bs.length,
+            last_booking_at: bs[0]?.created_at ?? null,
+            last_booking_status: bs[0]?.status ?? null,
+          }
+        })
+        .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
       return json(res, 200, rows)
     }
     case 'admin_get_customer': {
       if (!guard()) return
       const p = db.profiles.find((x) => x.id === body?.p_customer_id)
       if (!p) return pgError(res, 'P0002', 'Customer not found')
-      const bookings = db.bookings.filter((b) => b.customer_id === p.id)
+      const bookings = db.bookings
+        .filter((b) => b.customer_id === p.id)
         .map(withCustomerCaftan)
         .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))
       return json(res, 200, { profile: p, bookings })
+    }
+    case 'booked_periods': {
+      // Public RPC (anon allowed) — date ranges only, mirrors the
+      // no_overlapping_active_bookings semantics (pending/confirmed).
+      const caftan = db.caftans.find((c) => c.id === body?.p_caftan_id)
+      if (!caftan || caftan.status === 'retired') return json(res, 200, [])
+      const today = new Date().toISOString().slice(0, 10)
+      const rows = db.bookings
+        .filter(
+          (b) =>
+            b.caftan_id === caftan.id &&
+            (b.status === 'pending' || b.status === 'confirmed') &&
+            b.end_date >= today,
+        )
+        .sort((a, b) => a.start_date.localeCompare(b.start_date))
+        .map((b) => ({ start_date: b.start_date, end_date: b.end_date }))
+      return json(res, 200, rows)
+    }
+    case 'available_caftan_ids': {
+      // Public RPC (anon allowed) — ids only.
+      const { p_start, p_end } = body ?? {}
+      if (!p_start || !p_end || p_end < p_start) return json(res, 200, [])
+      const ids = db.caftans
+        .filter((c) => c.status === 'available')
+        .filter(
+          (c) =>
+            !db.bookings.some(
+              (b) =>
+                b.caftan_id === c.id &&
+                (b.status === 'pending' || b.status === 'confirmed') &&
+                b.start_date <= p_end &&
+                b.end_date >= p_start,
+            ),
+        )
+        .map((c) => c.id)
+      return json(res, 200, ids)
     }
     case 'admin_caftan_occupancy': {
       if (!guard()) return
       const { p_from, p_to } = body ?? {}
       const rows = db.bookings
-        .filter((b) => ['pending', 'confirmed', 'completed'].includes(b.status) &&
-          b.start_date <= p_to && b.end_date >= p_from)
+        .filter(
+          (b) =>
+            ['pending', 'confirmed', 'completed'].includes(b.status) &&
+            b.start_date <= p_to &&
+            b.end_date >= p_from,
+        )
         .map((b) => {
           const c = db.caftans.find((x) => x.id === b.caftan_id)
           const p = db.profiles.find((x) => x.id === b.customer_id)
           return {
-            booking_id: b.id, booking_number: b.booking_number, status: b.status,
-            start_date: b.start_date, end_date: b.end_date,
+            booking_id: b.id,
+            booking_number: b.booking_number,
+            status: b.status,
+            start_date: b.start_date,
+            end_date: b.end_date,
             customer_name: p?.full_name ?? null,
             caftan: c ? { id: c.id, slug: c.slug, name: c.name } : null,
           }
         })
-        .sort((a, b) => String(a.caftan?.slug).localeCompare(String(b.caftan?.slug)) || a.start_date.localeCompare(b.start_date))
+        .sort(
+          (a, b) =>
+            String(a.caftan?.slug).localeCompare(String(b.caftan?.slug)) ||
+            a.start_date.localeCompare(b.start_date),
+        )
       return json(res, 200, rows)
     }
     default:
@@ -485,16 +922,25 @@ function handleAuth(db, req, res, url, body) {
   if (path === '/signup' && req.method === 'POST') {
     const { email, password, data } = body ?? {}
     if (db.users.some((u) => u.email === email)) {
-      return json(res, 422, { code: 422, error_code: 'user_already_exists', msg: 'User already registered' })
+      return json(res, 422, {
+        code: 422,
+        error_code: 'user_already_exists',
+        msg: 'User already registered',
+      })
     }
     const now = new Date().toISOString()
     const user = { id: randomUUID(), email, password, user_metadata: data ?? {}, created_at: now }
     db.users.push(user)
     // handle_new_user trigger emulation
     db.profiles.push({
-      id: user.id, full_name: data?.full_name ?? '', phone: data?.phone ?? null,
-      whatsapp_number: data?.phone ?? null, city: null, role: 'customer',
-      created_at: now, updated_at: now,
+      id: user.id,
+      full_name: data?.full_name ?? '',
+      phone: data?.phone ?? null,
+      whatsapp_number: data?.phone ?? null,
+      city: null,
+      role: 'customer',
+      created_at: now,
+      updated_at: now,
     })
     return json(res, 200, sessionFor(db, user))
   }
@@ -502,7 +948,11 @@ function handleAuth(db, req, res, url, body) {
     const { email, password } = body ?? {}
     const user = db.users.find((u) => u.email === email && u.password === password)
     if (!user) {
-      return json(res, 400, { code: 400, error_code: 'invalid_credentials', msg: 'Invalid login credentials' })
+      return json(res, 400, {
+        code: 400,
+        error_code: 'invalid_credentials',
+        msg: 'Invalid login credentials',
+      })
     }
     return json(res, 200, sessionFor(db, user))
   }
@@ -541,7 +991,11 @@ export function startMock(port = 0) {
     req.on('end', () => {
       let body = null
       if (chunks.length) {
-        try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { body = null }
+        try {
+          body = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+        } catch {
+          body = null
+        }
       }
       try {
         if (url.pathname.startsWith('/auth/v1')) return handleAuth(db, req, res, url, body)
@@ -551,15 +1005,23 @@ export function startMock(port = 0) {
           if (name.startsWith('rpc/')) return handleRpc(db, req, res, name.slice(4), body)
           return handleTable(db, req, res, url, name, body)
         }
-        if (url.pathname.startsWith('/storage/v1/object/public/caftan-images/') ||
-            url.pathname.startsWith('/storage/v1/render/image/public/caftan-images/')) {
-          res.writeHead(200, { 'content-type': 'image/png', 'cache-control': 'public, max-age=3600' })
+        if (
+          url.pathname.startsWith('/storage/v1/object/public/caftan-images/') ||
+          url.pathname.startsWith('/storage/v1/render/image/public/caftan-images/')
+        ) {
+          res.writeHead(200, {
+            'content-type': 'image/png',
+            'cache-control': 'public, max-age=3600',
+          })
           return res.end(PNG)
         }
         if (url.pathname.startsWith('/storage/v1/object/caftan-images') && req.method === 'POST') {
           return json(res, 200, { Key: `caftan-images/${randomUUID()}` })
         }
-        if (url.pathname.startsWith('/storage/v1/object/caftan-images') && req.method === 'DELETE') {
+        if (
+          url.pathname.startsWith('/storage/v1/object/caftan-images') &&
+          req.method === 'DELETE'
+        ) {
           return json(res, 200, [])
         }
         return json(res, 404, { message: 'not found' })
@@ -570,12 +1032,19 @@ export function startMock(port = 0) {
   })
   return new Promise((resolve) => {
     server.listen(port, '127.0.0.1', () => {
-      resolve({ server, db, port: server.address().port, close: () => new Promise((r) => server.close(r)) })
+      resolve({
+        server,
+        db,
+        port: server.address().port,
+        close: () => new Promise((r) => server.close(r)),
+      })
     })
   })
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const port = Number(process.argv[2] ?? 4174)
-  startMock(port).then(({ port: p }) => console.log(`[mock-supabase] listening on http://127.0.0.1:${p}`))
+  startMock(port).then(({ port: p }) =>
+    console.log(`[mock-supabase] listening on http://127.0.0.1:${p}`),
+  )
 }

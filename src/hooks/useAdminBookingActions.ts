@@ -37,11 +37,7 @@ export function useAdminBookingActions() {
   const [acting, setActing] = useState(false)
 
   const updateStatus = useCallback(
-    async (
-      bookingId: string,
-      newStatus: BookingStatus,
-      note = '',
-    ): Promise<AdminActionResult> => {
+    async (bookingId: string, newStatus: BookingStatus, note = ''): Promise<AdminActionResult> => {
       if (!supabase) return { ok: false, errorKey: 'admin.bookings.error_action' }
       setActing(true)
       const { error } = await supabase.rpc('admin_update_booking_status', {

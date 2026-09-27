@@ -20,12 +20,8 @@ export default function NotFoundPage() {
       <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
         <Compass className="h-7 w-7" aria-hidden="true" />
       </span>
-      <h1 className="font-display text-2xl font-semibold text-foreground">
-        {t('notfound.title')}
-      </h1>
-      <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-        {t('notfound.body')}
-      </p>
+      <h1 className="font-display text-2xl font-semibold text-foreground">{t('notfound.title')}</h1>
+      <p className="max-w-md text-sm leading-relaxed text-muted-foreground">{t('notfound.body')}</p>
       <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
         <Button variant="outline" onClick={() => navigate(-1)}>
           {t('notfound.back')}

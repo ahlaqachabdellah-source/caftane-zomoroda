@@ -112,12 +112,18 @@ export default function AdminCategoriesPage() {
       </div>
 
       {noticeKey && (
-        <p role="status" className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground">
+        <p
+          role="status"
+          className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground"
+        >
           {t(noticeKey)}
         </p>
       )}
       {listErrorKey && (
-        <p role="alert" className="rounded-md border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive">
+        <p
+          role="alert"
+          className="rounded-md border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive"
+        >
           {t(listErrorKey)}
         </p>
       )}
@@ -193,13 +199,17 @@ export default function AdminCategoriesPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>{t('admin.categories.delete_title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              {pendingDelete ? nameInLocale(pendingDelete.name, 'fr') : ''} — {t('admin.categories.delete_body')}
+              {pendingDelete ? nameInLocale(pendingDelete.name, 'fr') : ''} —{' '}
+              {t('admin.categories.delete_body')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={deleting}>{t('admin.caftans.cancel')}</AlertDialogCancel>
             <AlertDialogAction
-              onClick={(e) => { e.preventDefault(); void handleConfirmDelete() }}
+              onClick={(e) => {
+                e.preventDefault()
+                void handleConfirmDelete()
+              }}
               disabled={deleting}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >

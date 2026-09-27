@@ -49,69 +49,69 @@ export default function App() {
     <ErrorBoundary>
       <AuthProvider>
         <Suspense fallback={<RouteFallback />}>
-        <Routes>
-        <Route path="/" element={<LocaleRedirect />} />
-        <Route path="/:locale" element={<LocaleLayout />}>
-          {/* Public site + customer account: branded chrome (header/footer) */}
-          <Route element={<SiteChrome />}>
-            <Route index element={<Home />} />
-            <Route path="caftans" element={<CatalogPage />} />
-            <Route path="caftans/:slug" element={<CaftanDetailPage />} />
-            <Route
-              path="caftans/:slug/book"
-              element={
-                <ProtectedRoute>
-                  <BookingPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="reset-password" element={<ResetPasswordPage />} />
-            <Route
-              path="account"
-              element={
-                <ProtectedRoute>
-                  <AccountLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<DashboardPage />} />
-              <Route path="bookings" element={<MyBookingsPage />} />
-              <Route path="bookings/:bookingNumber" element={<BookingDetailPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
+          <Routes>
+            <Route path="/" element={<LocaleRedirect />} />
+            <Route path="/:locale" element={<LocaleLayout />}>
+              {/* Public site + customer account: branded chrome (header/footer) */}
+              <Route element={<SiteChrome />}>
+                <Route index element={<Home />} />
+                <Route path="caftans" element={<CatalogPage />} />
+                <Route path="caftans/:slug" element={<CaftanDetailPage />} />
+                <Route
+                  path="caftans/:slug/book"
+                  element={
+                    <ProtectedRoute>
+                      <BookingPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="reset-password" element={<ResetPasswordPage />} />
+                <Route
+                  path="account"
+                  element={
+                    <ProtectedRoute>
+                      <AccountLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<DashboardPage />} />
+                  <Route path="bookings" element={<MyBookingsPage />} />
+                  <Route path="bookings/:bookingNumber" element={<BookingDetailPage />} />
+                  <Route path="profile" element={<ProfilePage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
 
-          {/* Admin area: own dashboard shell, no public chrome. The guard
+              {/* Admin area: own dashboard shell, no public chrome. The guard
               is the UX layer — authorization is enforced server-side by
               RLS and the admin-only dashboard RPCs. */}
-          <Route
-            path="admin"
-            element={
-              <ProtectedRoute requireAdmin>
-                <AdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<AdminOverviewPage />} />
-            <Route path="caftans" element={<AdminCaftansPage />} />
-            <Route path="caftans/new" element={<AdminCaftanFormPage />} />
-            <Route path="caftans/:caftanId/edit" element={<AdminCaftanFormPage />} />
-            <Route path="categories" element={<AdminCategoriesPage />} />
-            <Route path="bookings" element={<AdminBookingsPage />} />
-            <Route path="bookings/:bookingId" element={<AdminBookingDetailPage />} />
-            <Route path="calendar" element={<AdminCalendarPage />} />
-            <Route path="customers" element={<AdminCustomersPage />} />
-            <Route path="customers/:customerId" element={<AdminCustomerDetailPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Route>
-        <Route path="*" element={<LocaleRedirect />} />
-      </Routes>
+              <Route
+                path="admin"
+                element={
+                  <ProtectedRoute requireAdmin>
+                    <AdminLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<AdminOverviewPage />} />
+                <Route path="caftans" element={<AdminCaftansPage />} />
+                <Route path="caftans/new" element={<AdminCaftanFormPage />} />
+                <Route path="caftans/:caftanId/edit" element={<AdminCaftanFormPage />} />
+                <Route path="categories" element={<AdminCategoriesPage />} />
+                <Route path="bookings" element={<AdminBookingsPage />} />
+                <Route path="bookings/:bookingId" element={<AdminBookingDetailPage />} />
+                <Route path="calendar" element={<AdminCalendarPage />} />
+                <Route path="customers" element={<AdminCustomersPage />} />
+                <Route path="customers/:customerId" element={<AdminCustomerDetailPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Route>
+            <Route path="*" element={<LocaleRedirect />} />
+          </Routes>
         </Suspense>
       </AuthProvider>
     </ErrorBoundary>

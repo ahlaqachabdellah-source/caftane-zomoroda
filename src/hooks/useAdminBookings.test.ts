@@ -98,7 +98,10 @@ describe('useAdminBookings', () => {
   beforeEach(() => vi.clearAllMocks())
 
   it('loads the RPC payload', async () => {
-    mockRpc.mockResolvedValue({ data: [{ id: 'b-1', booking_number: 'CF-2026-0001' }], error: null })
+    mockRpc.mockResolvedValue({
+      data: [{ id: 'b-1', booking_number: 'CF-2026-0001' }],
+      error: null,
+    })
     const { result } = renderHook(() => useAdminBookings())
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(mockRpc).toHaveBeenCalledWith('admin_list_bookings')

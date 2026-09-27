@@ -65,9 +65,6 @@ describe('NotFoundPage', () => {
     )
     expect(screen.getByRole('heading', { name: 'Page introuvable' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Retour' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: "Retour à l'accueil" })).toHaveAttribute(
-      'href',
-      '/fr',
-    )
+    expect(screen.getByRole('link', { name: "Retour à l'accueil" })).toHaveAttribute('href', '/fr')
   })
 })

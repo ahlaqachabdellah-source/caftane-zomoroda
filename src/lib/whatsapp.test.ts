@@ -37,9 +37,7 @@ describe('normalizeWhatsappNumber', () => {
 describe('buildWhatsappLink', () => {
   it('builds a wa.me link with a URL-encoded message', () => {
     const link = buildWhatsappLink('+212 612 345 678', 'Bonjour, ça va ?')
-    expect(link).toBe(
-      `https://wa.me/212612345678?text=${encodeURIComponent('Bonjour, ça va ?')}`,
-    )
+    expect(link).toBe(`https://wa.me/212612345678?text=${encodeURIComponent('Bonjour, ça va ?')}`)
     expect(link).toContain('Bonjour%2C%20%C3%A7a%20va%20%3F')
   })
 

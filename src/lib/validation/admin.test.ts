@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { actionNoteSchema, adminNotesSchema, altTextSchema, categoryFormSchema, caftanFormSchema } from './admin'
+import {
+  actionNoteSchema,
+  adminNotesSchema,
+  altTextSchema,
+  categoryFormSchema,
+  caftanFormSchema,
+} from './admin'
 
 const VALID_CAFTAN = {
   slug: 'caftan-test-1',
@@ -62,7 +68,13 @@ describe('caftanFormSchema', () => {
 })
 
 describe('categoryFormSchema', () => {
-  const VALID = { slug: 'mariage', nameAr: 'زفاف', nameFr: 'Mariage', nameEn: 'Wedding', sortOrder: '1' }
+  const VALID = {
+    slug: 'mariage',
+    nameAr: 'زفاف',
+    nameFr: 'Mariage',
+    nameEn: 'Wedding',
+    sortOrder: '1',
+  }
 
   it('accepts a valid category', () => {
     expect(categoryFormSchema.safeParse(VALID).success).toBe(true)

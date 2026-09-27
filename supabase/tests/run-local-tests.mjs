@@ -56,8 +56,11 @@ async function main() {
     await embedded.start()
 
     const admin = await connect({
-      host: '127.0.0.1', port: PORT,
-      user: 'postgres', password: 'postgres', database: 'postgres',
+      host: '127.0.0.1',
+      port: PORT,
+      user: 'postgres',
+      password: 'postgres',
+      database: 'postgres',
     })
 
     console.log('\n[1/4] Supabase primitives stub (local only)')
@@ -65,7 +68,9 @@ async function main() {
 
     console.log('\n[2/4] Migrations')
     const migDir = path.join(supabaseDir, 'migrations')
-    for (const f of readdirSync(migDir).filter((f) => f.endsWith('.sql')).sort()) {
+    for (const f of readdirSync(migDir)
+      .filter((f) => f.endsWith('.sql'))
+      .sort()) {
       await runFile(admin, path.join(migDir, f))
     }
     await runFile(admin, path.join(__dirname, 'local', '01_grants.sql'))
@@ -74,10 +79,15 @@ async function main() {
     await runFile(admin, path.join(supabaseDir, 'seed.sql'))
     await runFile(admin, path.join(__dirname, 'local', '02_test_users.sql'))
 
-    console.log('\n[4/4] RLS / constraint / booking / account / admin suites (as unprivileged role)')
+    console.log(
+      '\n[4/4] RLS / constraint / booking / account / admin suites (as unprivileged role)',
+    )
     const tester = await connect({
-      host: '127.0.0.1', port: PORT,
-      user: 'tester', password: 'tester', database: 'postgres',
+      host: '127.0.0.1',
+      port: PORT,
+      user: 'tester',
+      password: 'tester',
+      database: 'postgres',
     })
     // One session: later phases reuse the pg_temp helpers created by phase 1.
     await runFile(tester, path.join(__dirname, 'phase1_rls_tests.sql'))

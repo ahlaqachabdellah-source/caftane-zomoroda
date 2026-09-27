@@ -36,7 +36,10 @@ describe('useMyBookings', () => {
   })
 
   it('returns the customer bookings ordered by creation', async () => {
-    const rows = [makeBooking({ id: 'b-1' }), makeBooking({ id: 'b-2', booking_number: 'CF-2026-0008' })]
+    const rows = [
+      makeBooking({ id: 'b-1' }),
+      makeBooking({ id: 'b-2', booking_number: 'CF-2026-0008' }),
+    ]
     mocks.client = clientReturning({ data: rows })
     const { result } = renderHook(() => useMyBookings())
     expect(result.current.loading).toBe(true)

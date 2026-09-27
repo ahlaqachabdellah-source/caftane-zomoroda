@@ -35,18 +35,33 @@ describe('MyBookingsPage', () => {
   })
 
   it('shows loading and error states', () => {
-    mockUseMyBookings.mockReturnValue({ bookings: [], loading: true, error: null, refetch: vi.fn() })
+    mockUseMyBookings.mockReturnValue({
+      bookings: [],
+      loading: true,
+      error: null,
+      refetch: vi.fn(),
+    })
     const { unmount } = renderPage('/fr/account/bookings', <MyBookingsPage />)
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
-    mockUseMyBookings.mockReturnValue({ bookings: [], loading: false, error: 'boom', refetch: vi.fn() })
+    mockUseMyBookings.mockReturnValue({
+      bookings: [],
+      loading: false,
+      error: 'boom',
+      refetch: vi.fn(),
+    })
     renderPage('/fr/account/bookings', <MyBookingsPage />)
     expect(screen.getByRole('alert')).toBeInTheDocument()
   })
 
   it('shows a friendly empty state with a catalog CTA', () => {
-    mockUseMyBookings.mockReturnValue({ bookings: [], loading: false, error: null, refetch: vi.fn() })
+    mockUseMyBookings.mockReturnValue({
+      bookings: [],
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
     renderPage('/fr/account/bookings', <MyBookingsPage />)
     expect(screen.getByText('Aucune réservation pour le moment')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Découvrir la collection' })).toHaveAttribute(
@@ -100,7 +115,12 @@ describe('DashboardPage', () => {
   })
 
   it('shows the empty state without stats errors when there are no bookings', () => {
-    mockUseMyBookings.mockReturnValue({ bookings: [], loading: false, error: null, refetch: vi.fn() })
+    mockUseMyBookings.mockReturnValue({
+      bookings: [],
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
     renderPage('/fr/account', <DashboardPage />)
     expect(screen.getByText('Aucune réservation pour le moment')).toBeInTheDocument()
   })

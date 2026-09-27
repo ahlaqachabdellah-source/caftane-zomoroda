@@ -1,11 +1,21 @@
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Facebook, Instagram, Mail, MessageCircle, Music2, Phone } from 'lucide-react'
+import {
+  Clock,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Music2,
+  Phone,
+} from 'lucide-react'
 import Logo from '@/components/brand/Logo'
 import OrnamentDivider from '@/components/layout/OrnamentDivider'
 import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { buildWhatsappLink } from '@/lib/whatsapp'
+import { localizedText } from '@/lib/localized'
 
 /**
  * Site footer (Phase 4) — brand block, navigation and real contact
@@ -15,7 +25,7 @@ import { buildWhatsappLink } from '@/lib/whatsapp'
  */
 export default function SiteFooter() {
   const { t } = useTranslation()
-  const { localePath } = useLocale()
+  const { locale, localePath } = useLocale()
   const { settings } = useSiteSettings()
 
   const whatsapp = settings?.whatsapp_number?.trim()
@@ -24,13 +34,21 @@ export default function SiteFooter() {
   const whatsappHref = buildWhatsappLink(whatsapp, '')
   const phone = settings?.phone?.trim()
   const email = settings?.email?.trim()
+  const address = localizedText(settings?.address ?? null, locale).trim()
+  const openingHours = settings?.opening_hours?.trim()
+  const plusCode = settings?.plus_code?.trim()
+  const mapHref = plusCode
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plusCode)}`
+    : null
   const social = (settings?.social_links ?? {}) as Record<string, string>
   const socialLinks = [
     { key: 'instagram', url: social.instagram?.trim(), icon: Instagram, label: 'Instagram' },
     { key: 'facebook', url: social.facebook?.trim(), icon: Facebook, label: 'Facebook' },
     { key: 'tiktok', url: social.tiktok?.trim(), icon: Music2, label: 'TikTok' },
   ].filter((s) => s.url)
-  const hasContact = Boolean(whatsappHref || phone || email || socialLinks.length > 0)
+  const hasContact = Boolean(
+    whatsappHref || phone || email || address || openingHours || socialLinks.length > 0,
+  )
 
   return (
     <footer className="border-t border-border bg-primary text-primary-foreground">
@@ -51,16 +69,28 @@ export default function SiteFooter() {
           className="flex flex-col items-center gap-2 text-sm md:items-start"
         >
           <p className="mb-1 font-display text-lg font-semibold">{t('footer.nav_heading')}</p>
-          <Link to={localePath('/')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
+          <Link
+            to={localePath('/')}
+            className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
+          >
             {t('nav.home')}
           </Link>
-          <Link to={localePath('/caftans')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
+          <Link
+            to={localePath('/caftans')}
+            className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
+          >
             {t('nav.collection')}
           </Link>
-          <Link to={localePath('/account')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
+          <Link
+            to={localePath('/account')}
+            className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
+          >
             {t('nav.account')}
           </Link>
-          <Link to={localePath('/login')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
+          <Link
+            to={localePath('/login')}
+            className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
+          >
             {t('nav.login')}
           </Link>
         </nav>
@@ -97,6 +127,33 @@ export default function SiteFooter() {
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 {email}
               </a>
+            )}
+            {address && (
+              <p className="inline-flex items-start gap-2 text-primary-foreground/80">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>
+                  {address}
+                  {mapHref && (
+                    <>
+                      {' · '}
+                      <a
+                        href={mapHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-2 transition-colors hover:text-gold-soft"
+                      >
+                        {t('footer.map_link')}
+                      </a>
+                    </>
+                  )}
+                </span>
+              </p>
+            )}
+            {openingHours && (
+              <p className="inline-flex items-center gap-2 text-primary-foreground/80">
+                <Clock className="h-4 w-4" aria-hidden="true" />
+                {t('footer.hours_label')} · {openingHours}
+              </p>
             )}
             {socialLinks.length > 0 && (
               <div className="mt-1 flex items-center gap-3">

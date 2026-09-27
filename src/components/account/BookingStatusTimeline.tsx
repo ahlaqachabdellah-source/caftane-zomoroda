@@ -45,10 +45,7 @@ export default function BookingStatusTimeline({ history }: { history: BookingSta
             </span>
             <div className="flex flex-col">
               <span className="text-sm font-medium text-foreground">{label}</span>
-              <time
-                dateTime={entry.created_at}
-                className="text-xs text-muted-foreground"
-              >
+              <time dateTime={entry.created_at} className="text-xs text-muted-foreground">
                 {formatDateTime(entry.created_at, locale)}
               </time>
             </div>

@@ -26,10 +26,12 @@ export function useAdminOccupancy(from: string, to: string): UseAdminOccupancyRe
     setLoading(true)
     setError(null)
 
-    const { data, error: rpcError } = await withRetry(() => client.rpc('admin_caftan_occupancy', {
-      p_from: from,
-      p_to: to,
-    }))
+    const { data, error: rpcError } = await withRetry(() =>
+      client.rpc('admin_caftan_occupancy', {
+        p_from: from,
+        p_to: to,
+      }),
+    )
 
     if (rpcError) {
       setError('admin.calendar.error_load')

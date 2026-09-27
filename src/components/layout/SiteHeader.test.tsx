@@ -40,9 +40,10 @@ describe('SiteHeader', () => {
 
   it('renders the official logo with the home aria label', () => {
     renderHeader()
-    expect(
-      screen.getByRole('link', { name: 'Caftan Zomoroda — accueil' }),
-    ).toHaveAttribute('href', '/fr')
+    expect(screen.getByRole('link', { name: 'Caftan Zomoroda — accueil' })).toHaveAttribute(
+      'href',
+      '/fr',
+    )
     expect(screen.getAllByAltText('Caftan Zomoroda').length).toBeGreaterThan(0)
   })
 
@@ -62,10 +63,7 @@ describe('SiteHeader', () => {
       role: 'customer',
     })
     renderHeader()
-    expect(screen.getByRole('link', { name: 'Mon compte' })).toHaveAttribute(
-      'href',
-      '/fr/account',
-    )
+    expect(screen.getByRole('link', { name: 'Mon compte' })).toHaveAttribute('href', '/fr/account')
   })
 
   it('opens and closes the mobile menu', async () => {
@@ -73,9 +71,7 @@ describe('SiteHeader', () => {
     const toggle = screen.getByRole('button', { name: 'Ouvrir le menu' })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
     await userEvent.click(toggle)
-    expect(
-      screen.getByRole('navigation', { name: 'Navigation mobile' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: 'Navigation mobile' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Fermer le menu' })).toHaveAttribute(
       'aria-expanded',
       'true',
@@ -86,10 +82,7 @@ describe('SiteHeader', () => {
     await act(() => i18n.changeLanguage('ar'))
     renderHeader()
     expect(screen.getByRole('link', { name: 'الرئيسية' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'تسجيل الدخول' })).toHaveAttribute(
-      'href',
-      '/ar/login',
-    )
+    expect(screen.getByRole('link', { name: 'تسجيل الدخول' })).toHaveAttribute('href', '/ar/login')
     await act(() => i18n.changeLanguage('fr'))
   })
 })

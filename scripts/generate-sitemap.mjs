@@ -67,7 +67,11 @@ const today = new Date().toISOString().slice(0, 10)
 const urls = []
 for (const locale of LOCALES) {
   for (const p of STATIC_PATHS) {
-    urls.push({ loc: `${SITE}/${locale}${p === '/' ? '' : p}`, lastmod: today, priority: p === '/' ? '1.0' : '0.9' })
+    urls.push({
+      loc: `${SITE}/${locale}${p === '/' ? '' : p}`,
+      lastmod: today,
+      priority: p === '/' ? '1.0' : '0.9',
+    })
   }
   for (const { slug, updated } of slugs) {
     urls.push({
@@ -94,7 +98,9 @@ ${urls
 `
 
 writeFileSync(path.join(root, 'dist', 'sitemap.xml'), xml)
-console.log(`[sitemap] wrote ${urls.length} URLs (${slugs.length} caftans x ${LOCALES.length} locales + static)`)
+console.log(
+  `[sitemap] wrote ${urls.length} URLs (${slugs.length} caftans x ${LOCALES.length} locales + static)`,
+)
 
 // Advertise the sitemap in robots.txt (absolute URL required).
 const robotsPath = path.join(root, 'dist', 'robots.txt')

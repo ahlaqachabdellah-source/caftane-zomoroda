@@ -35,10 +35,7 @@ describe('i18n resources', () => {
       for (const key of leafKeys(resources)) {
         const value = key
           .split('.')
-          .reduce<unknown>(
-            (acc, part) => (acc as Record<string, unknown>)[part],
-            resources,
-          )
+          .reduce<unknown>((acc, part) => (acc as Record<string, unknown>)[part], resources)
         expect(
           typeof value === 'string' && value.trim().length > 0,
           `empty translation: ${lng}:${key}`,

@@ -77,70 +77,58 @@ export function useCaftanImages(caftanId: string | undefined) {
     [caftanId],
   )
 
-  const deleteImage = useCallback(
-    async (image: CaftanImage): Promise<MutationResult> => {
-      if (!supabase) return { ok: false, errorKey: 'admin.images.error_delete' }
-      setBusy(true)
-      try {
-        const { error: rowError } = await supabase
-          .from('caftan_images')
-          .delete()
-          .eq('id', image.id)
-        if (rowError) return { ok: false, errorKey: 'admin.images.error_delete' }
-        // Best effort: the row is gone; a failed object delete only leaves
-        // an unreachable orphan an admin can clean up later.
-        await supabase.storage.from(CAFTAN_IMAGES_BUCKET).remove([image.storage_path])
-        return { ok: true, errorKey: null }
-      } finally {
-        setBusy(false)
-      }
-    },
-    [],
-  )
+  const deleteImage = useCallback(async (image: CaftanImage): Promise<MutationResult> => {
+    if (!supabase) return { ok: false, errorKey: 'admin.images.error_delete' }
+    setBusy(true)
+    try {
+      const { error: rowError } = await supabase.from('caftan_images').delete().eq('id', image.id)
+      if (rowError) return { ok: false, errorKey: 'admin.images.error_delete' }
+      // Best effort: the row is gone; a failed object delete only leaves
+      // an unreachable orphan an admin can clean up later.
+      await supabase.storage.from(CAFTAN_IMAGES_BUCKET).remove([image.storage_path])
+      return { ok: true, errorKey: null }
+    } finally {
+      setBusy(false)
+    }
+  }, [])
 
   /** Persist a new visual order: index in `orderedIds` becomes sort_order. */
-  const persistOrder = useCallback(
-    async (orderedIds: string[]): Promise<MutationResult> => {
-      if (!supabase) return { ok: false, errorKey: 'admin.images.error_reorder' }
-      setBusy(true)
-      try {
-        for (const [index, id] of orderedIds.entries()) {
-          const { error } = await supabase
-            .from('caftan_images')
-            .update({ sort_order: index })
-            .eq('id', id)
-          if (error) return { ok: false, errorKey: 'admin.images.error_reorder' }
-        }
-        return { ok: true, errorKey: null }
-      } finally {
-        setBusy(false)
-      }
-    },
-    [],
-  )
-
-  const setPrimary = useCallback(
-    async (image: CaftanImage): Promise<MutationResult> => {
-      if (!supabase) return { ok: false, errorKey: 'admin.images.error_primary' }
-      setBusy(true)
-      try {
-        const { error: clearError } = await supabase
-          .from('caftan_images')
-          .update({ is_primary: false })
-          .eq('caftan_id', image.caftan_id)
-        if (clearError) return { ok: false, errorKey: 'admin.images.error_primary' }
+  const persistOrder = useCallback(async (orderedIds: string[]): Promise<MutationResult> => {
+    if (!supabase) return { ok: false, errorKey: 'admin.images.error_reorder' }
+    setBusy(true)
+    try {
+      for (const [index, id] of orderedIds.entries()) {
         const { error } = await supabase
           .from('caftan_images')
-          .update({ is_primary: true })
-          .eq('id', image.id)
-        if (error) return { ok: false, errorKey: 'admin.images.error_primary' }
-        return { ok: true, errorKey: null }
-      } finally {
-        setBusy(false)
+          .update({ sort_order: index })
+          .eq('id', id)
+        if (error) return { ok: false, errorKey: 'admin.images.error_reorder' }
       }
-    },
-    [],
-  )
+      return { ok: true, errorKey: null }
+    } finally {
+      setBusy(false)
+    }
+  }, [])
+
+  const setPrimary = useCallback(async (image: CaftanImage): Promise<MutationResult> => {
+    if (!supabase) return { ok: false, errorKey: 'admin.images.error_primary' }
+    setBusy(true)
+    try {
+      const { error: clearError } = await supabase
+        .from('caftan_images')
+        .update({ is_primary: false })
+        .eq('caftan_id', image.caftan_id)
+      if (clearError) return { ok: false, errorKey: 'admin.images.error_primary' }
+      const { error } = await supabase
+        .from('caftan_images')
+        .update({ is_primary: true })
+        .eq('id', image.id)
+      if (error) return { ok: false, errorKey: 'admin.images.error_primary' }
+      return { ok: true, errorKey: null }
+    } finally {
+      setBusy(false)
+    }
+  }, [])
 
   const updateAltText = useCallback(
     async (imageId: string, altText: Partial<LocalizedText>): Promise<MutationResult> => {

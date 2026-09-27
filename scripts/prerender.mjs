@@ -68,7 +68,9 @@ async function main() {
         const dir = path.join(root, 'dist', locale)
         mkdirSync(dir, { recursive: true })
         writeFileSync(path.join(dir, 'index.html'), html)
-        console.log(`[prerender] wrote dist/${locale}/index.html (${(html.length / 1024).toFixed(0)} kB)`)
+        console.log(
+          `[prerender] wrote dist/${locale}/index.html (${(html.length / 1024).toFixed(0)} kB)`,
+        )
         await page.close()
       }
     } finally {

@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { isSupabaseConfigured, supabase } from '@/lib/supabaseClient'
 import { mapAuthError } from '@/lib/errors'
@@ -34,11 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadProfile = useCallback(async (userId: string) => {
     if (!supabase) return null
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
     if (error) {
       // Profile row missing (e.g. trigger delay right after signup) — the
       // session stays valid, the user just has no role yet.
@@ -107,28 +97,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: null, session: data.session }
   }, [])
 
-  const sendPasswordReset = useCallback<AuthContextValue['sendPasswordReset']>(
-    async (email) => {
-      if (!supabase) return { error: 'errors.not_configured' }
-      const locale = isSupportedLocale(i18n.language) ? i18n.language : DEFAULT_LOCALE
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/${locale}/reset-password`,
-      })
-      if (error) return { error: mapAuthError(error) }
-      return { error: null }
-    },
-    [],
-  )
+  const sendPasswordReset = useCallback<AuthContextValue['sendPasswordReset']>(async (email) => {
+    if (!supabase) return { error: 'errors.not_configured' }
+    const locale = isSupportedLocale(i18n.language) ? i18n.language : DEFAULT_LOCALE
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/${locale}/reset-password`,
+    })
+    if (error) return { error: mapAuthError(error) }
+    return { error: null }
+  }, [])
 
-  const updatePassword = useCallback<AuthContextValue['updatePassword']>(
-    async (password) => {
-      if (!supabase) return { error: 'errors.not_configured' }
-      const { error } = await supabase.auth.updateUser({ password })
-      if (error) return { error: mapAuthError(error) }
-      return { error: null }
-    },
-    [],
-  )
+  const updatePassword = useCallback<AuthContextValue['updatePassword']>(async (password) => {
+    if (!supabase) return { error: 'errors.not_configured' }
+    const { error } = await supabase.auth.updateUser({ password })
+    if (error) return { error: mapAuthError(error) }
+    return { error: null }
+  }, [])
 
   const refreshProfile = useCallback(async () => {
     if (!supabase) return
@@ -164,7 +148,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       refreshProfile,
       signOut,
     }
-  }, [session, profile, loading, signIn, signUp, sendPasswordReset, updatePassword, refreshProfile, signOut])
+  }, [
+    session,
+    profile,
+    loading,
+    signIn,
+    signUp,
+    sendPasswordReset,
+    updatePassword,
+    refreshProfile,
+    signOut,
+  ])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

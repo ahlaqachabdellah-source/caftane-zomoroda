@@ -61,7 +61,12 @@ describe('AdminCalendarPage', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     await act(() => i18n.changeLanguage('fr'))
-    mockUseAdminCaftans.mockReturnValue({ caftans: [caftan], loading: false, error: null, refetch: vi.fn() })
+    mockUseAdminCaftans.mockReturnValue({
+      caftans: [caftan],
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
     mockUseAdminOccupancy.mockReturnValue({ rows: occupancy, loading: false, error: null })
   })
 

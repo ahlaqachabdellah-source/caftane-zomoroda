@@ -142,7 +142,12 @@ export default function CategoryFormDialog({
         </form>
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={saving}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={saving}
+          >
             {t('admin.caftans.cancel')}
           </Button>
           <Button type="submit" form="admin-category-form" disabled={saving}>

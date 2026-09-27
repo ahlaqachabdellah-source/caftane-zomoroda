@@ -31,9 +31,8 @@ export function getCaftanImageUrl(
   options?: { width?: number; quality?: number },
 ): string {
   if (!supabase) return ''
-  const publicUrl = supabase.storage
-    .from(CAFTAN_IMAGES_BUCKET)
-    .getPublicUrl(storagePath).data.publicUrl
+  const publicUrl = supabase.storage.from(CAFTAN_IMAGES_BUCKET).getPublicUrl(storagePath)
+    .data.publicUrl
   if (!options?.width) return publicUrl
   const renderUrl = publicUrl.replace('/storage/v1/object/', '/storage/v1/render/image/')
   const params = new URLSearchParams({

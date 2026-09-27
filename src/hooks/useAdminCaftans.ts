@@ -29,10 +29,12 @@ export function useAdminCaftans(): UseAdminCaftansResult {
     setLoading(true)
     setError(null)
 
-    const { data, error: queryError } = await withRetry(() => client
-      .from('caftans')
-      .select('*, category:categories(*), images:caftan_images(*)')
-      .order('created_at', { ascending: false }))
+    const { data, error: queryError } = await withRetry(() =>
+      client
+        .from('caftans')
+        .select('*, category:categories(*), images:caftan_images(*)')
+        .order('created_at', { ascending: false }),
+    )
 
     if (queryError) {
       setError('admin.caftans.error_load')

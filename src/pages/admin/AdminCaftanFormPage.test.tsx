@@ -9,10 +9,19 @@ import AdminCaftanFormPage from './AdminCaftanFormPage'
 const mockSaveCaftan = vi.fn()
 const mockUseAdminCaftan = vi.fn()
 const mockUseAdminCategories = vi.fn()
-vi.mock('@/hooks/useAdminCaftan', () => ({ useAdminCaftan: (id?: string) => mockUseAdminCaftan(id) }))
-vi.mock('@/hooks/useAdminCategories', () => ({ useAdminCategories: () => mockUseAdminCategories() }))
+vi.mock('@/hooks/useAdminCaftan', () => ({
+  useAdminCaftan: (id?: string) => mockUseAdminCaftan(id),
+}))
+vi.mock('@/hooks/useAdminCategories', () => ({
+  useAdminCategories: () => mockUseAdminCategories(),
+}))
 vi.mock('@/hooks/useCaftanMutations', () => ({
-  useCaftanMutations: () => ({ saving: false, saveCaftan: mockSaveCaftan, deleteCaftan: vi.fn(), updateCaftanFields: vi.fn() }),
+  useCaftanMutations: () => ({
+    saving: false,
+    saveCaftan: mockSaveCaftan,
+    deleteCaftan: vi.fn(),
+    updateCaftanFields: vi.fn(),
+  }),
 }))
 vi.mock('@/components/admin/CaftanImageManager', () => ({
   default: () => <div data-testid="image-manager" />,
@@ -130,7 +139,12 @@ describe('AdminCaftanFormPage', () => {
 
   it('edit mode: shows a friendly not-found state for an unknown id', () => {
     mockUseAdminCaftan.mockReturnValue({
-      caftan: null, categories, loading: false, error: null, notFound: true, refetch: vi.fn(),
+      caftan: null,
+      categories,
+      loading: false,
+      error: null,
+      notFound: true,
+      refetch: vi.fn(),
     })
     renderPage('/fr/admin/caftans/unknown/edit')
     expect(screen.getByText('Caftan introuvable')).toBeInTheDocument()
@@ -138,13 +152,23 @@ describe('AdminCaftanFormPage', () => {
 
   it('edit mode: shows loading then error states', () => {
     mockUseAdminCaftan.mockReturnValue({
-      caftan: null, categories: [], loading: true, error: null, notFound: false, refetch: vi.fn(),
+      caftan: null,
+      categories: [],
+      loading: true,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
     })
     const { unmount } = renderPage('/fr/admin/caftans/c-1/edit')
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
     mockUseAdminCaftan.mockReturnValue({
-      caftan: null, categories: [], loading: false, error: 'admin.caftans.error_load', notFound: false, refetch: vi.fn(),
+      caftan: null,
+      categories: [],
+      loading: false,
+      error: 'admin.caftans.error_load',
+      notFound: false,
+      refetch: vi.fn(),
     })
     renderPage('/fr/admin/caftans/c-1/edit')
     expect(screen.getByRole('alert')).toBeInTheDocument()
@@ -152,11 +176,19 @@ describe('AdminCaftanFormPage', () => {
 
   it('create mode: blocks the form when no category exists yet', () => {
     mockUseAdminCategories.mockReturnValue({
-      categories: [], loading: false, error: null, refetch: vi.fn(),
-      saving: false, saveCategory: vi.fn(), deleteCategory: vi.fn(),
+      categories: [],
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+      saving: false,
+      saveCategory: vi.fn(),
+      deleteCategory: vi.fn(),
     })
     renderPage('/fr/admin/caftans/new')
     expect(screen.getByText('Aucune catégorie')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Catégories' })).toHaveAttribute('href', '/fr/admin/categories')
+    expect(screen.getByRole('link', { name: 'Catégories' })).toHaveAttribute(
+      'href',
+      '/fr/admin/categories',
+    )
   })
 })

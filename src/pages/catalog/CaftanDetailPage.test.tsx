@@ -8,7 +8,9 @@ import CaftanDetailPage from './CaftanDetailPage'
 const mockUseCaftanDetail = vi.fn()
 const mockUseSiteSettings = vi.fn()
 const mockUseAuth = vi.fn()
-vi.mock('@/hooks/useCaftanDetail', () => ({ useCaftanDetail: (slug?: string) => mockUseCaftanDetail(slug) }))
+vi.mock('@/hooks/useCaftanDetail', () => ({
+  useCaftanDetail: (slug?: string) => mockUseCaftanDetail(slug),
+}))
 vi.mock('@/hooks/useSiteSettings', () => ({ useSiteSettings: () => mockUseSiteSettings() }))
 vi.mock('@/hooks/useAuth', () => ({ useAuth: () => mockUseAuth() }))
 
@@ -33,7 +35,11 @@ const caftan = makeCaftan({
   id: 'c1',
   slug: 'caftan-andalou-rouge',
   name: { ar: 'قفطان أندلسي أحمر', fr: 'Caftan Andalou Rouge', en: 'Red Andalusian Caftan' },
-  description: { ar: 'وصف القفطان', fr: 'Broderie main raffinée et fils dorés.', en: 'Hand embroidery.' },
+  description: {
+    ar: 'وصف القفطان',
+    fr: 'Broderie main raffinée et fils dorés.',
+    en: 'Hand embroidery.',
+  },
   price_per_day: 800,
   deposit_amount: 2000,
   size: 'M',
@@ -44,7 +50,8 @@ const caftan = makeCaftan({
 /** Shows where the login page would send the user back to. */
 function LoginProbe() {
   const location = useLocation()
-  const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? 'aucun'
+  const from =
+    (location.state as { from?: { pathname?: string } } | null)?.from?.pathname ?? 'aucun'
   return <div>CONNEXION puis {from}</div>
 }
 
@@ -69,24 +76,51 @@ describe('CaftanDetailPage', () => {
   })
 
   it('shows loading, error and not-found states', () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: true, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: true,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount } = renderDetail()
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: false, error: 'boom', notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: false,
+      error: 'boom',
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount: unmount2 } = renderDetail()
     expect(screen.getByRole('alert')).toBeInTheDocument()
     unmount2()
 
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: false, error: null, notFound: true, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: false,
+      error: null,
+      notFound: true,
+      refetch: vi.fn(),
+    })
     renderDetail('inconnu')
     expect(screen.getByText('Caftan introuvable')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Retour à la collection' })).toHaveAttribute('href', '/fr/caftans')
+    expect(screen.getByRole('link', { name: 'Retour à la collection' })).toHaveAttribute(
+      'href',
+      '/fr/caftans',
+    )
   })
 
   it('renders localized details, prices and practical info', () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
     expect(
       screen.getByRole('heading', { level: 1, name: 'Caftan Andalou Rouge' }),
@@ -101,11 +135,18 @@ describe('CaftanDetailPage', () => {
   })
 
   it('offers sign-in to anonymous visitors when WhatsApp is not configured', async () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
-    expect(
-      screen.getByRole('link', { name: 'Connectez-vous pour réserver' }),
-    ).toHaveAttribute('href', '/fr/login')
+    expect(screen.getByRole('link', { name: 'Connectez-vous pour réserver' })).toHaveAttribute(
+      'href',
+      '/fr/login',
+    )
     expect(screen.getByRole('link', { name: 'Créez-le en une minute' })).toHaveAttribute(
       'href',
       '/fr/register',
@@ -113,7 +154,9 @@ describe('CaftanDetailPage', () => {
     // The login link carries the return location so the customer lands
     // back on this caftan after signing in.
     fireEvent.click(screen.getByRole('link', { name: 'Connectez-vous pour réserver' }))
-    expect(await screen.findByText('CONNEXION puis /fr/caftans/caftan-andalou-rouge')).toBeInTheDocument()
+    expect(
+      await screen.findByText('CONNEXION puis /fr/caftans/caftan-andalou-rouge'),
+    ).toBeInTheDocument()
   })
 
   it('links signed-in customers to the real booking page', () => {
@@ -122,7 +165,13 @@ describe('CaftanDetailPage', () => {
       session: { user: { id: 'user-1' } },
       user: { id: 'user-1' },
     })
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
     expect(screen.getByRole('link', { name: 'Réserver ce caftan' })).toHaveAttribute(
       'href',
@@ -139,7 +188,13 @@ describe('CaftanDetailPage', () => {
       loading: false,
       error: null,
     })
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
     const link = screen.getByRole('link', { name: /demander sur WhatsApp/i })
     expect(link).toHaveAttribute(
@@ -155,7 +210,13 @@ describe('CaftanDetailPage', () => {
       loading: false,
       error: null,
     })
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
     expect(screen.getByRole('link', { name: /WhatsApp/ })).toHaveAttribute(
       'href',
@@ -169,7 +230,13 @@ describe('CaftanDetailPage', () => {
       loading: false,
       error: null,
     })
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderDetail()
     expect(screen.queryByRole('link', { name: /WhatsApp/ })).not.toBeInTheDocument()
   })
@@ -188,12 +255,16 @@ describe('CaftanDetailPage', () => {
   })
 
   it('renders Arabic content when the language is Arabic', async () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     await act(() => i18n.changeLanguage('ar'))
     renderDetail()
-    expect(
-      screen.getByRole('heading', { level: 1, name: 'قفطان أندلسي أحمر' }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'قفطان أندلسي أحمر' })).toBeInTheDocument()
     expect(screen.getByText('وصف القفطان')).toBeInTheDocument()
     await act(() => i18n.changeLanguage('fr'))
   })

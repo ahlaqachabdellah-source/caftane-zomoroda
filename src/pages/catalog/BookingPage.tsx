@@ -15,10 +15,11 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useCaftanDetail } from '@/hooks/useCaftanDetail'
 import { useCreateBooking } from '@/hooks/useCreateBooking'
+import { useBookedPeriods } from '@/hooks/useBookedPeriods'
 import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { buildWhatsappLink } from '@/lib/whatsapp'
-import { rentalDays } from '@/lib/booking'
+import { overlapsAnyPeriod, rentalDays } from '@/lib/booking'
 import { sortCaftanImages } from '@/lib/caftans'
 import { formatDate, formatPrice } from '@/lib/format'
 import { localizedText } from '@/lib/localized'
@@ -56,9 +57,19 @@ export default function BookingPage() {
   const days = rentalDays(startDate, endDate)
   const estimate = caftan && days > 0 ? days * Number(caftan.price_per_day) : null
 
+  // Occupied dates (final audit): warn before submit when the requested
+  // range overlaps an active booking. UX aid only — the database
+  // exclusion constraint remains the enforcement layer.
+  const { periods: bookedPeriods } = useBookedPeriods(caftan?.id)
+  const datesOverlap = overlapsAnyPeriod(startDate, endDate, bookedPeriods)
+
   async function onSubmit(values: BookingFormValues) {
     if (!caftan) return
     setServerErrorKey(null)
+    if (overlapsAnyPeriod(values.startDate, values.endDate, bookedPeriods)) {
+      setServerErrorKey('booking.error_dates_overlap')
+      return
+    }
     const { booking, errorKey } = await createBooking({
       caftanId: caftan.id,
       startDate: values.startDate,
@@ -225,7 +236,10 @@ export default function BookingPage() {
             <h2 className="text-xl font-semibold text-foreground">{t('booking.form_title')}</h2>
 
             {caftan.status === 'maintenance' ? (
-              <p role="note" className="rounded-md bg-muted px-4 py-3 text-sm text-muted-foreground">
+              <p
+                role="note"
+                className="rounded-md bg-muted px-4 py-3 text-sm text-muted-foreground"
+              >
                 {t('catalog.maintenance_notice')}
               </p>
             ) : (
@@ -246,7 +260,7 @@ export default function BookingPage() {
                       id="startDate"
                       type="date"
                       min={todayString()}
-                      aria-invalid={Boolean(errors.startDate)}
+                      aria-invalid={Boolean(errors.startDate) || datesOverlap}
                       {...register('startDate')}
                     />
                     {errors.startDate && (
@@ -261,16 +275,31 @@ export default function BookingPage() {
                       id="endDate"
                       type="date"
                       min={startDate || todayString()}
-                      aria-invalid={Boolean(errors.endDate)}
+                      aria-invalid={Boolean(errors.endDate) || datesOverlap}
                       {...register('endDate')}
                     />
                     {errors.endDate && (
-                      <p className="text-sm text-destructive">
-                        {t(errors.endDate.message ?? '')}
-                      </p>
+                      <p className="text-sm text-destructive">{t(errors.endDate.message ?? '')}</p>
                     )}
                   </div>
                 </div>
+
+                {bookedPeriods.length > 0 && !datesOverlap && (
+                  <p
+                    role="note"
+                    className="rounded-md bg-muted px-4 py-2 text-xs text-muted-foreground"
+                  >
+                    {t('booking.occupied_hint')}
+                  </p>
+                )}
+                {datesOverlap && (
+                  <p
+                    role="alert"
+                    className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                  >
+                    {t('booking.error_dates_overlap')}
+                  </p>
+                )}
 
                 <div className="space-y-2">
                   <Label htmlFor="customerNotes">
@@ -306,7 +335,12 @@ export default function BookingPage() {
                   )}
                 </div>
 
-                <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={submitting || datesOverlap}
+                  className="w-full sm:w-auto"
+                >
                   {submitting && <Loader2 className="animate-spin" aria-hidden="true" />}
                   {submitting ? t('booking.submitting') : t('booking.submit')}
                 </Button>

@@ -53,9 +53,7 @@ describe('RegisterPage', () => {
     await fillValidForm()
     await userEvent.type(screen.getByLabelText('Confirmer le mot de passe'), 'different1')
     await userEvent.click(screen.getByRole('button', { name: /créer mon compte/i }))
-    expect(
-      await screen.findByText('Les mots de passe ne correspondent pas'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('Les mots de passe ne correspondent pas')).toBeInTheDocument()
     expect(signUp).not.toHaveBeenCalled()
   })
 

@@ -53,7 +53,9 @@ describe('AdminLayout', () => {
     expect(screen.getAllByText('admin@test.local').length).toBeGreaterThanOrEqual(1)
     const siteLinks = screen.getAllByRole('link', { name: /Voir le site/i })
     expect(siteLinks[0]).toHaveAttribute('href', '/fr')
-    expect(screen.getAllByRole('button', { name: /Se déconnecter/i }).length).toBeGreaterThanOrEqual(1)
+    expect(
+      screen.getAllByRole('button', { name: /Se déconnecter/i }).length,
+    ).toBeGreaterThanOrEqual(1)
   })
 
   it('falls back to a neutral label when the profile has no name', () => {

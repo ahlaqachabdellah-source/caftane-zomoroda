@@ -10,7 +10,9 @@ const mockSaveCategory = vi.fn()
 const mockDeleteCategory = vi.fn()
 const mockRefetch = vi.fn()
 const mockUseAdminCategories = vi.fn()
-vi.mock('@/hooks/useAdminCategories', () => ({ useAdminCategories: () => mockUseAdminCategories() }))
+vi.mock('@/hooks/useAdminCategories', () => ({
+  useAdminCategories: () => mockUseAdminCategories(),
+}))
 
 const categories = [
   { ...categoryCaftan, caftan_count: 5 },
@@ -95,7 +97,9 @@ describe('AdminCategoriesPage', () => {
     renderPage()
     await user.click(screen.getAllByRole('button', { name: 'Supprimer' })[1])
     const dialog = screen.getByRole('alertdialog')
-    const confirm = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === 'Supprimer')!
+    const confirm = Array.from(dialog.querySelectorAll('button')).find(
+      (b) => b.textContent === 'Supprimer',
+    )!
     await user.click(confirm)
     await waitFor(() => expect(mockDeleteCategory).toHaveBeenCalledWith('cat-2'))
   })
@@ -106,31 +110,48 @@ describe('AdminCategoriesPage', () => {
     renderPage()
     await user.click(screen.getAllByRole('button', { name: 'Supprimer' })[0])
     const dialog = screen.getByRole('alertdialog')
-    const confirm = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === 'Supprimer')!
+    const confirm = Array.from(dialog.querySelectorAll('button')).find(
+      (b) => b.textContent === 'Supprimer',
+    )!
     await user.click(confirm)
     await screen.findByText(/contient encore des caftans/)
   })
 
   it('shows loading, error and empty states', async () => {
     mockUseAdminCategories.mockReturnValue({
-      categories: [], loading: true, error: null, refetch: mockRefetch,
-      saving: false, saveCategory: mockSaveCategory, deleteCategory: mockDeleteCategory,
+      categories: [],
+      loading: true,
+      error: null,
+      refetch: mockRefetch,
+      saving: false,
+      saveCategory: mockSaveCategory,
+      deleteCategory: mockDeleteCategory,
     })
     const { unmount } = renderPage()
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
     mockUseAdminCategories.mockReturnValue({
-      categories: [], loading: false, error: 'admin.categories.error_load', refetch: mockRefetch,
-      saving: false, saveCategory: mockSaveCategory, deleteCategory: mockDeleteCategory,
+      categories: [],
+      loading: false,
+      error: 'admin.categories.error_load',
+      refetch: mockRefetch,
+      saving: false,
+      saveCategory: mockSaveCategory,
+      deleteCategory: mockDeleteCategory,
     })
     const { unmount: unmount2 } = renderPage()
     expect(screen.getByRole('alert')).toBeInTheDocument()
     unmount2()
 
     mockUseAdminCategories.mockReturnValue({
-      categories: [], loading: false, error: null, refetch: mockRefetch,
-      saving: false, saveCategory: mockSaveCategory, deleteCategory: mockDeleteCategory,
+      categories: [],
+      loading: false,
+      error: null,
+      refetch: mockRefetch,
+      saving: false,
+      saveCategory: mockSaveCategory,
+      deleteCategory: mockDeleteCategory,
     })
     renderPage()
     expect(screen.getByText('Aucune catégorie')).toBeInTheDocument()

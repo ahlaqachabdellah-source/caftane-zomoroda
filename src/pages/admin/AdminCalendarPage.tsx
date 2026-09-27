@@ -132,10 +132,7 @@ export default function AdminCalendarPage() {
                 {t('admin.calendar.caftan_column')}
               </span>
               {Array.from({ length: daysInMonth }, (_, i) => (
-                <span
-                  key={i}
-                  className="text-center text-[10px] text-muted-foreground"
-                >
+                <span key={i} className="text-center text-[10px] text-muted-foreground">
                   {i + 1}
                 </span>
               ))}
@@ -159,8 +156,14 @@ export default function AdminCalendarPage() {
                   }}
                 >
                   {(byCaftan.get(caftan.id) ?? []).map((row) => {
-                    const startDay = Math.max(1, dayOfIso(row.start_date < from ? from : row.start_date))
-                    const endDay = Math.min(daysInMonth, dayOfIso(row.end_date > to ? to : row.end_date))
+                    const startDay = Math.max(
+                      1,
+                      dayOfIso(row.start_date < from ? from : row.start_date),
+                    )
+                    const endDay = Math.min(
+                      daysInMonth,
+                      dayOfIso(row.end_date > to ? to : row.end_date),
+                    )
                     return (
                       <Link
                         key={row.booking_id}

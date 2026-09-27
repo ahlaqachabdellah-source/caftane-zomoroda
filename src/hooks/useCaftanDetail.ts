@@ -31,12 +31,14 @@ export function useCaftanDetail(slug: string | undefined): UseCaftanDetailResult
     setError(null)
     setNotFound(false)
 
-    const { data, error: queryError } = await withRetry(() => client
-      .from('caftans')
-      .select('*, category:categories(*), images:caftan_images(*)')
-      .eq('slug', slug)
-      .neq('status', 'retired')
-      .maybeSingle())
+    const { data, error: queryError } = await withRetry(() =>
+      client
+        .from('caftans')
+        .select('*, category:categories(*), images:caftan_images(*)')
+        .eq('slug', slug)
+        .neq('status', 'retired')
+        .maybeSingle(),
+    )
 
     if (queryError) {
       setError(mapSupabaseError(queryError, 'catalog.error_body'))

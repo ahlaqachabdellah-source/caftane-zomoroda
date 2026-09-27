@@ -45,7 +45,29 @@
     "whatsapp_message": "مرحباً قفطان زمردة، أنا مهتمة بكراء « {{name}} ». هل هو متوفر في تواريخي؟",
     "book_login_cta": "سجلي الدخول للحجز",
     "book_no_account": "لا تملكين حساباً بعد؟",
-    "book_register_link": "أنشئيه في دقيقة واحدة"
+    "book_register_link": "أنشئيه في دقيقة واحدة",
+    "price_any": "كل الأسعار",
+    "dates_label": "متاح من",
+    "dates_to": "إلى",
+    "dates_clear": "مسح التواريخ",
+    "sort_label": "ترتيب",
+    "sort_featured": "مميز",
+    "sort_price_asc": "السعر تصاعدياً",
+    "sort_price_desc": "السعر تنازلياً",
+    "sort_name": "الاسم (أ–ي)",
+    "all_sizes": "كل المقاسات",
+    "all_colors": "كل الألوان",
+    "results_count": "{{count}} قفطان",
+    "results_count_few": "{{count}} قفاطن",
+    "results_count_many": "{{count}} قفطاناً",
+    "results_count_one": "قفطان واحد",
+    "results_count_other": "{{count}} قفطان",
+    "results_count_two": "قفطانان",
+    "results_count_zero": "لا قفطان",
+    "pagination_aria": "ترقيم صفحات الكتالوج",
+    "page_prev": "السابق",
+    "page_next": "التالي",
+    "price_max_label": "أقصى سعر / اليوم"
   },
   "booking": {
     "form_title": "طلب الحجز الخاص بك",
@@ -74,13 +96,17 @@
     "estimate_days_two": "{{count}} يومان",
     "estimate_days_few": "{{count}} أيام",
     "estimate_days_many": "{{count}} يومًا",
-    "estimate_days_other": "{{count}} يوم"
+    "estimate_days_other": "{{count}} يوم",
+    "occupied_hint": "بعض الفترات محجوزة مسبقاً لهذا القفطان.",
+    "error_dates_overlap": "هذه الفترة تتداخل مع حجز قائم. اختاري تواريخ أخرى."
   },
   "footer": {
     "rights": "© {{year}} قفطان زمردة — تأجير القفطان",
     "nav_heading": "روابط",
     "nav_aria": "روابط أسفل الصفحة",
-    "contact_heading": "اتصلي بنا"
+    "contact_heading": "اتصلي بنا",
+    "map_link": "الاتجاهات",
+    "hours_label": "مفتوح"
   },
   "home": {
     "hero_kicker": "قفطان وتكشيطة — للكراء",

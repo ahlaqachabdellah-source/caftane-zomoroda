@@ -46,18 +46,20 @@ supabase db push --include-seed   # ou : psql ... -f supabase/seed.sql
 Le seed crée 3 catégories, 10 caftans, 13 images et la ligne singleton
 `site_settings` (id = 1).
 
-> ⚠️ **Contenu de production** : les valeurs seed de `site_settings`
-> (téléphone WhatsApp `+212600000000`, email `contact@example.com`, adresse)
-> sont des **espaces réservés**. Avant le lancement, les remplacer par les
-> vraies coordonnées de l'entreprise via le tableau de bord Supabase
-> (Table Editor → `site_settings`) ou SQL :
+> ⚠️ **Contenu de production** : l'adresse, les horaires (`10:00–20:00`) et
+> le Plus Code (`9QVP+M8G`) du seed sont les **vraies informations de
+> l'entreprise** (fournies par la propriétaire). En revanche le téléphone
+> WhatsApp (`+212600000000`), le téléphone fixe, l'email
+> (`contact@example.com`) et les liens sociaux sont des **espaces
+> réservés**. Avant le lancement, les remplacer par les vraies coordonnées
+> via le tableau de bord Supabase (Table Editor → `site_settings`) ou SQL :
 >
 > ```sql
 > update public.site_settings
 > set whatsapp_number = '+2126XXXXXXXX',   -- vrai numéro WhatsApp Business
 >     phone           = '+2125XXXXXXXX',
 >     email           = 'contact@votre-domaine.ma',
->     address         = 'Adresse réelle, Ville'
+>     social_links    = '{"instagram": "https://instagram.com/VOTRE-COMPTE", "facebook": "", "tiktok": ""}'
 > where id = 1;
 > ```
 >

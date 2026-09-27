@@ -45,16 +45,16 @@ describe('mapSupabaseError', () => {
   })
 
   it('maps the database booking rate-limit signal without leaking it', () => {
-    expect(
-      mapSupabaseError({ code: 'P0001', message: 'booking_rate_limited' }),
-    ).toBe('errors.rate_limited')
+    expect(mapSupabaseError({ code: 'P0001', message: 'booking_rate_limited' })).toBe(
+      'errors.rate_limited',
+    )
   })
 
   it('falls back for unknown errors and never echoes the raw message', () => {
     expect(mapSupabaseError({ code: 'XX999', message: 'secret SQL detail' })).toBe('errors.generic')
-    expect(mapSupabaseError({ message: 'relation "bookings" does not exist' }, 'booking.error_generic')).toBe(
-      'booking.error_generic',
-    )
+    expect(
+      mapSupabaseError({ message: 'relation "bookings" does not exist' }, 'booking.error_generic'),
+    ).toBe('booking.error_generic')
     expect(mapSupabaseError(null)).toBe('errors.generic')
   })
 })

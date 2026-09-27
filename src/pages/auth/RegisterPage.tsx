@@ -61,7 +61,10 @@ export default function RegisterPage() {
           </p>
           <p className="text-sm text-muted-foreground">
             {t('auth.already_confirmed')}{' '}
-            <Link to={localePath('/login')} className="font-medium text-foreground underline underline-offset-4">
+            <Link
+              to={localePath('/login')}
+              className="font-medium text-foreground underline underline-offset-4"
+            >
               {t('auth.submit_login')}
             </Link>
           </p>
@@ -74,12 +77,18 @@ export default function RegisterPage() {
     <AuthLayout title={t('auth.register_title')} subtitle={t('auth.register_subtitle')}>
       <Seo title={t('seo.register_title')} description={t('seo.home_description')} noindex />
       {!configured && (
-        <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground"
+        >
           {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
-        <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
+        >
           {t(serverError)}
         </p>
       )}
@@ -161,7 +170,10 @@ export default function RegisterPage() {
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {t('auth.have_account')}{' '}
-        <Link to={localePath('/login')} className="font-medium text-foreground underline underline-offset-4">
+        <Link
+          to={localePath('/login')}
+          className="font-medium text-foreground underline underline-offset-4"
+        >
           {t('auth.submit_login')}
         </Link>
       </p>

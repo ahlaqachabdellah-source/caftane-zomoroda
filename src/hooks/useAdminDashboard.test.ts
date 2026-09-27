@@ -4,7 +4,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 // Controllable mock: tests set `mocks.client` before rendering the hook.
 const mocks = vi.hoisted(() => ({
   client: null as null | {
-    rpc: (fn: string, args?: unknown) => Promise<{ data?: unknown; error?: { message: string } | null }>
+    rpc: (
+      fn: string,
+      args?: unknown,
+    ) => Promise<{ data?: unknown; error?: { message: string } | null }>
   },
 }))
 

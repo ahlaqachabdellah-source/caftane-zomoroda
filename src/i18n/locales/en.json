@@ -45,7 +45,29 @@
     "whatsapp_message": "Hello Caftan Zomoroda, I am interested in renting \"{{name}}\". Is it available on my dates?",
     "book_login_cta": "Sign in to book",
     "book_no_account": "No account yet?",
-    "book_register_link": "Create one in a minute"
+    "book_register_link": "Create one in a minute",
+    "price_any": "All prices",
+    "dates_label": "Available from",
+    "dates_to": "to",
+    "dates_clear": "Clear dates",
+    "sort_label": "Sort",
+    "sort_featured": "Featured",
+    "sort_price_asc": "Price: low to high",
+    "sort_price_desc": "Price: high to low",
+    "sort_name": "Name (A–Z)",
+    "all_sizes": "All sizes",
+    "all_colors": "All colors",
+    "results_count": "{{count}} caftans",
+    "results_count_few": "{{count}} caftans",
+    "results_count_many": "{{count}} caftans",
+    "results_count_one": "{{count}} caftan",
+    "results_count_other": "{{count}} caftans",
+    "results_count_two": "{{count}} caftans",
+    "results_count_zero": "No caftans",
+    "pagination_aria": "Catalog pagination",
+    "page_prev": "Previous",
+    "page_next": "Next",
+    "price_max_label": "Max price / day"
   },
   "booking": {
     "form_title": "Your booking request",
@@ -74,13 +96,17 @@
     "estimate_days_zero": "{{count}} days",
     "estimate_days_two": "{{count}} days",
     "estimate_days_few": "{{count}} days",
-    "estimate_days_many": "{{count}} days"
+    "estimate_days_many": "{{count}} days",
+    "occupied_hint": "Some periods are already booked for this caftan.",
+    "error_dates_overlap": "This period overlaps an existing booking. Please choose different dates."
   },
   "footer": {
     "rights": "© {{year}} Caftan Zomoroda — Caftan rental",
     "nav_heading": "Navigation",
     "nav_aria": "Footer navigation",
-    "contact_heading": "Contact"
+    "contact_heading": "Contact",
+    "map_link": "Directions",
+    "hours_label": "Open"
   },
   "home": {
     "hero_kicker": "Caftans & Takchitas — Rental",

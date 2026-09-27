@@ -10,6 +10,7 @@ import { useSiteSettings } from '@/hooks/useSiteSettings'
 import Seo from '@/components/seo/Seo'
 import { siteOrigin } from '@/lib/seo'
 import { normalizeWhatsappNumber } from '@/lib/whatsapp'
+import { localizedText } from '@/lib/localized'
 
 /**
  * Home page (Phase 4) — branded landing built entirely on the design
@@ -18,15 +19,19 @@ import { normalizeWhatsappNumber } from '@/lib/whatsapp'
  */
 export default function Home() {
   const { t } = useTranslation()
-  const { localePath } = useLocale()
+  const { locale, localePath } = useLocale()
   const { settings } = useSiteSettings()
 
   // LocalBusiness structured data — only real, known information is
-  // included; anything missing (address, hours, ratings) is omitted,
-  // never fabricated.
+  // included; anything missing (ratings, geo coordinates, …) is omitted,
+  // never fabricated. Address, opening hours and plus code are the real
+  // owner-provided business information stored in site_settings.
   const phone = settings?.whatsapp_number
     ? `+${normalizeWhatsappNumber(settings.whatsapp_number)}`
     : settings?.phone || null
+  const addressText = localizedText(settings?.address ?? null, locale).trim()
+  const openingHours = settings?.opening_hours?.trim()
+  const plusCode = settings?.plus_code?.trim()
   const localBusinessLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -35,6 +40,34 @@ export default function Home() {
     url: siteOrigin(),
     image: `${siteOrigin()}/android-chrome-512x512.png`,
     ...(phone ? { telephone: phone } : {}),
+    ...(addressText
+      ? { address: { '@type': 'PostalAddress', streetAddress: addressText, addressCountry: 'MA' } }
+      : {}),
+    ...(openingHours
+      ? {
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday',
+              ],
+              opens: openingHours.split('–')[0]?.trim(),
+              closes: openingHours.split('–')[1]?.trim(),
+            },
+          ],
+        }
+      : {}),
+    ...(plusCode
+      ? {
+          hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plusCode)}`,
+        }
+      : {}),
   }
 
   const steps = [
@@ -86,7 +119,12 @@ export default function Home() {
             <Button asChild size="lg" className="px-8">
               <Link to={localePath('/register')}>{t('home.hero_cta_primary')}</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-gold/60 px-8 text-foreground hover:bg-accent">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-gold/60 px-8 text-foreground hover:bg-accent"
+            >
               <Link to={localePath('/caftans')}>{t('home.hero_cta_secondary')}</Link>
             </Button>
           </div>

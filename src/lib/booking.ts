@@ -12,6 +12,27 @@ export function rentalDays(startDate: string, endDate: string): number {
   return Math.round((end.getTime() - start.getTime()) / 86_400_000) + 1
 }
 
+/** An occupied period as returned by the booked_periods() RPC. */
+export type BookedPeriod = { start_date: string; end_date: string }
+
+/**
+ * Inclusive date-range overlap — the same semantics as the
+ * no_overlapping_active_bookings exclusion constraint (daterange '[]').
+ */
+export function rangesOverlap(startA: string, endA: string, startB: string, endB: string): boolean {
+  return startA <= endB && endA >= startB
+}
+
+/** True when the requested range overlaps any occupied period. */
+export function overlapsAnyPeriod(
+  startDate: string,
+  endDate: string,
+  periods: readonly BookedPeriod[],
+): boolean {
+  if (!startDate || !endDate || endDate < startDate) return false
+  return periods.some((p) => rangesOverlap(startDate, endDate, p.start_date, p.end_date))
+}
+
 /**
  * Maps a PostgREST error to a translation key for display (Phase 12:
  * delegates to the shared error-mapping layer, keeping booking-specific

@@ -48,12 +48,18 @@ export default function LoginPage() {
     <AuthLayout title={t('auth.login_title')} subtitle={t('auth.login_subtitle')}>
       <Seo title={t('seo.login_title')} description={t('seo.home_description')} noindex />
       {!configured && (
-        <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground"
+        >
           {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
-        <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
+        >
           {t(serverError)}
         </p>
       )}
@@ -100,7 +106,10 @@ export default function LoginPage() {
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
         {t('auth.no_account')}{' '}
-        <Link to={localePath('/register')} className="font-medium text-foreground underline underline-offset-4">
+        <Link
+          to={localePath('/register')}
+          className="font-medium text-foreground underline underline-offset-4"
+        >
           {t('auth.create_account')}
         </Link>
       </p>

@@ -24,7 +24,16 @@ import { startMock } from './mock-supabase.mjs'
 const PLAYWRIGHT = '/home/kimi/.npm-global/lib/node_modules/playwright/index.mjs'
 const CHROMIUM = '/usr/bin/chromium'
 const DIST = path.join(new URL('..', import.meta.url).pathname, '..', 'dist-e2e')
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.json': 'application/json', '.woff2': 'font/woff2' }
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript',
+  '.css': 'text/css',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.json': 'application/json',
+  '.woff2': 'font/woff2',
+}
 
 function serveStatic(dir) {
   const server = http.createServer(async (req, res) => {
@@ -38,17 +47,29 @@ function serveStatic(dir) {
       // Real hosts (Netlify/Vercel) compress text assets — emulate gzip so
       // transferred-bytes numbers are representative of production.
       const compressible = /text|javascript|json|svg|manifest/.test(type)
-      if (compressible && data.length > 1024 && (req.headers['accept-encoding'] ?? '').includes('gzip')) {
+      if (
+        compressible &&
+        data.length > 1024 &&
+        (req.headers['accept-encoding'] ?? '').includes('gzip')
+      ) {
         data = gzipSync(data)
         headers['content-encoding'] = 'gzip'
       }
       res.writeHead(200, headers)
       res.end(data)
-    } catch { res.writeHead(404); res.end() }
+    } catch {
+      res.writeHead(404)
+      res.end()
+    }
   })
   return new Promise((resolve) => {
     server.listen(0, '127.0.0.1', () =>
-      resolve({ server, port: server.address().port, close: () => new Promise((r) => server.close(r)) }))
+      resolve({
+        server,
+        port: server.address().port,
+        close: () => new Promise((r) => server.close(r)),
+      }),
+    )
   })
 }
 
@@ -57,7 +78,10 @@ const mock = await startMock(4174)
 const app = await serveStatic(DIST)
 const BASE = `http://127.0.0.1:${app.port}`
 
-const browser = await chromium.launch({ executablePath: CHROMIUM, args: ['--no-sandbox', '--disable-dev-shm-usage'] })
+const browser = await chromium.launch({
+  executablePath: CHROMIUM,
+  args: ['--no-sandbox', '--disable-dev-shm-usage'],
+})
 
 async function measure(route) {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } })
@@ -65,12 +89,19 @@ async function measure(route) {
   const cdp = await context.newCDPSession(page)
   await cdp.send('Network.enable')
   await cdp.send('Network.emulateNetworkConditions', {
-    offline: false, latency: 150, downloadThroughput: (1.6 * 1024 * 1024) / 8, uploadThroughput: (750 * 1024) / 8,
+    offline: false,
+    latency: 150,
+    downloadThroughput: (1.6 * 1024 * 1024) / 8,
+    uploadThroughput: (750 * 1024) / 8,
   })
   await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 })
 
-  let bytes = 0, requests = 0
-  cdp.on('Network.loadingFinished', (e) => { bytes += e.encodedDataLength ?? 0; requests += 1 })
+  let bytes = 0,
+    requests = 0
+  cdp.on('Network.loadingFinished', (e) => {
+    bytes += e.encodedDataLength ?? 0
+    requests += 1
+  })
 
   await page.addInitScript(() => {
     window.__lcp = 0
@@ -90,7 +121,9 @@ async function measure(route) {
 
   const m = await page.evaluate(() => {
     const nav = performance.getEntriesByType('navigation')[0]
-    const fcp = performance.getEntriesByType('paint').find((p) => p.name === 'first-contentful-paint')
+    const fcp = performance
+      .getEntriesByType('paint')
+      .find((p) => p.name === 'first-contentful-paint')
     return {
       ttfb: nav?.responseStart ?? 0,
       dcl: nav?.domContentLoadedEventEnd ?? 0,

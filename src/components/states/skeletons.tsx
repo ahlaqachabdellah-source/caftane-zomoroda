@@ -86,7 +86,11 @@ export function DashboardSkeleton({ className, label }: SkeletonProps) {
 }
 
 /** Generic row list: bookings, customers, account pages. */
-export function ListRowsSkeleton({ rows = 5, className, label }: SkeletonProps & { rows?: number }) {
+export function ListRowsSkeleton({
+  rows = 5,
+  className,
+  label,
+}: SkeletonProps & { rows?: number }) {
   return (
     <div role="status" aria-busy="true" className={cn('flex flex-col gap-3 py-4', className)}>
       <SrLabel label={label} />

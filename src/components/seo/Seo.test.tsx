@@ -28,7 +28,13 @@ describe('Seo', () => {
   })
 
   it('writes title, description, canonical, hreflang and social cards', () => {
-    renderSeo(<Seo title="Caftan Royal | Caftan Zomoroda" description="Une pièce unique." path="/caftans/caftan-royal" />)
+    renderSeo(
+      <Seo
+        title="Caftan Royal | Caftan Zomoroda"
+        description="Une pièce unique."
+        path="/caftans/caftan-royal"
+      />,
+    )
 
     expect(document.title).toBe('Caftan Royal | Caftan Zomoroda')
     expect(meta('description')).toBe('Une pièce unique.')
@@ -38,7 +44,12 @@ describe('Seo', () => {
     )
     const alternates = [...document.head.querySelectorAll('link[rel="alternate"]')]
     expect(alternates).toHaveLength(4)
-    expect(alternates.map((a) => a.getAttribute('hreflang'))).toEqual(['fr', 'ar', 'en', 'x-default'])
+    expect(alternates.map((a) => a.getAttribute('hreflang'))).toEqual([
+      'fr',
+      'ar',
+      'en',
+      'x-default',
+    ])
     expect(alternates[1].getAttribute('href')).toBe(`${siteOrigin()}/ar/caftans/caftan-royal`)
 
     expect(prop('og:title')).toBe('Caftan Royal | Caftan Zomoroda')

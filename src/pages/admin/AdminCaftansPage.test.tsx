@@ -11,7 +11,9 @@ const mockUseAdminCategories = vi.fn()
 const mockDeleteCaftan = vi.fn()
 const mockUpdateCaftanFields = vi.fn()
 vi.mock('@/hooks/useAdminCaftans', () => ({ useAdminCaftans: () => mockUseAdminCaftans() }))
-vi.mock('@/hooks/useAdminCategories', () => ({ useAdminCategories: () => mockUseAdminCategories() }))
+vi.mock('@/hooks/useAdminCategories', () => ({
+  useAdminCategories: () => mockUseAdminCategories(),
+}))
 vi.mock('@/hooks/useCaftanMutations', () => ({
   useCaftanMutations: () => ({
     deleteCaftan: mockDeleteCaftan,
@@ -68,7 +70,12 @@ describe('AdminCaftansPage', () => {
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
-    mockUseAdminCaftans.mockReturnValue({ caftans: [], loading: false, error: 'admin.caftans.error_load', refetch })
+    mockUseAdminCaftans.mockReturnValue({
+      caftans: [],
+      loading: false,
+      error: 'admin.caftans.error_load',
+      refetch,
+    })
     renderPage()
     expect(screen.getByRole('alert')).toBeInTheDocument()
   })
@@ -122,7 +129,9 @@ describe('AdminCaftansPage', () => {
     renderPage()
     await user.click(screen.getAllByRole('button', { name: 'Supprimer' })[0])
     const dialog = screen.getByRole('alertdialog')
-    const confirm = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === 'Supprimer')!
+    const confirm = Array.from(dialog.querySelectorAll('button')).find(
+      (b) => b.textContent === 'Supprimer',
+    )!
     await user.click(confirm)
     await waitFor(() => expect(mockDeleteCaftan).toHaveBeenCalledWith('c-1'))
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('supprimé'))
@@ -134,7 +143,9 @@ describe('AdminCaftansPage', () => {
     renderPage()
     await user.click(screen.getAllByRole('button', { name: 'Supprimer' })[0])
     const dialog = screen.getByRole('alertdialog')
-    const confirm = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === 'Supprimer')!
+    const confirm = Array.from(dialog.querySelectorAll('button')).find(
+      (b) => b.textContent === 'Supprimer',
+    )!
     await user.click(confirm)
     await screen.findByText(/lié à des réservations/)
     await user.click(screen.getByRole('button', { name: 'Retirer du catalogue' }))

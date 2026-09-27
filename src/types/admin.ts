@@ -23,10 +23,7 @@ export type AdminKpis = {
   generated_at: string
 }
 
-export type AdminActivityType =
-  | 'booking_created'
-  | 'status_change'
-  | 'customer_registered'
+export type AdminActivityType = 'booking_created' | 'status_change' | 'customer_registered'
 
 export type AdminActivityEvent = {
   type: AdminActivityType

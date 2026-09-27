@@ -104,17 +104,26 @@ export default function AdminCaftanFormPage() {
       </div>
 
       {justCreated && (
-        <p role="status" className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground">
+        <p
+          role="status"
+          className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground"
+        >
           {t('admin.caftans.notice_created')}
         </p>
       )}
       {saved && !justCreated && (
-        <p role="status" className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground">
+        <p
+          role="status"
+          className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground"
+        >
           {t('admin.caftans.notice_saved')}
         </p>
       )}
       {errorKey && (
-        <p role="alert" className="rounded-md border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive">
+        <p
+          role="alert"
+          className="rounded-md border border-destructive bg-destructive/10 px-4 py-3 text-sm text-destructive"
+        >
           {t(errorKey)}
         </p>
       )}

@@ -30,9 +30,11 @@ export function useAdminBooking(bookingId: string | undefined): UseAdminBookingR
     setError(null)
     setNotFound(false)
 
-    const { data, error: rpcError } = await withRetry(() => client.rpc('admin_get_booking', {
-      p_booking_id: bookingId,
-    }))
+    const { data, error: rpcError } = await withRetry(() =>
+      client.rpc('admin_get_booking', {
+        p_booking_id: bookingId,
+      }),
+    )
 
     if (rpcError) {
       if (rpcError.code === 'P0002') setNotFound(true)

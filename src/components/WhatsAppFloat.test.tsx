@@ -26,7 +26,7 @@ describe('WhatsAppFloat', () => {
     const link = screen.getByRole('link', { name: 'Discuter avec Caftan Zomoroda sur WhatsApp' })
     const href = link.getAttribute('href') ?? ''
     expect(href).toContain('https://wa.me/212612345678?text=')
-    expect(href).toContain(encodeURIComponent('j\'aimerais un renseignement'))
+    expect(href).toContain(encodeURIComponent("j'aimerais un renseignement"))
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'))
   })

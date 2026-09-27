@@ -45,7 +45,29 @@
     "whatsapp_message": "Bonjour Caftan Zomoroda, je suis intéressée par la location de « {{name}} ». Est-il disponible à mes dates ?",
     "book_login_cta": "Connectez-vous pour réserver",
     "book_no_account": "Pas encore de compte ?",
-    "book_register_link": "Créez-le en une minute"
+    "book_register_link": "Créez-le en une minute",
+    "price_any": "Tous les prix",
+    "dates_label": "Disponible du",
+    "dates_to": "au",
+    "dates_clear": "Effacer les dates",
+    "sort_label": "Trier",
+    "sort_featured": "À la une",
+    "sort_price_asc": "Prix croissant",
+    "sort_price_desc": "Prix décroissant",
+    "sort_name": "Nom (A–Z)",
+    "all_sizes": "Toutes les tailles",
+    "all_colors": "Toutes les couleurs",
+    "results_count": "{{count}} caftan",
+    "results_count_few": "{{count}} caftans",
+    "results_count_many": "{{count}} caftans",
+    "results_count_one": "{{count}} caftan",
+    "results_count_other": "{{count}} caftans",
+    "results_count_two": "{{count}} caftans",
+    "results_count_zero": "Aucun caftan",
+    "pagination_aria": "Pagination du catalogue",
+    "page_prev": "Précédent",
+    "page_next": "Suivant",
+    "price_max_label": "Prix max / jour"
   },
   "booking": {
     "form_title": "Votre demande de réservation",
@@ -74,13 +96,17 @@
     "estimate_days_zero": "{{count}} jours",
     "estimate_days_two": "{{count}} jours",
     "estimate_days_few": "{{count}} jours",
-    "estimate_days_many": "{{count}} jours"
+    "estimate_days_many": "{{count}} jours",
+    "occupied_hint": "Certaines périodes sont déjà réservées pour ce caftan.",
+    "error_dates_overlap": "Cette période chevauche une réservation existante. Choisissez d’autres dates."
   },
   "footer": {
     "rights": "© {{year}} Caftan Zomoroda — Location de caftans",
     "nav_heading": "Navigation",
     "nav_aria": "Navigation du pied de page",
-    "contact_heading": "Contact"
+    "contact_heading": "Contact",
+    "map_link": "Itinéraire",
+    "hours_label": "Ouvert"
   },
   "home": {
     "hero_kicker": "Caftans & Takchitas — Location",

@@ -80,8 +80,6 @@ describe('LoginPage', () => {
     await userEvent.type(screen.getByLabelText('Email'), 'cliente@example.com')
     await userEvent.type(screen.getByLabelText('Mot de passe'), 'mauvais-mot-de-passe')
     await userEvent.click(screen.getByRole('button', { name: /se connecter/i }))
-    expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Email ou mot de passe incorrect.',
-    )
+    expect(await screen.findByRole('alert')).toHaveTextContent('Email ou mot de passe incorrect.')
   })
 })

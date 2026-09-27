@@ -28,9 +28,10 @@
 - [À faire] Créer le projet de production et appliquer les 12 migrations
   (`supabase db push`) — voir `production-setup.md`.
 - [À faire] Appliquer le seed, puis remplacer les coordonnées
-  factices de `site_settings` par les vraies (WhatsApp, téléphone, email,
-  adresse) — **bloquant pour le lancement** (le bouton WhatsApp lit ce
-  numéro).
+  factices de `site_settings` (WhatsApp, téléphone, email, liens sociaux)
+  — **bloquant pour le lancement** (le bouton WhatsApp lit ce numéro).
+  L'adresse, les horaires et le Plus Code du seed sont déjà les vraies
+  informations de l'entreprise.
 - [À faire] Copier les modèles d'e-mail (`supabase/templates/`) dans
   Auth → Email Templates.
 - [À faire] Configurer le SMTP personnalisé (Auth → Settings → SMTP).

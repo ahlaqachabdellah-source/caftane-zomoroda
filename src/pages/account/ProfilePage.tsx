@@ -101,7 +101,10 @@ export default function ProfilePage() {
           </p>
         )}
         {errorKey && (
-          <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          <p
+            role="alert"
+            className="mb-4 rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive"
+          >
             {t(errorKey)}
           </p>
         )}
@@ -109,7 +112,11 @@ export default function ProfilePage() {
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
           <div className="space-y-2">
             <Label htmlFor="fullName">{t('account.name_label')}</Label>
-            <Input id="fullName" aria-invalid={Boolean(errors.fullName)} {...register('fullName')} />
+            <Input
+              id="fullName"
+              aria-invalid={Boolean(errors.fullName)}
+              {...register('fullName')}
+            />
             {errors.fullName && (
               <p className="text-sm text-destructive">{t(errors.fullName.message ?? '')}</p>
             )}

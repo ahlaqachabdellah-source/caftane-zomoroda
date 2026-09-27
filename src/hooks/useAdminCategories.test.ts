@@ -41,7 +41,13 @@ function makeClient() {
 
 const ROW = { ...categoryCaftan, caftans: [{ count: 4 }] }
 
-const VALUES = { slug: 'mariage', nameAr: 'زفاف', nameFr: 'Mariage', nameEn: 'Wedding', sortOrder: '3' }
+const VALUES = {
+  slug: 'mariage',
+  nameAr: 'زفاف',
+  nameFr: 'Mariage',
+  nameEn: 'Wedding',
+  sortOrder: '3',
+}
 
 describe('useAdminCategories', () => {
   beforeEach(() => {

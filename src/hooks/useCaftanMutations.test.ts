@@ -4,7 +4,10 @@ import type { CaftanFormValues } from '@/lib/validation/admin'
 
 // Controllable supabase mock: tests configure `mocks`.
 const mocks = vi.hoisted(() => ({
-  insertResult: { data: { id: 'new-id' }, error: null as null | { code?: string; message: string } },
+  insertResult: {
+    data: { id: 'new-id' },
+    error: null as null | { code?: string; message: string },
+  },
   updateResult: { data: { id: 'c-1' }, error: null as null | { code?: string; message: string } },
   deleteResult: { error: null as null | { code?: string; message: string } },
   lastInsert: null as unknown,

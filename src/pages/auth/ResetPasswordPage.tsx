@@ -77,12 +77,18 @@ export default function ResetPasswordPage() {
     <AuthLayout title={t('auth.reset_title')} subtitle={t('auth.reset_subtitle')}>
       <Seo title={t('seo.password_title')} description={t('seo.home_description')} noindex />
       {!configured && (
-        <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground"
+        >
           {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
-        <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
+        >
           {t(serverError)}
         </p>
       )}

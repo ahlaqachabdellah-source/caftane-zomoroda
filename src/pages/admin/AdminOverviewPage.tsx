@@ -50,9 +50,7 @@ export default function AdminOverviewPage() {
     )
   }
 
-  const revenueStatuses = kpis.revenue_statuses
-    .map((s) => t(`account.status.${s}`))
-    .join(' + ')
+  const revenueStatuses = kpis.revenue_statuses.map((s) => t(`account.status.${s}`)).join(' + ')
 
   const kpiCards = [
     {
@@ -90,17 +88,12 @@ export default function AdminOverviewPage() {
       {/* KPI cards */}
       <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {kpiCards.map(({ key, icon: Icon, label, value, hint }) => (
-          <div
-            key={key}
-            className="rounded-xl border border-border bg-background p-5 shadow-sm"
-          >
+          <div key={key} className="rounded-xl border border-border bg-background p-5 shadow-sm">
             <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground rtl:tracking-normal">
               <Icon className="h-4 w-4 text-gold" aria-hidden="true" />
               {label}
             </dt>
-            <dd className="mt-2 font-display text-3xl font-semibold text-foreground">
-              {value}
-            </dd>
+            <dd className="mt-2 font-display text-3xl font-semibold text-foreground">{value}</dd>
             <dd className="mt-1 text-xs text-muted-foreground">{hint}</dd>
           </div>
         ))}
@@ -185,7 +178,10 @@ export default function AdminOverviewPage() {
                   text = t('admin.activity_customer_registered', { name })
                 }
                 return (
-                  <li key={`${event.type}-${event.booking_number ?? name}-${index}`} className="flex items-start gap-3 py-3">
+                  <li
+                    key={`${event.type}-${event.booking_number ?? name}-${index}`}
+                    className="flex items-start gap-3 py-3"
+                  >
                     <span
                       aria-hidden="true"
                       className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-gold"

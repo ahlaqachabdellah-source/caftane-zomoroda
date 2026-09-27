@@ -42,7 +42,10 @@ export function useCaftanMutations() {
   const [saving, setSaving] = useState(false)
 
   const saveCaftan = useCallback(
-    async (values: CaftanFormValues, caftanId?: string): Promise<MutationResult<{ id: string }>> => {
+    async (
+      values: CaftanFormValues,
+      caftanId?: string,
+    ): Promise<MutationResult<{ id: string }>> => {
       if (!supabase) return { ok: false, errorKey: 'admin.caftans.error_save' }
       setSaving(true)
       const payload = toPayload(values)
@@ -54,7 +57,8 @@ export function useCaftanMutations() {
       if (error) {
         return {
           ok: false,
-          errorKey: error.code === '23505' ? 'admin.caftans.error_slug_taken' : 'admin.caftans.error_save',
+          errorKey:
+            error.code === '23505' ? 'admin.caftans.error_slug_taken' : 'admin.caftans.error_save',
         }
       }
       return { ok: true, errorKey: null, data: { id: data.id } }
@@ -67,7 +71,10 @@ export function useCaftanMutations() {
     const { error } = await supabase.from('caftans').delete().eq('id', caftanId)
     if (error) {
       const inUse = error.code === '23001' || error.code === '23503'
-      return { ok: false, errorKey: inUse ? 'admin.caftans.error_has_bookings' : 'admin.caftans.error_delete' }
+      return {
+        ok: false,
+        errorKey: inUse ? 'admin.caftans.error_has_bookings' : 'admin.caftans.error_delete',
+      }
     }
     return { ok: true, errorKey: null }
   }, [])

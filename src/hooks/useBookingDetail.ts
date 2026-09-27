@@ -36,11 +36,13 @@ export function useBookingDetail(bookingNumber: string | undefined): UseBookingD
     setError(null)
     setNotFound(false)
 
-    const { data, error: bookingError } = await withRetry(() => client
-      .from('bookings')
-      .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
-      .eq('booking_number', bookingNumber)
-      .maybeSingle())
+    const { data, error: bookingError } = await withRetry(() =>
+      client
+        .from('bookings')
+        .select('*, caftan:caftans(*, category:categories(*), images:caftan_images(*))')
+        .eq('booking_number', bookingNumber)
+        .maybeSingle(),
+    )
 
     if (bookingError) {
       setError(mapSupabaseError(bookingError, 'account.error_body'))
@@ -57,11 +59,13 @@ export function useBookingDetail(bookingNumber: string | undefined): UseBookingD
 
     setBooking(data as MyBooking)
 
-    const { data: historyRows, error: historyError } = await withRetry(() => client
-      .from('booking_status_history')
-      .select('*')
-      .eq('booking_id', data.id)
-      .order('created_at', { ascending: true }))
+    const { data: historyRows, error: historyError } = await withRetry(() =>
+      client
+        .from('booking_status_history')
+        .select('*')
+        .eq('booking_id', data.id)
+        .order('created_at', { ascending: true }),
+    )
 
     if (historyError) {
       setError(mapSupabaseError(historyError, 'account.error_body'))

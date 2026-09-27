@@ -37,7 +37,13 @@ describe('CaftanImageManager', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     await act(() => i18n.changeLanguage('fr'))
-    for (const mock of [mockUploadImages, mockDeleteImage, mockPersistOrder, mockSetPrimary, mockUpdateAltText]) {
+    for (const mock of [
+      mockUploadImages,
+      mockDeleteImage,
+      mockPersistOrder,
+      mockSetPrimary,
+      mockUpdateAltText,
+    ]) {
       mock.mockResolvedValue({ ok: true, errorKey: null })
     }
   })
@@ -81,7 +87,9 @@ describe('CaftanImageManager', () => {
     renderManager()
     await user.click(screen.getAllByRole('button', { name: 'Supprimer cette image' })[0])
     const dialog = screen.getByRole('alertdialog')
-    const confirm = Array.from(dialog.querySelectorAll('button')).find((b) => b.textContent === 'Supprimer')!
+    const confirm = Array.from(dialog.querySelectorAll('button')).find(
+      (b) => b.textContent === 'Supprimer',
+    )!
     await user.click(confirm)
     await waitFor(() => expect(mockDeleteImage).toHaveBeenCalledWith(images[0]))
   })

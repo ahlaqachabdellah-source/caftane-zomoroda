@@ -38,14 +38,10 @@ export default function BookingCard({ booking }: { booking: MyBooking }) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="font-mono text-xs text-muted-foreground">
-            {booking.booking_number}
-          </span>
+          <span className="font-mono text-xs text-muted-foreground">{booking.booking_number}</span>
           <BookingStatusBadge status={booking.status} />
         </div>
-        <h3 className="truncate font-display text-lg font-semibold text-foreground">
-          {name}
-        </h3>
+        <h3 className="truncate font-display text-lg font-semibold text-foreground">{name}</h3>
         <p className="text-sm text-muted-foreground">
           {formatDate(booking.start_date, locale)} → {formatDate(booking.end_date, locale)}
           {days > 0 && <> · {t('account.days_count', { count: days })}</>}

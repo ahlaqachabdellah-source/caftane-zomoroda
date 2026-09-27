@@ -13,8 +13,18 @@ export default function AccountNav() {
 
   const items = [
     { to: localePath('/account'), label: t('account.nav_dashboard'), icon: LayoutGrid, end: true },
-    { to: localePath('/account/bookings'), label: t('account.nav_bookings'), icon: CalendarRange, end: false },
-    { to: localePath('/account/profile'), label: t('account.nav_profile'), icon: UserRound, end: false },
+    {
+      to: localePath('/account/bookings'),
+      label: t('account.nav_bookings'),
+      icon: CalendarRange,
+      end: false,
+    },
+    {
+      to: localePath('/account/profile'),
+      label: t('account.nav_profile'),
+      icon: UserRound,
+      end: false,
+    },
   ]
 
   return (

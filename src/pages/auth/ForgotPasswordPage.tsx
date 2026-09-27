@@ -59,12 +59,18 @@ export default function ForgotPasswordPage() {
     <AuthLayout title={t('auth.forgot_title')} subtitle={t('auth.forgot_subtitle')}>
       <Seo title={t('seo.password_title')} description={t('seo.home_description')} noindex />
       {!configured && (
-        <p role="alert" className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground"
+        >
           {t('auth.backend_notice')}
         </p>
       )}
       {serverError && (
-        <p role="alert" className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+        <p
+          role="alert"
+          className="mb-4 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
+        >
           {t(serverError)}
         </p>
       )}
@@ -89,7 +95,10 @@ export default function ForgotPasswordPage() {
         </Button>
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        <Link to={localePath('/login')} className="font-medium text-foreground underline underline-offset-4">
+        <Link
+          to={localePath('/login')}
+          className="font-medium text-foreground underline underline-offset-4"
+        >
           {t('auth.back_to_login')}
         </Link>
       </p>

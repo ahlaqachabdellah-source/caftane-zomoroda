@@ -23,19 +23,27 @@ const row: SiteSettings = {
   phone: '+212522000000',
   email: 'contact@caftan-zomoroda.ma',
   address: { ar: '', fr: 'Casablanca', en: '' },
+  opening_hours: '10:00–20:00',
+  plus_code: '9QVP+M8G',
   social_links: { instagram: 'https://instagram.com/caftan.zomoroda', facebook: '', tiktok: '' },
   seo_defaults: {},
   updated_at: '2026-09-26T00:00:00Z',
 } as SiteSettings
 
-function clientReturning(result: { data?: SiteSettings | null; error?: { message: string } | null }) {
+function clientReturning(result: {
+  data?: SiteSettings | null
+  error?: { message: string } | null
+}) {
   return {
     from: vi.fn((table: string) => {
       expect(table).toBe('site_settings')
       return {
         select: vi.fn(() => ({
           eq: vi.fn(() => ({
-            maybeSingle: vi.fn(async () => ({ data: result.data ?? null, error: result.error ?? null })),
+            maybeSingle: vi.fn(async () => ({
+              data: result.data ?? null,
+              error: result.error ?? null,
+            })),
           })),
         })),
       }

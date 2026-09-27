@@ -103,16 +103,21 @@ insert into public.caftan_images (caftan_id, storage_path, alt_text, sort_order,
    '{"ar": "جلابة سالمونية", "fr": "Jellaba Saumon", "en": "Salmon Jellaba"}', 1, true);
 
 -- --------------------------------------------------------------------------
--- Site settings (singleton) — placeholder contact data, to be replaced
--- with the real business information during content entry.
+-- Site settings (singleton).
+-- Address / opening hours / plus code are the REAL business information
+-- provided by the owner (final audit). Phone, WhatsApp, email and social
+-- links remain placeholders to replace during content entry — the footer
+-- omits empty fields automatically.
 -- --------------------------------------------------------------------------
 insert into public.site_settings
-  (id, whatsapp_number, phone, email, address, social_links, seo_defaults) values
+  (id, whatsapp_number, phone, email, address, opening_hours, plus_code, social_links, seo_defaults) values
   (1,
    '+212600000000',
    '+212500000000',
    'contact@example.com',
-   '{"ar": "", "fr": "", "en": ""}',
+   '{"ar": "قسارية الخليل رقم 29 أولاد تايمة (هوارة)", "fr": "Quissariat Al Khalil n° 29, Oulad Teima (Houara), Maroc", "en": "Quissariat Al Khalil No. 29, Oulad Teima (Houara), Morocco"}',
+   '10:00–20:00',
+   '9QVP+M8G',
    '{"instagram": "", "facebook": "", "tiktok": ""}',
    '{
       "ar": {"title": "تأجير قفطان مغربي", "description": "تأجير قفطان وتكشيطة فاخرة لجميع المناسبات"},

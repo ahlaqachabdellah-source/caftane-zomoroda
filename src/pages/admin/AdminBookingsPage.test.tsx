@@ -11,8 +11,16 @@ vi.mock('@/hooks/useAdminBookings', () => ({
   useAdminBookings: () => mockUseAdminBookings(),
 }))
 
-const CAFTAN_A = { id: 'caftan-1', slug: 'caftan-royal', name: { ar: 'قفطان ملكي', fr: 'Caftan Royal', en: 'Royal Caftan' } }
-const CAFTAN_B = { id: 'caftan-2', slug: 'takchita-perles', name: { ar: 'تكشيطة', fr: 'Takchita Perles', en: 'Pearl Takchita' } }
+const CAFTAN_A = {
+  id: 'caftan-1',
+  slug: 'caftan-royal',
+  name: { ar: 'قفطان ملكي', fr: 'Caftan Royal', en: 'Royal Caftan' },
+}
+const CAFTAN_B = {
+  id: 'caftan-2',
+  slug: 'takchita-perles',
+  name: { ar: 'تكشيطة', fr: 'Takchita Perles', en: 'Pearl Takchita' },
+}
 
 function row(overrides: Partial<AdminBookingListItem>): AdminBookingListItem {
   return {
@@ -27,21 +35,50 @@ function row(overrides: Partial<AdminBookingListItem>): AdminBookingListItem {
     deposit_status: 'unpaid',
     customer_notes: '',
     created_at: '2026-09-20T10:00:00Z',
-    customer: { id: 'cust-1', full_name: 'Salma Bennani', phone: '+212611111111', whatsapp_number: null, city: 'Casablanca' },
+    customer: {
+      id: 'cust-1',
+      full_name: 'Salma Bennani',
+      phone: '+212611111111',
+      whatsapp_number: null,
+      city: 'Casablanca',
+    },
     caftan: CAFTAN_A,
     ...overrides,
   }
 }
 
 const bookings: AdminBookingListItem[] = [
-  row({ id: 'b-1', booking_number: 'CF-2026-0001', status: 'pending', start_date: '2030-05-10', end_date: '2030-05-12' }),
   row({
-    id: 'b-2', booking_number: 'CF-2026-0002', status: 'confirmed', deposit_status: 'paid',
-    start_date: '2030-06-01', end_date: '2030-06-03',
-    customer: { id: 'cust-2', full_name: 'Nadia El Fassi', phone: null, whatsapp_number: '+212622222222', city: null },
-    caftan_id: CAFTAN_B.id, caftan: CAFTAN_B,
+    id: 'b-1',
+    booking_number: 'CF-2026-0001',
+    status: 'pending',
+    start_date: '2030-05-10',
+    end_date: '2030-05-12',
   }),
-  row({ id: 'b-3', booking_number: 'CF-2026-0003', status: 'cancelled', start_date: '2030-07-05', end_date: '2030-07-06' }),
+  row({
+    id: 'b-2',
+    booking_number: 'CF-2026-0002',
+    status: 'confirmed',
+    deposit_status: 'paid',
+    start_date: '2030-06-01',
+    end_date: '2030-06-03',
+    customer: {
+      id: 'cust-2',
+      full_name: 'Nadia El Fassi',
+      phone: null,
+      whatsapp_number: '+212622222222',
+      city: null,
+    },
+    caftan_id: CAFTAN_B.id,
+    caftan: CAFTAN_B,
+  }),
+  row({
+    id: 'b-3',
+    booking_number: 'CF-2026-0003',
+    status: 'cancelled',
+    start_date: '2030-07-05',
+    end_date: '2030-07-06',
+  }),
 ]
 
 function renderPage() {
@@ -56,7 +93,12 @@ describe('AdminBookingsPage', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     await act(() => i18n.changeLanguage('fr'))
-    mockUseAdminBookings.mockReturnValue({ bookings, loading: false, error: null, refetch: vi.fn() })
+    mockUseAdminBookings.mockReturnValue({
+      bookings,
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
   })
 
   it('lists bookings with numbers, customers, statuses, prices and dates', () => {
@@ -113,13 +155,23 @@ describe('AdminBookingsPage', () => {
   })
 
   it('shows empty state when there are no bookings', () => {
-    mockUseAdminBookings.mockReturnValue({ bookings: [], loading: false, error: null, refetch: vi.fn() })
+    mockUseAdminBookings.mockReturnValue({
+      bookings: [],
+      loading: false,
+      error: null,
+      refetch: vi.fn(),
+    })
     renderPage()
     expect(screen.getByText('Aucune réservation')).toBeInTheDocument()
   })
 
   it('shows error state on failure', () => {
-    mockUseAdminBookings.mockReturnValue({ bookings: [], loading: false, error: 'admin.bookings.error_load', refetch: vi.fn() })
+    mockUseAdminBookings.mockReturnValue({
+      bookings: [],
+      loading: false,
+      error: 'admin.bookings.error_load',
+      refetch: vi.fn(),
+    })
     renderPage()
     expect(screen.getByText(/Impossible de charger les réservations/)).toBeInTheDocument()
   })

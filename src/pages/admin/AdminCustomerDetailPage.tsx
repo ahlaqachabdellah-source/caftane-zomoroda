@@ -62,7 +62,9 @@ export default function AdminCustomerDetailPage() {
         <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm sm:grid-cols-4">
           <div>
             <dt className="text-muted-foreground">{t('admin.customers.field_phone')}</dt>
-            <dd className="font-medium text-foreground" dir="ltr">{profile.phone || '—'}</dd>
+            <dd className="font-medium text-foreground" dir="ltr">
+              {profile.phone || '—'}
+            </dd>
           </div>
           <div>
             <dt className="text-muted-foreground">{t('admin.customers.field_whatsapp')}</dt>
@@ -77,7 +79,9 @@ export default function AdminCustomerDetailPage() {
           <div>
             <dt className="text-muted-foreground">{t('admin.customers.customer_since')}</dt>
             <dd className="font-medium text-foreground">
-              <time dateTime={profile.created_at}>{formatDateTime(profile.created_at, locale)}</time>
+              <time dateTime={profile.created_at}>
+                {formatDateTime(profile.created_at, locale)}
+              </time>
             </dd>
           </div>
         </dl>

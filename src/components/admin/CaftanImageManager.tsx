@@ -1,13 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ArrowDown,
-  ArrowUp,
-  ImagePlus,
-  Loader2,
-  Star,
-  Trash2,
-} from 'lucide-react'
+import { ArrowDown, ArrowUp, ImagePlus, Loader2, Star, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -47,7 +40,11 @@ const ALT_LANGS = [
   { code: 'en', dir: 'ltr' },
 ] as const
 
-export default function CaftanImageManager({ caftanId, images, onChanged }: CaftanImageManagerProps) {
+export default function CaftanImageManager({
+  caftanId,
+  images,
+  onChanged,
+}: CaftanImageManagerProps) {
   const { t } = useTranslation()
   const { busy, uploadImages, deleteImage, persistOrder, setPrimary, updateAltText } =
     useCaftanImages(caftanId)
@@ -179,7 +176,11 @@ export default function CaftanImageManager({ caftanId, images, onChanged }: Caft
                   {url ? (
                     <img
                       src={url}
-                      alt={image.alt_text ? nameInLocale(image.alt_text, 'fr') || nameInLocale(image.alt_text, 'en') : ''}
+                      alt={
+                        image.alt_text
+                          ? nameInLocale(image.alt_text, 'fr') || nameInLocale(image.alt_text, 'en')
+                          : ''
+                      }
                       loading="lazy"
                       decoding="async"
                       className="aspect-[4/5] w-full object-cover"
@@ -282,7 +283,10 @@ export default function CaftanImageManager({ caftanId, images, onChanged }: Caft
         </ul>
       )}
 
-      <AlertDialog open={pendingDelete !== null} onOpenChange={(open) => !open && setPendingDelete(null)}>
+      <AlertDialog
+        open={pendingDelete !== null}
+        onOpenChange={(open) => !open && setPendingDelete(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t('admin.images.delete_title')}</AlertDialogTitle>

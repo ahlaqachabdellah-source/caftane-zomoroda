@@ -6,13 +6,7 @@
  *   supabase gen types typescript --linked > src/types/database.types.ts
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 /** Translated content, keyed by locale. `ar`/`fr`/`en` are mandatory in the DB. */
 export type LocalizedText = {
@@ -25,12 +19,7 @@ export type UserRole = 'customer' | 'admin'
 
 export type CaftanStatus = 'available' | 'maintenance' | 'retired'
 
-export type BookingStatus =
-  | 'pending'
-  | 'confirmed'
-  | 'rejected'
-  | 'completed'
-  | 'cancelled'
+export type BookingStatus = 'pending' | 'confirmed' | 'rejected' | 'completed' | 'cancelled'
 
 export type DepositStatus = 'unpaid' | 'paid' | 'refunded' | 'forfeited'
 
@@ -323,6 +312,8 @@ export type Database = {
           phone: string
           email: string
           address: Json
+          opening_hours: string
+          plus_code: string
           social_links: Json
           seo_defaults: Json
           updated_at: string
@@ -333,6 +324,8 @@ export type Database = {
           phone?: string
           email?: string
           address?: Json
+          opening_hours?: string
+          plus_code?: string
           social_links?: Json
           seo_defaults?: Json
           updated_at?: string
@@ -343,6 +336,8 @@ export type Database = {
           phone?: string
           email?: string
           address?: Json
+          opening_hours?: string
+          plus_code?: string
           social_links?: Json
           seo_defaults?: Json
           updated_at?: string
@@ -364,6 +359,14 @@ export type Database = {
       }
       admin_recent_activity: {
         Args: { p_limit?: number }
+        Returns: Json
+      }
+      booked_periods: {
+        Args: { p_caftan_id: string }
+        Returns: Json
+      }
+      available_caftan_ids: {
+        Args: { p_start: string; p_end: string }
         Returns: Json
       }
       admin_list_bookings: {
@@ -412,6 +415,5 @@ export type Category = Database['public']['Tables']['categories']['Row']
 export type Caftan = Database['public']['Tables']['caftans']['Row']
 export type CaftanImage = Database['public']['Tables']['caftan_images']['Row']
 export type Booking = Database['public']['Tables']['bookings']['Row']
-export type BookingStatusHistory =
-  Database['public']['Tables']['booking_status_history']['Row']
+export type BookingStatusHistory = Database['public']['Tables']['booking_status_history']['Row']
 export type SiteSettings = Database['public']['Tables']['site_settings']['Row']

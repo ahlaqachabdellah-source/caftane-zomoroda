@@ -26,10 +26,7 @@ export function normalizeWhatsappNumber(raw: string | null | undefined): string 
  * Returns '' when the number is missing or invalid, so callers can
  * simply hide the action — no broken links, no technical errors shown.
  */
-export function buildWhatsappLink(
-  rawNumber: string | null | undefined,
-  message: string,
-): string {
+export function buildWhatsappLink(rawNumber: string | null | undefined, message: string): string {
   const number = normalizeWhatsappNumber(rawNumber)
   if (!number) return ''
   const base = `https://wa.me/${number}`

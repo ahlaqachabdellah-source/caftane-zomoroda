@@ -9,7 +9,9 @@ import BookingPage from './BookingPage'
 const mockUseCaftanDetail = vi.fn()
 const mockCreateBooking = vi.fn()
 const mockUseSiteSettings = vi.fn()
-vi.mock('@/hooks/useCaftanDetail', () => ({ useCaftanDetail: (slug?: string) => mockUseCaftanDetail(slug) }))
+vi.mock('@/hooks/useCaftanDetail', () => ({
+  useCaftanDetail: (slug?: string) => mockUseCaftanDetail(slug),
+}))
 vi.mock('@/hooks/useCreateBooking', () => ({
   useCreateBooking: () => ({ createBooking: mockCreateBooking, submitting: false }),
 }))
@@ -69,23 +71,47 @@ describe('BookingPage', () => {
   })
 
   it('shows loading, error and not-found states', () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: true, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: true,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount } = renderBooking()
     expect(screen.getByRole('status')).toBeInTheDocument()
     unmount()
 
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: false, error: 'boom', notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: false,
+      error: 'boom',
+      notFound: false,
+      refetch: vi.fn(),
+    })
     const { unmount: unmount2 } = renderBooking()
     expect(screen.getByRole('alert')).toBeInTheDocument()
     unmount2()
 
-    mockUseCaftanDetail.mockReturnValue({ caftan: null, loading: false, error: null, notFound: true, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan: null,
+      loading: false,
+      error: null,
+      notFound: true,
+      refetch: vi.fn(),
+    })
     renderBooking('inconnu')
     expect(screen.getByText('Caftan introuvable')).toBeInTheDocument()
   })
 
   it('renders the caftan summary and the booking form', () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderBooking()
     expect(
       screen.getByRole('heading', { level: 1, name: 'Caftan Andalou Rouge' }),
@@ -100,7 +126,13 @@ describe('BookingPage', () => {
   })
 
   it('computes a live estimate from the selected dates', () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderBooking()
     expect(screen.queryByText(/2\.400,00/)).not.toBeInTheDocument()
     fillDates() // 3 days × 800 MAD
@@ -109,7 +141,13 @@ describe('BookingPage', () => {
   })
 
   it('blocks dates in the past before any server call', async () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     renderBooking()
     fillDates('2020-01-10', '2020-01-12')
     fireEvent.click(screen.getByRole('button', { name: 'Envoyer ma demande' }))
@@ -118,7 +156,13 @@ describe('BookingPage', () => {
   })
 
   it('submits the booking and shows the confirmation with the booking number', async () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     mockCreateBooking.mockResolvedValue({ booking: createdBooking, errorKey: null })
     renderBooking()
     fillDates()
@@ -138,28 +182,39 @@ describe('BookingPage', () => {
     )
     // WhatsApp follow-up includes the booking number, number from site_settings
     const wa = screen.getByRole('link', { name: 'Poser une question sur WhatsApp' })
-    expect(wa).toHaveAttribute(
-      'href',
-      expect.stringContaining('https://wa.me/212612345678?text='),
-    )
+    expect(wa).toHaveAttribute('href', expect.stringContaining('https://wa.me/212612345678?text='))
     expect(wa.getAttribute('href')).toContain('CF-2026-0042')
   })
 
   it('hides the WhatsApp follow-up when the number is not configured', async () => {
-    mockUseSiteSettings.mockReturnValue({ settings: { whatsapp_number: '' }, loading: false, error: null })
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseSiteSettings.mockReturnValue({
+      settings: { whatsapp_number: '' },
+      loading: false,
+      error: null,
+    })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     mockCreateBooking.mockResolvedValue({ booking: createdBooking, errorKey: null })
     renderBooking()
     fillDates()
     fireEvent.click(screen.getByRole('button', { name: 'Envoyer ma demande' }))
     expect(await screen.findByText('CF-2026-0042')).toBeInTheDocument()
-    expect(
-      screen.queryByRole('link', { name: /WhatsApp/ }),
-    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /WhatsApp/ })).not.toBeInTheDocument()
   })
 
   it('shows the friendly overlap message when the dates are already taken', async () => {
-    mockUseCaftanDetail.mockReturnValue({ caftan, loading: false, error: null, notFound: false, refetch: vi.fn() })
+    mockUseCaftanDetail.mockReturnValue({
+      caftan,
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
+    })
     mockCreateBooking.mockResolvedValue({ booking: null, errorKey: 'booking.error_overlap' })
     renderBooking()
     fillDates()

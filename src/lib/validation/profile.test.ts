@@ -12,7 +12,11 @@ describe('profileSchema', () => {
   })
 
   it('accepts empty optional numbers', () => {
-    const result = profileSchema.safeParse({ fullName: 'Cliente Test', phone: '', whatsappNumber: '' })
+    const result = profileSchema.safeParse({
+      fullName: 'Cliente Test',
+      phone: '',
+      whatsappNumber: '',
+    })
     expect(result.success).toBe(true)
   })
 
@@ -25,7 +29,11 @@ describe('profileSchema', () => {
   })
 
   it('rejects malformed phone numbers', () => {
-    const result = profileSchema.safeParse({ fullName: 'Cliente Test', phone: 'abc!', whatsappNumber: '' })
+    const result = profileSchema.safeParse({
+      fullName: 'Cliente Test',
+      phone: 'abc!',
+      whatsappNumber: '',
+    })
     expect(result.success).toBe(false)
     if (!result.success) {
       expect(result.error.issues[0].message).toBe('validation.phone_invalid')
@@ -34,7 +42,11 @@ describe('profileSchema', () => {
   })
 
   it('rejects a malformed WhatsApp number', () => {
-    const result = profileSchema.safeParse({ fullName: 'Cliente Test', phone: '', whatsappNumber: '12' })
+    const result = profileSchema.safeParse({
+      fullName: 'Cliente Test',
+      phone: '',
+      whatsappNumber: '12',
+    })
     expect(result.success).toBe(false)
     if (!result.success) {
       expect(result.error.issues[0].path).toEqual(['whatsappNumber'])

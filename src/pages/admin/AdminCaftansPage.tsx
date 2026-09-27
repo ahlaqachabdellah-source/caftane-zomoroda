@@ -146,7 +146,10 @@ export default function AdminCaftansPage() {
       </div>
 
       {noticeKey && (
-        <p role="status" className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground">
+        <p
+          role="status"
+          className="rounded-md border border-gold bg-accent px-4 py-3 text-sm text-foreground"
+        >
           {t(noticeKey)}
         </p>
       )}
@@ -206,9 +209,15 @@ export default function AdminCaftansPage() {
       {/* List */}
       {filtered.length === 0 ? (
         <EmptyState
-          title={caftans.length === 0 ? t('admin.caftans.empty_title') : t('admin.caftans.empty_filtered_title')}
+          title={
+            caftans.length === 0
+              ? t('admin.caftans.empty_title')
+              : t('admin.caftans.empty_filtered_title')
+          }
           description={
-            caftans.length === 0 ? t('admin.caftans.empty_body') : t('admin.caftans.empty_filtered_body')
+            caftans.length === 0
+              ? t('admin.caftans.empty_body')
+              : t('admin.caftans.empty_filtered_body')
           }
           action={
             caftans.length === 0 ? (
@@ -231,7 +240,12 @@ export default function AdminCaftansPage() {
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <div className="hidden h-16 w-16 shrink-0 overflow-hidden rounded-md bg-muted sm:block">
                     {thumb && (
-                      <img src={thumb} alt="" className="h-full w-full object-cover" loading="lazy" />
+                      <img
+                        src={thumb}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
                     )}
                   </div>
                   <div className="min-w-0">
@@ -322,16 +336,23 @@ export default function AdminCaftansPage() {
             </p>
           )}
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleting}>
-              {t('admin.caftans.cancel')}
-            </AlertDialogCancel>
+            <AlertDialogCancel disabled={deleting}>{t('admin.caftans.cancel')}</AlertDialogCancel>
             {deleteErrorKey === 'admin.caftans.error_has_bookings' ? (
-              <AlertDialogAction onClick={(e) => { e.preventDefault(); void handleRetireInstead() }} disabled={deleting}>
+              <AlertDialogAction
+                onClick={(e) => {
+                  e.preventDefault()
+                  void handleRetireInstead()
+                }}
+                disabled={deleting}
+              >
                 {t('admin.caftans.retire_instead')}
               </AlertDialogAction>
             ) : (
               <AlertDialogAction
-                onClick={(e) => { e.preventDefault(); void handleConfirmDelete() }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  void handleConfirmDelete()
+                }}
                 disabled={deleting}
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >

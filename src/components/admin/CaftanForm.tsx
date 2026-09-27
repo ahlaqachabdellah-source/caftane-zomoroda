@@ -56,7 +56,13 @@ const LANG_FIELDS = [
   { code: 'en', name: 'nameEn', description: 'descriptionEn', dir: 'ltr' },
 ] as const
 
-export default function CaftanForm({ caftan, categories, saving, onSubmit, onCancel }: CaftanFormProps) {
+export default function CaftanForm({
+  caftan,
+  categories,
+  saving,
+  onSubmit,
+  onCancel,
+}: CaftanFormProps) {
   const { t } = useTranslation()
   const { locale } = useLocale()
   const {

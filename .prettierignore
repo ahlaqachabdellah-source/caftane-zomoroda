@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-e2e
+package-lock.json
+public
+*.md
+supabase/migrations
+supabase/seed.sql
+supabase/templates
+.github

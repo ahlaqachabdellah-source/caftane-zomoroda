@@ -1,7 +1,18 @@
 import { useState } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { CalendarDays, ClipboardList, LayoutDashboard, LogOut, Menu, Shirt, Store, Tags, Users, X } from 'lucide-react'
+import {
+  CalendarDays,
+  ClipboardList,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Shirt,
+  Store,
+  Tags,
+  Users,
+  X,
+} from 'lucide-react'
 import Logo from '@/components/brand/Logo'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
@@ -147,7 +158,11 @@ export default function AdminLayout() {
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
         </button>
-        <Link to={localePath('/admin')} aria-label={t('admin.shell_aria')} className="flex items-center">
+        <Link
+          to={localePath('/admin')}
+          aria-label={t('admin.shell_aria')}
+          className="flex items-center"
+        >
           <Logo className="h-9 w-auto" />
         </Link>
         <span className="ms-auto text-xs font-medium uppercase tracking-wide text-muted-foreground rtl:tracking-normal">
@@ -157,7 +172,12 @@ export default function AdminLayout() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label={t('admin.nav_aria')}>
+        <div
+          className="fixed inset-0 z-50 lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('admin.nav_aria')}
+        >
           <button
             type="button"
             aria-label={t('common.menu_close')}

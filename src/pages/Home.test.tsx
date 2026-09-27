@@ -67,10 +67,7 @@ describe('Home', () => {
         name: 'أناقة القفطان المغربي لأجمل لحظاتك',
       }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'إنشاء حساب' })).toHaveAttribute(
-      'href',
-      '/ar/register',
-    )
+    expect(screen.getByRole('link', { name: 'إنشاء حساب' })).toHaveAttribute('href', '/ar/register')
     await act(() => i18n.changeLanguage('fr'))
   })
 })

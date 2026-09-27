@@ -199,8 +199,7 @@ export default function AdminBookingsPage() {
                     {' → '}
                     <time dateTime={b.end_date}>{formatDate(b.end_date, locale)}</time>
                     {' · '}
-                    {t('admin.bookings.created_at')}
-                    {' '}
+                    {t('admin.bookings.created_at')}{' '}
                     <time dateTime={b.created_at}>{formatDateTime(b.created_at, locale)}</time>
                   </p>
                 </div>

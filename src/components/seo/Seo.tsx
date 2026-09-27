@@ -53,30 +53,29 @@ export default function Seo({
   return (
     <>
       <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta
-        name="robots"
-        content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
-      />
-      <link rel="canonical" href={canonical} />
-      {localeAlternates(neutralPath).map((a) => (
-        <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={a.href} />
-      ))}
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta
+          name="robots"
+          content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+        />
+        <link rel="canonical" href={canonical} />
+        {localeAlternates(neutralPath).map((a) => (
+          <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={a.href} />
+        ))}
 
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:locale" content={ogLocale(locale)} />
-      <meta property="og:site_name" content="Caftan Zomoroda" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={type} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:locale" content={ogLocale(locale)} />
+        <meta property="og:site_name" content="Caftan Zomoroda" />
 
-      <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-
+        <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
       </Helmet>
       {/* react-helmet-async does not render <script> children — JSON-LD is
           emitted as regular DOM nodes instead (valid in body per schema.org /

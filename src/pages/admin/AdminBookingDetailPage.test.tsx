@@ -121,7 +121,10 @@ describe('AdminBookingDetailPage', () => {
   it('offers complete/cancel on a confirmed booking', () => {
     mockUseAdminBooking.mockReturnValue({
       detail: detail({ status: 'confirmed' }),
-      loading: false, error: null, notFound: false, refetch: vi.fn(),
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
     })
     renderPage()
     expect(screen.getByRole('button', { name: 'Marquer terminée' })).toBeInTheDocument()
@@ -132,7 +135,10 @@ describe('AdminBookingDetailPage', () => {
   it('shows terminal message on a cancelled booking', () => {
     mockUseAdminBooking.mockReturnValue({
       detail: detail({ status: 'cancelled' }),
-      loading: false, error: null, notFound: false, refetch: vi.fn(),
+      loading: false,
+      error: null,
+      notFound: false,
+      refetch: vi.fn(),
     })
     renderPage()
     expect(screen.getByText(/clôturée/)).toBeInTheDocument()
@@ -161,7 +167,10 @@ describe('AdminBookingDetailPage', () => {
 
   it('shows the server error when a transition is rejected', async () => {
     const user = userEvent.setup()
-    mockUpdateStatus.mockResolvedValue({ ok: false, errorKey: 'admin.bookings.error_invalid_transition' })
+    mockUpdateStatus.mockResolvedValue({
+      ok: false,
+      errorKey: 'admin.bookings.error_invalid_transition',
+    })
     renderPage()
     await user.click(screen.getByRole('button', { name: 'Confirmer' }))
     const dialog = screen.getByRole('alertdialog')
@@ -186,7 +195,11 @@ describe('AdminBookingDetailPage', () => {
 
   it('shows not-found state', () => {
     mockUseAdminBooking.mockReturnValue({
-      detail: null, loading: false, error: null, notFound: true, refetch: vi.fn(),
+      detail: null,
+      loading: false,
+      error: null,
+      notFound: true,
+      refetch: vi.fn(),
     })
     renderPage()
     expect(screen.getByText('Réservation introuvable')).toBeInTheDocument()
