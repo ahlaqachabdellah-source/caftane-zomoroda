@@ -102,7 +102,7 @@ export default function SiteHeader() {
         >
           <div className="flex flex-col items-center gap-4 px-4 py-8">
             <Logo className="h-24 w-auto" />
-            <p className="text-xs uppercase tracking-[0.3em] text-gold rtl:tracking-normal">
+            <p className="text-xs uppercase tracking-[0.3em] text-gold-strong rtl:tracking-normal">
               {t('common.tagline')}
             </p>
             <div onClick={() => setMenuOpen(false)} className="flex flex-col items-center gap-1">

@@ -83,7 +83,7 @@ function AdminIdentity({ onSignOut }: { onSignOut: () => void }) {
             {user.email}
           </p>
         )}
-        <p className="mt-1 inline-flex rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-gold rtl:tracking-normal">
+        <p className="mt-1 inline-flex rounded-full bg-accent px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-gold-strong rtl:tracking-normal">
           {t('admin.role_badge')}
         </p>
       </div>

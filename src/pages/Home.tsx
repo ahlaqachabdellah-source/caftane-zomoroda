@@ -72,7 +72,7 @@ export default function Home() {
       {/* Hero */}
       <section className="border-b border-border">
         <Container className="flex flex-col items-center gap-6 py-16 text-center sm:py-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gold rtl:tracking-normal sm:text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-strong rtl:tracking-normal sm:text-sm">
             {t('home.hero_kicker')}
           </p>
           <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
@@ -131,7 +131,7 @@ export default function Home() {
           <div className="grid gap-8 sm:grid-cols-3">
             {values.map((value) => (
               <div key={value.title} className="flex flex-col items-center gap-3 text-center">
-                <h3 className="text-xl font-semibold text-gold">{value.title}</h3>
+                <h3 className="text-xl font-semibold text-gold-soft">{value.title}</h3>
                 <p className="text-sm leading-relaxed text-primary-foreground/80">{value.body}</p>
               </div>
             ))}

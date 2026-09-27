@@ -168,7 +168,7 @@ export default function CaftanDetailPage() {
           {/* Details */}
           <div className="flex flex-col gap-5">
             {categoryName && (
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold rtl:tracking-normal">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-strong rtl:tracking-normal">
                 {categoryName}
               </p>
             )}
@@ -196,23 +196,25 @@ export default function CaftanDetailPage() {
                   {formatPrice(Number(caftan.deposit_amount), locale)}
                 </dd>
               </div>
-              {(caftan.size || caftan.color) && (
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border pt-3 text-sm text-muted-foreground">
-                  {caftan.size && (
-                    <span className="inline-flex items-center gap-2">
-                      <Ruler className="h-4 w-4 text-gold" aria-hidden="true" />
-                      {t('catalog.size_label')}: {caftan.size}
-                    </span>
-                  )}
-                  {caftan.color && (
-                    <span className="inline-flex items-center gap-2">
-                      <Palette className="h-4 w-4 text-gold" aria-hidden="true" />
-                      {t('catalog.color_label')}: {caftan.color}
-                    </span>
-                  )}
-                </div>
-              )}
             </dl>
+            {/* Size/color chips live outside the <dl>: a definition list may
+                only contain dt/dd groups (WCAG definition-list rule). */}
+            {(caftan.size || caftan.color) && (
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border border-border bg-card px-5 py-3 text-sm text-muted-foreground">
+                {caftan.size && (
+                  <span className="inline-flex items-center gap-2">
+                    <Ruler className="h-4 w-4 text-gold" aria-hidden="true" />
+                    {t('catalog.size_label')}: {caftan.size}
+                  </span>
+                )}
+                {caftan.color && (
+                  <span className="inline-flex items-center gap-2">
+                    <Palette className="h-4 w-4 text-gold" aria-hidden="true" />
+                    {t('catalog.color_label')}: {caftan.color}
+                  </span>
+                )}
+              </div>
+            )}
 
             <BookingCta caftan={caftan} />
           </div>

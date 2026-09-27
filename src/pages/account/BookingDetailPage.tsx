@@ -91,7 +91,7 @@ export default function BookingDetailPage() {
           {t('account.back_to_bookings')}
         </Link>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold rtl:tracking-normal">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-strong rtl:tracking-normal">
             {t('account.booking_label')}
           </p>
         </div>

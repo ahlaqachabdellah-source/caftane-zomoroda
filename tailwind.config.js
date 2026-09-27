@@ -13,6 +13,8 @@ module.exports = {
         gold: {
           DEFAULT: "hsl(var(--gold))",
           foreground: "hsl(var(--gold-foreground))",
+          strong: "hsl(var(--gold-strong))",
+          soft: "hsl(var(--gold-soft))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

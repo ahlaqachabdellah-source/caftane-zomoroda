@@ -25,9 +25,14 @@
     /* Soft gold tint — hover surfaces */
     --accent: 38 35% 92%;
     --accent-foreground: 169 37% 14%;
-    /* Caftan gold — ornaments, kickers, highlights */
+    /* Caftan gold — ornaments, borders, icons (decorative) */
     --gold: 38 47% 45%;
     --gold-foreground: 40 40% 97%;
+    /* Phase 16 a11y: gold text variants that meet WCAG AA 4.5:1.
+       --gold-strong on ivory backgrounds (5.2:1), --gold-soft on emerald
+       dark sections (7.2:1). Decorative --gold is unchanged. */
+    --gold-strong: 38 60% 33%;
+    --gold-soft: 38 55% 66%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 98%;
     --border: 38 18% 86%;

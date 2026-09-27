@@ -40,7 +40,7 @@ export default function SiteFooter() {
           <span className="rounded-lg bg-primary-foreground p-2">
             <Logo className="h-16 w-auto" />
           </span>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold rtl:tracking-normal">
+          <p className="text-xs uppercase tracking-[0.3em] text-gold-soft rtl:tracking-normal">
             {t('common.tagline')}
           </p>
         </div>
@@ -51,16 +51,16 @@ export default function SiteFooter() {
           className="flex flex-col items-center gap-2 text-sm md:items-start"
         >
           <p className="mb-1 font-display text-lg font-semibold">{t('footer.nav_heading')}</p>
-          <Link to={localePath('/')} className="text-primary-foreground/80 transition-colors hover:text-gold">
+          <Link to={localePath('/')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
             {t('nav.home')}
           </Link>
-          <Link to={localePath('/caftans')} className="text-primary-foreground/80 transition-colors hover:text-gold">
+          <Link to={localePath('/caftans')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
             {t('nav.collection')}
           </Link>
-          <Link to={localePath('/account')} className="text-primary-foreground/80 transition-colors hover:text-gold">
+          <Link to={localePath('/account')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
             {t('nav.account')}
           </Link>
-          <Link to={localePath('/login')} className="text-primary-foreground/80 transition-colors hover:text-gold">
+          <Link to={localePath('/login')} className="text-primary-foreground/80 transition-colors hover:text-gold-soft">
             {t('nav.login')}
           </Link>
         </nav>
@@ -74,7 +74,7 @@ export default function SiteFooter() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold"
+                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold-soft"
               >
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 <span dir="ltr">{whatsapp}</span>
@@ -83,7 +83,7 @@ export default function SiteFooter() {
             {phone && (
               <a
                 href={`tel:${phone.replace(/\s/g, '')}`}
-                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold"
+                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold-soft"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
                 <span dir="ltr">{phone}</span>
@@ -92,7 +92,7 @@ export default function SiteFooter() {
             {email && (
               <a
                 href={`mailto:${email}`}
-                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold"
+                className="inline-flex items-center gap-2 text-primary-foreground/80 transition-colors hover:text-gold-soft"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 {email}
@@ -107,7 +107,7 @@ export default function SiteFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="text-primary-foreground/80 transition-colors hover:text-gold"
+                    className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
                   >
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </a>

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- stock shadcn/ui pattern: cva variant builders are intentionally co-exported with the component */
 import * as React from "react"
 import * as TogglePrimitive from "@radix-ui/react-toggle"
 import { cva, type VariantProps } from "class-variance-authority"

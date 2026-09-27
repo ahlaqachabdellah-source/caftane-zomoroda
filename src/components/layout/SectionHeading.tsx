@@ -33,7 +33,12 @@ export default function SectionHeading({
       )}
     >
       {kicker && (
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold rtl:tracking-normal sm:text-sm">
+        <p
+          className={cn(
+            'text-xs font-semibold uppercase tracking-[0.3em] rtl:tracking-normal sm:text-sm',
+            onDark ? 'text-gold-soft' : 'text-gold-strong',
+          )}
+        >
           {kicker}
         </p>
       )}

@@ -35,7 +35,7 @@ export default function CaftanCard({ caftan }: { caftan: CatalogCaftan }) {
         />
         <div className="absolute start-3 top-3 flex flex-col gap-2">
           {caftan.featured && (
-            <span className="rounded-full bg-gold px-3 py-1 text-xs font-semibold text-gold-foreground">
+            <span className="rounded-full bg-gold-strong px-3 py-1 text-xs font-semibold text-gold-foreground">
               {t('catalog.featured_badge')}
             </span>
           )}
@@ -48,7 +48,7 @@ export default function CaftanCard({ caftan }: { caftan: CatalogCaftan }) {
       </div>
       <div className="flex flex-1 flex-col gap-1 p-4">
         {categoryName && (
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold rtl:tracking-normal">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold-strong rtl:tracking-normal">
             {categoryName}
           </p>
         )}
