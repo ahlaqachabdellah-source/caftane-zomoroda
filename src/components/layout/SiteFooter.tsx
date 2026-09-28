@@ -82,6 +82,12 @@ export default function SiteFooter() {
             {t('nav.collection')}
           </Link>
           <Link
+            to={localePath('/contact')}
+            className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
+          >
+            {t('nav.contact')}
+          </Link>
+          <Link
             to={localePath('/account')}
             className="text-primary-foreground/80 transition-colors hover:text-gold-soft"
           >

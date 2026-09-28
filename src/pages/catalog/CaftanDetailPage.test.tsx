@@ -196,12 +196,16 @@ describe('CaftanDetailPage', () => {
       refetch: vi.fn(),
     })
     renderDetail()
-    const link = screen.getByRole('link', { name: /demander sur WhatsApp/i })
+    const link = screen.getByRole('link', { name: /Demander la disponibilité sur WhatsApp/ })
     expect(link).toHaveAttribute(
       'href',
       expect.stringContaining('https://wa.me/212612345678?text='),
     )
-    expect(link.getAttribute('href')).toContain(encodeURIComponent('« Caftan Andalou Rouge »'))
+    expect(link.getAttribute('href')).toContain(
+      encodeURIComponent(
+        'Bonjour, je suis intéressée par ce caftan et je souhaite connaître sa disponibilité.',
+      ),
+    )
   })
 
   it('normalizes a Moroccan local 06 number from site_settings', () => {

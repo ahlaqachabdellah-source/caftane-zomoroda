@@ -19,6 +19,7 @@ import NotFoundPage from './pages/NotFoundPage'
 const CatalogPage = lazy(() => import('./pages/catalog/CatalogPage'))
 const CaftanDetailPage = lazy(() => import('./pages/catalog/CaftanDetailPage'))
 const BookingPage = lazy(() => import('./pages/catalog/BookingPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
 const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'))
 const ForgotPasswordPage = lazy(() => import('./pages/auth/ForgotPasswordPage'))
@@ -57,6 +58,7 @@ export default function App() {
                 <Route index element={<Home />} />
                 <Route path="caftans" element={<CatalogPage />} />
                 <Route path="caftans/:slug" element={<CaftanDetailPage />} />
+                <Route path="contact" element={<ContactPage />} />
                 <Route
                   path="caftans/:slug/book"
                   element={

@@ -72,6 +72,9 @@ export default function SiteHeader() {
           <NavLink to={localePath('/caftans')} className={navLinkClass}>
             {t('nav.collection')}
           </NavLink>
+          <NavLink to={localePath('/contact')} className={navLinkClass}>
+            {t('nav.contact')}
+          </NavLink>
         </nav>
 
         <div className="flex items-center gap-1">
@@ -111,6 +114,9 @@ export default function SiteHeader() {
               </NavLink>
               <NavLink to={localePath('/caftans')} className={navLinkClass}>
                 {t('nav.collection')}
+              </NavLink>
+              <NavLink to={localePath('/contact')} className={navLinkClass}>
+                {t('nav.contact')}
               </NavLink>
               {!loading && (
                 <>

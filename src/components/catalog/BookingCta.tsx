@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/useAuth'
 import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
-import { localizedText } from '@/lib/localized'
 import { buildWhatsappLink } from '@/lib/whatsapp'
 import type { CatalogCaftan } from '@/lib/caftans'
 
@@ -21,7 +20,7 @@ import type { CatalogCaftan } from '@/lib/caftans'
 export default function BookingCta({ caftan }: { caftan: CatalogCaftan }) {
   const { t } = useTranslation()
   const { session } = useAuth()
-  const { locale, localePath } = useLocale()
+  const { localePath } = useLocale()
   const { settings } = useSiteSettings()
   // So the customer returns to this caftan after signing in.
   const location = useLocation()
@@ -34,22 +33,22 @@ export default function BookingCta({ caftan }: { caftan: CatalogCaftan }) {
     )
   }
 
-  // Phase 8: centralized builder handles Moroccan formats and encoding;
-  // an unconfigured/invalid number simply hides the link.
-  const whatsappHref = buildWhatsappLink(
-    settings?.whatsapp_number,
-    t('catalog.whatsapp_message', { name: localizedText(caftan.name, locale) }),
-  )
+  // WhatsApp inquiry CTA: the business number comes from site_settings
+  // (never hardcoded); an unconfigured/invalid number simply hides the
+  // button instead of producing a broken wa.me link.
+  const whatsappHref = buildWhatsappLink(settings?.whatsapp_number, t('whatsapp.message_product'))
   const whatsappLink = whatsappHref ? (
-    <a
-      href={whatsappHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+    <Button
+      asChild
+      size="lg"
+      variant="outline"
+      className="w-full border-gold/60 text-foreground hover:bg-accent sm:w-auto"
     >
-      <MessageCircle className="h-4 w-4" aria-hidden="true" />
-      {t('catalog.book_whatsapp')}
-    </a>
+      <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        {t('catalog.whatsapp_cta')}
+      </a>
+    </Button>
   ) : null
 
   return (

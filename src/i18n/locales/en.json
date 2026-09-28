@@ -11,6 +11,7 @@
   "nav": {
     "home": "Home",
     "collection": "Collection",
+    "contact": "Contact",
     "login": "Sign in",
     "account": "My account",
     "primary_aria": "Primary navigation",
@@ -41,8 +42,7 @@
     "color_label": "Color",
     "maintenance_notice": "This piece is currently in maintenance and cannot be booked right now.",
     "book_cta": "Book this caftan",
-    "book_whatsapp": "Or inquire on WhatsApp",
-    "whatsapp_message": "Hello Caftan Zomoroda, I am interested in renting \"{{name}}\". Is it available on my dates?",
+    "whatsapp_cta": "Ask about availability on WhatsApp",
     "book_login_cta": "Sign in to book",
     "book_no_account": "No account yet?",
     "book_register_link": "Create one in a minute",
@@ -114,6 +114,7 @@
     "hero_lede": "Caftan Zomoroda opens its wardrobe of exceptional caftans, takchitas and jellabas. Choose your piece, book your dates, and shine — without compromise.",
     "hero_cta_primary": "Create an account",
     "hero_cta_secondary": "Discover the collection",
+    "hero_cta_whatsapp": "Chat on WhatsApp",
     "steps_kicker": "The principle",
     "steps_title": "How it works",
     "steps_description": "Three simple steps, from your first visit to the big day.",
@@ -297,7 +298,17 @@
     "floating_label": "Chat with Caftan Zomoroda on WhatsApp",
     "floating_message": "Hello Caftan Zomoroda, I would like to ask about caftan rental.",
     "booking_cta": "Ask on WhatsApp",
-    "booking_message": "Hello Caftan Zomoroda, I would like to ask about my booking {{number}}."
+    "booking_message": "Hello Caftan Zomoroda, I would like to ask about my booking {{number}}.",
+    "message_home": "Hello, I would like more information about caftan rental.",
+    "message_product": "Hello, I am interested in this caftan and I would like to know its availability.",
+    "message_contact": "Hello, I would like to contact Caftan Zomoroda."
+  },
+  "contact": {
+    "kicker": "At your service",
+    "title": "Contact us",
+    "lede": "A question about a caftan, availability or a booking? Message us on WhatsApp — we reply directly.",
+    "whatsapp_cta": "Contact us on WhatsApp",
+    "info_heading": "Practical information"
   },
   "admin": {
     "shell_title": "Administration",
@@ -611,6 +622,8 @@
     "account_title": "My account | Caftan Zomoroda",
     "admin_title": "Administration | Caftan Zomoroda",
     "notfound_title": "Page not found | Caftan Zomoroda",
-    "business_description": "Luxury caftan, takchita and jellaba rental for weddings and celebrations."
+    "business_description": "Luxury caftan, takchita and jellaba rental for weddings and celebrations.",
+    "contact_title": "Contact — Caftan rental in Oulad Teima | Caftan Zomoroda",
+    "contact_description": "Contact Caftan Zomoroda on WhatsApp: caftan availability, bookings, address in Oulad Teima (Houara) and opening hours 10:00–20:00."
   }
 }

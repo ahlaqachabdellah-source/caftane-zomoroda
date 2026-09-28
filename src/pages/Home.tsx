@@ -9,7 +9,7 @@ import { useLocale } from '@/hooks/useLocale'
 import { useSiteSettings } from '@/hooks/useSiteSettings'
 import Seo from '@/components/seo/Seo'
 import { siteOrigin } from '@/lib/seo'
-import { normalizeWhatsappNumber } from '@/lib/whatsapp'
+import { buildWhatsappLink, normalizeWhatsappNumber } from '@/lib/whatsapp'
 import { localizedText } from '@/lib/localized'
 
 /**
@@ -29,6 +29,10 @@ export default function Home() {
   const phone = settings?.whatsapp_number
     ? `+${normalizeWhatsappNumber(settings.whatsapp_number)}`
     : settings?.phone || null
+  // WhatsApp is the primary contact CTA: direct wa.me deep link with a
+  // pre-filled, localized message. Hidden only while no number is
+  // configured in site_settings — never a broken link.
+  const heroWhatsappHref = buildWhatsappLink(settings?.whatsapp_number, t('whatsapp.message_home'))
   const addressText = localizedText(settings?.address ?? null, locale).trim()
   const openingHours = settings?.opening_hours?.trim()
   const plusCode = settings?.plus_code?.trim()
@@ -115,17 +119,30 @@ export default function Home() {
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             {t('home.hero_lede')}
           </p>
-          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="px-8">
-              <Link to={localePath('/register')}>{t('home.hero_cta_primary')}</Link>
+          <div className="mt-2 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
+            {heroWhatsappHref && (
+              <Button asChild size="lg" className="w-full px-8 sm:w-auto">
+                <a href={heroWhatsappHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  {t('home.hero_cta_whatsapp')}
+                </a>
+              </Button>
+            )}
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="w-full border-gold/60 px-8 text-foreground hover:bg-accent sm:w-auto"
+            >
+              <Link to={localePath('/caftans')}>{t('home.hero_cta_secondary')}</Link>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="border-gold/60 px-8 text-foreground hover:bg-accent"
+              className="w-full border-gold/60 px-8 text-foreground hover:bg-accent sm:w-auto"
             >
-              <Link to={localePath('/caftans')}>{t('home.hero_cta_secondary')}</Link>
+              <Link to={localePath('/register')}>{t('home.hero_cta_primary')}</Link>
             </Button>
           </div>
         </Container>
@@ -187,9 +204,24 @@ export default function Home() {
           <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             {t('home.cta_body')}
           </p>
-          <Button asChild size="lg" className="mt-2 px-8">
-            <Link to={localePath('/register')}>{t('home.cta_button')}</Link>
-          </Button>
+          <div className="mt-2 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center">
+            <Button asChild size="lg" className="w-full px-8 sm:w-auto">
+              <Link to={localePath('/register')}>{t('home.cta_button')}</Link>
+            </Button>
+            {heroWhatsappHref && (
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="w-full border-gold/60 px-8 text-foreground hover:bg-accent sm:w-auto"
+              >
+                <a href={heroWhatsappHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  {t('home.hero_cta_whatsapp')}
+                </a>
+              </Button>
+            )}
+          </div>
         </Container>
       </section>
     </main>

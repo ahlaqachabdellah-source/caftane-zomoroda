@@ -307,6 +307,68 @@ try {
     (await wp.getByRole('link', { name: 'تحدثي مع قفطان زمردة عبر واتساب' }).count()) === 1,
   )
 
+  // WhatsApp as primary contact CTA (hero, detail page, contact page)
+  await wp.goto(`${BASE}/fr`, { waitUntil: 'networkidle' })
+  const heroWa = wp.getByRole('link', { name: 'Discuter sur WhatsApp' }).first()
+  check('wa: hero CTA visible FR', (await heroWa.count()) === 1)
+  const heroHref = await heroWa.getAttribute('href')
+  check(
+    'wa: hero CTA carries the exact home message',
+    Boolean(
+      heroHref?.startsWith('https://wa.me/212600000000?text=') &&
+      heroHref.includes(
+        encodeURIComponent(
+          'Bonjour, je souhaite avoir plus d’informations sur la location de caftans.',
+        ),
+      ),
+    ),
+    heroHref,
+  )
+  await wp.goto(`${BASE}/fr/caftans/caftan-andalou-rouge`, { waitUntil: 'networkidle' })
+  const detailWa = wp.getByRole('link', { name: 'Demander la disponibilité sur WhatsApp' })
+  check('wa: detail-page CTA visible FR', (await detailWa.count()) === 1)
+  const detailHref = await detailWa.getAttribute('href')
+  check(
+    'wa: detail CTA carries the exact product message',
+    Boolean(
+      detailHref?.startsWith('https://wa.me/212600000000?text=') &&
+      detailHref.includes(
+        encodeURIComponent(
+          'Bonjour, je suis intéressée par ce caftan et je souhaite connaître sa disponibilité.',
+        ),
+      ),
+    ),
+    detailHref,
+  )
+  await wp.goto(`${BASE}/fr/contact`, { waitUntil: 'networkidle' })
+  const contactWa = wp.getByRole('link', { name: 'Nous contacter sur WhatsApp' })
+  check('wa: contact page CTA visible FR', (await contactWa.count()) === 1)
+  const contactHref = await contactWa.getAttribute('href')
+  check(
+    'wa: contact CTA carries the exact contact message',
+    Boolean(
+      contactHref?.startsWith('https://wa.me/212600000000?text=') &&
+      contactHref.includes(encodeURIComponent('Bonjour, je souhaite contacter Caftane Zomoroda.')),
+    ),
+    contactHref,
+  )
+  check(
+    'wa: contact page shows real address and hours',
+    (await wp.getByText(/Quissariat Al Khalil/).count()) >= 1 &&
+      (await wp.getByText(/10:00–20:00/).count()) >= 1,
+  )
+  await wp.goto(`${BASE}/ar/contact`, { waitUntil: 'networkidle' })
+  const arContactWa = wp.getByRole('link', { name: 'تواصلي معنا عبر واتساب' })
+  check(
+    'wa: contact page CTA localized AR with AR message',
+    (await arContactWa.count()) === 1 &&
+      Boolean(
+        (await arContactWa.getAttribute('href'))?.includes(
+          encodeURIComponent('مرحباً، أودّ التواصل مع قفطان زمردة.'),
+        ),
+      ),
+  )
+
   // ------------------------------------------- catalog filters (audit fix)
   section('CATALOG FILTERS — size, sort, availability dates')
   const cf = await newPage()

@@ -33,7 +33,7 @@ const SITE = (process.env.VITE_SITE_URL || '').replace(/\/+$/, '')
 const SB_URL = process.env.VITE_SUPABASE_URL
 const SB_KEY = process.env.VITE_SUPABASE_ANON_KEY
 const LOCALES = ['fr', 'ar', 'en']
-const STATIC_PATHS = ['/', '/caftans']
+const STATIC_PATHS = ['/', '/caftans', '/contact']
 
 if (!SITE) {
   console.warn('[sitemap] VITE_SITE_URL not set — skipping sitemap generation (build unaffected).')

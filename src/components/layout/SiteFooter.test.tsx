@@ -33,8 +33,16 @@ describe('SiteFooter', () => {
   })
 
   it('omits the contact column until the backend provides real data', () => {
-    renderFooter()
-    expect(screen.queryByText('Contact')).not.toBeInTheDocument()
+    const { container } = renderFooter()
+    // No contact data channels until site_settings provides them…
+    expect(container.querySelector('a[href^="tel:"]')).not.toBeInTheDocument()
+    expect(container.querySelector('a[href^="mailto:"]')).not.toBeInTheDocument()
+    expect(container.querySelector('a[href*="wa.me"]')).not.toBeInTheDocument()
+    // …the "Contact" nav entry is a real route link, not contact data.
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute(
+      'href',
+      '/fr/contact',
+    )
   })
 
   it('renders Arabic labels when the language is Arabic', async () => {

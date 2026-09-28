@@ -1,8 +1,11 @@
 import { act, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import i18n from '@/i18n'
 import Home from './Home'
+
+const mockUseSiteSettings = vi.fn()
+vi.mock('@/hooks/useSiteSettings', () => ({ useSiteSettings: () => mockUseSiteSettings() }))
 
 function renderHome() {
   return render(
@@ -14,6 +17,8 @@ function renderHome() {
 
 describe('Home', () => {
   beforeEach(async () => {
+    vi.clearAllMocks()
+    mockUseSiteSettings.mockReturnValue({ settings: null, loading: false, error: null })
     await act(() => i18n.changeLanguage('fr'))
   })
 
@@ -25,7 +30,8 @@ describe('Home', () => {
         name: "L'élégance du caftan, pour vos plus beaux moments",
       }),
     ).toBeInTheDocument()
-    // Primary CTA → real /register route, secondary → real catalog route
+    // Primary contact CTA → WhatsApp deep link (when a number is
+    // configured), catalog → real route, register → real /register route
     expect(screen.getByRole('link', { name: 'Créer un compte' })).toHaveAttribute(
       'href',
       '/fr/register',
@@ -34,6 +40,28 @@ describe('Home', () => {
       'href',
       '/fr/caftans',
     )
+    // Without a configured WhatsApp number the CTA is hidden, never broken
+    expect(screen.queryByRole('link', { name: /WhatsApp/ })).not.toBeInTheDocument()
+  })
+
+  it('renders the WhatsApp hero CTA with the exact prefilled message', () => {
+    mockUseSiteSettings.mockReturnValue({
+      settings: { whatsapp_number: '+212 612 345 678' },
+      loading: false,
+      error: null,
+    })
+    renderHome()
+    const links = screen.getAllByRole('link', { name: /Discuter sur WhatsApp/ })
+    expect(links.length).toBeGreaterThanOrEqual(1)
+    const href = links[0].getAttribute('href') ?? ''
+    expect(href).toContain('https://wa.me/212612345678?text=')
+    expect(href).toContain(
+      encodeURIComponent(
+        'Bonjour, je souhaite avoir plus d’informations sur la location de caftans.',
+      ),
+    )
+    expect(links[0]).toHaveAttribute('target', '_blank')
+    expect(links[0]).toHaveAttribute('rel', expect.stringContaining('noopener'))
   })
 
   it('renders the three rental steps and the anchor target', () => {
