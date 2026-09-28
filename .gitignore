@@ -27,3 +27,4 @@ supabase/tests/.pgdata/
 *.sln
 *.sw?
 dist-e2e
+supabase/.temp/
