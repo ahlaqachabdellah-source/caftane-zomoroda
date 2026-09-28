@@ -133,6 +133,8 @@
     "value2_body": "Every piece is inspected, cleaned and prepared by professionals between rentals.",
     "value3_title": "Direct support",
     "value3_body": "A question about size, dates or style? Our team answers you directly on WhatsApp.",
+    "findus_title": "Where to find us",
+    "findus_lede": "Visit our boutique in Oulad Teima (Houara) and try on your favourite caftans.",
     "cta_title": "Ready for your next occasion?",
     "cta_body": "Create your account in one minute to book your caftans and track your requests online.",
     "cta_button": "Create my account"
@@ -309,6 +311,9 @@
     "lede": "A question about a caftan, availability or a booking? Message us on WhatsApp — we reply directly.",
     "whatsapp_cta": "Contact us on WhatsApp",
     "info_heading": "Practical information"
+  },
+  "maps": {
+    "open_in_maps": "Open in Google Maps"
   },
   "admin": {
     "shell_title": "Administration",

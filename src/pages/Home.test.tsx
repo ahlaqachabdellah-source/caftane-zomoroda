@@ -64,6 +64,14 @@ describe('Home', () => {
     expect(links[0]).toHaveAttribute('rel', expect.stringContaining('noopener'))
   })
 
+  it('renders the Google Maps location button with the exact URL in a new tab', () => {
+    renderHome()
+    const link = screen.getByRole('link', { name: /Ouvrir dans Google Maps/ })
+    expect(link).toHaveAttribute('href', 'https://maps.app.goo.gl/HBVGMER7b4Uor8neA')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'))
+  })
+
   it('renders the three rental steps and the anchor target', () => {
     const { container } = renderHome()
     expect(container.querySelector('#how-it-works')).toBeInTheDocument()

@@ -48,6 +48,14 @@ describe('ContactPage', () => {
     expect(screen.queryByRole('link', { name: /WhatsApp/ })).not.toBeInTheDocument()
   })
 
+  it('shows the Google Maps button with the exact URL in a new tab', () => {
+    renderContact()
+    const link = screen.getByRole('link', { name: /Ouvrir dans Google Maps/ })
+    expect(link).toHaveAttribute('href', 'https://maps.app.goo.gl/HBVGMER7b4Uor8neA')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'))
+  })
+
   it('shows real business info when configured', () => {
     withSettings({
       whatsapp_number: '+212612345678',

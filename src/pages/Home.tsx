@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { CalendarCheck, Gem, MessageCircle, Sparkles } from 'lucide-react'
+import { CalendarCheck, Gem, MapPin, MessageCircle, Sparkles } from 'lucide-react'
 import Container from '@/components/layout/Container'
 import SectionHeading from '@/components/layout/SectionHeading'
 import OrnamentDivider from '@/components/layout/OrnamentDivider'
@@ -10,6 +10,7 @@ import { useSiteSettings } from '@/hooks/useSiteSettings'
 import Seo from '@/components/seo/Seo'
 import { siteOrigin } from '@/lib/seo'
 import { buildWhatsappLink, normalizeWhatsappNumber } from '@/lib/whatsapp'
+import { GOOGLE_MAPS_URL } from '@/lib/maps'
 import { localizedText } from '@/lib/localized'
 
 /**
@@ -191,6 +192,37 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* Find us — real boutique location, exact owner-provided Maps link */}
+      <section className="border-b border-border py-16 sm:py-20">
+        <Container className="flex flex-col items-center gap-5 text-center">
+          <MapPin className="h-8 w-8 text-gold" aria-hidden="true" />
+          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            {t('home.findus_title')}
+          </h2>
+          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {t('home.findus_lede')}
+          </p>
+          {(addressText || openingHours) && (
+            <p className="text-sm text-muted-foreground">
+              {addressText}
+              {addressText && openingHours ? ' · ' : ''}
+              {openingHours && `${t('footer.hours_label')} · ${openingHours}`}
+            </p>
+          )}
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="mt-2 w-full max-w-md border-gold/60 px-8 text-foreground hover:bg-accent sm:w-auto"
+          >
+            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+              <MapPin className="h-5 w-5" aria-hidden="true" />
+              {t('maps.open_in_maps')}
+            </a>
+          </Button>
         </Container>
       </section>
 

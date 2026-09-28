@@ -369,6 +369,33 @@ try {
       ),
   )
 
+  // --------------------------------------------- Google Maps location CTA
+  section('GOOGLE MAPS CTA')
+  const MAPS_URL = 'https://maps.app.goo.gl/HBVGMER7b4Uor8neA'
+  await wp.goto(`${BASE}/fr`, { waitUntil: 'networkidle' })
+  const mapsHome = wp.getByRole('link', { name: 'Ouvrir dans Google Maps' })
+  check('maps: homepage button visible FR', (await mapsHome.count()) === 1)
+  check(
+    'maps: homepage href is the exact provided URL, opened in a new tab',
+    (await mapsHome.getAttribute('href')) === MAPS_URL &&
+      (await mapsHome.getAttribute('target')) === '_blank',
+    await mapsHome.getAttribute('href'),
+  )
+  await wp.goto(`${BASE}/fr/contact`, { waitUntil: 'networkidle' })
+  const mapsContact = wp.getByRole('link', { name: 'Ouvrir dans Google Maps' })
+  check(
+    'maps: contact page button with exact URL, new tab',
+    (await mapsContact.count()) === 1 &&
+      (await mapsContact.getAttribute('href')) === MAPS_URL &&
+      (await mapsContact.getAttribute('target')) === '_blank',
+  )
+  await wp.goto(`${BASE}/ar/contact`, { waitUntil: 'networkidle' })
+  const mapsAr = wp.getByRole('link', { name: 'افتحي الموقع في خرائط جوجل' })
+  check(
+    'maps: localized AR label with same exact URL',
+    (await mapsAr.count()) === 1 && (await mapsAr.getAttribute('href')) === MAPS_URL,
+  )
+
   // ------------------------------------------- catalog filters (audit fix)
   section('CATALOG FILTERS — size, sort, availability dates')
   const cf = await newPage()

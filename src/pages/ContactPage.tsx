@@ -8,6 +8,7 @@ import { useSiteSettings } from '@/hooks/useSiteSettings'
 import Seo from '@/components/seo/Seo'
 import { buildWhatsappLink } from '@/lib/whatsapp'
 import { localizedText } from '@/lib/localized'
+import { GOOGLE_MAPS_URL } from '@/lib/maps'
 
 /**
  * Contact page — WhatsApp is the primary contact channel. The number
@@ -51,14 +52,28 @@ export default function ContactPage() {
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             {t('contact.lede')}
           </p>
-          {whatsappHref && (
-            <Button asChild size="lg" className="mt-2 w-full max-w-md px-8 sm:w-auto">
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                {t('contact.whatsapp_cta')}
+          <div className="mt-2 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center">
+            {whatsappHref && (
+              <Button asChild size="lg" className="w-full px-8 sm:w-auto">
+                <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  {t('contact.whatsapp_cta')}
+                </a>
+              </Button>
+            )}
+            {/* Exact owner-provided Google Maps share link — never altered */}
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="w-full border-gold/60 px-8 text-foreground hover:bg-accent sm:w-auto"
+            >
+              <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                <MapPin className="h-5 w-5" aria-hidden="true" />
+                {t('maps.open_in_maps')}
               </a>
             </Button>
-          )}
+          </div>
         </Container>
       </section>
 
